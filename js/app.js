@@ -1,6 +1,7 @@
 /**
  * VÉLOIR — Luxury Retail & Haute Streetwear Controller
- * Full Men & Women Collections with Dynamic Girly Theme, Amazon-Style PDP & GSAP Transitions
+ * Clean Modern Sans Typography, Amazon/Flipkart 3-Dash Menu, Dedicated Pages,
+ * Fully Working Dark/Light Mode, Zero-Notification Gender Switching, No Emojis.
  */
 
 class AppUI {
@@ -18,6 +19,9 @@ class AppUI {
     this.selectedQty = 1;
     this.selectedReviewRating = 5;
 
+    // Active Page View
+    this.currentPage = "catalog-view";
+
     // Outfit Builder State
     this.outfitState = {
       top: null,
@@ -34,6 +38,7 @@ class AppUI {
   }
 
   init() {
+    this.initTheme();
     this.setupListeners();
     this.initHeroSlider();
     this.initCountdownTimer();
@@ -46,6 +51,7 @@ class AppUI {
     // Store Event Subscriptions
     window.addEventListener("state:productsUpdated", () => {
       this.renderProducts();
+      if (this.currentPage === "wishlist-view") this.renderWishlistPage();
       if (this.activeProduct) {
         const fresh = window.store.getProductById(this.activeProduct.id);
         if (fresh) {
@@ -61,7 +67,7 @@ class AppUI {
 
     window.addEventListener("state:wishlistUpdated", () => {
       this.updateWishlistBadges();
-      this.renderWishlistItems();
+      if (this.currentPage === "wishlist-view") this.renderWishlistPage();
       const count = window.store.getWishlist().length;
       document.querySelectorAll(".wishlist-counter").forEach(el => {
         el.textContent = count;
@@ -75,24 +81,112 @@ class AppUI {
     });
   }
 
-  // --- HASH ROUTING ---
+  // --- THEME MANAGEMENT (Working Dark / Light Mode with Persistence) ---
+  initTheme() {
+    const saved = localStorage.getItem("veloir_theme_mode") || "light";
+    if (saved === "dark") {
+      document.body.classList.add("dark-mode");
+    } else {
+      document.body.classList.remove("dark-mode");
+    }
+    this.updateThemeIcons(saved === "dark");
+  }
+
+  toggleTheme() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    localStorage.setItem("veloir_theme_mode", isDark ? "dark" : "light");
+    this.updateThemeIcons(isDark);
+    this.showToast(isDark ? "Switched to Dark Mode" : "Switched to Light Mode", "info");
+  }
+
+  updateThemeIcons(isDark) {
+    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+      btn.innerHTML = isDark 
+        ? `<i class="fa-solid fa-sun text-yellow-400 text-sm"></i>` 
+        : `<i class="fa-solid fa-moon text-gray-700 text-sm"></i>`;
+      btn.title = isDark ? "Switch to Light Mode" : "Switch to Dark Mode";
+    });
+  }
+
+  // --- HASH ROUTING (Dedicated Pages & PDP) ---
   handleRouting() {
     const hash = window.location.hash;
     if (hash.startsWith("#product-")) {
       const prodId = hash.replace("#product-", "");
       this.renderProductPage(prodId, false);
+    } else if (hash === "#orders") {
+      this.showPage("orders-view");
+    } else if (hash === "#track" || hash.startsWith("#track-")) {
+      const orderId = hash.startsWith("#track-") ? hash.replace("#track-", "") : null;
+      this.showPage("track-view", orderId);
+    } else if (hash === "#wishlist") {
+      this.showPage("wishlist-view");
+    } else if (hash === "#support") {
+      this.showPage("support-view");
     } else if (hash === "#men") {
       this.setGender("men", false);
-      this.showCatalogView(false);
+      this.showPage("catalog-view");
     } else if (hash === "#women") {
       this.setGender("women", false);
-      this.showCatalogView(false);
+      this.showPage("catalog-view");
     } else {
-      this.showCatalogView(false);
+      this.showPage("catalog-view");
     }
   }
 
-  // --- GENDER / THEME SWITCHER (Girly Theme for Women's Wear) ---
+  // --- PAGE VIEW SWITCHER ---
+  showPage(pageId, param = null) {
+    this.currentPage = pageId;
+    this.closeSideMenu();
+
+    const pages = [
+      "catalog-view",
+      "product-page-view",
+      "orders-view",
+      "track-view",
+      "wishlist-view",
+      "support-view"
+    ];
+
+    pages.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        if (id === pageId) {
+          el.classList.remove("hidden");
+          if (window.gsap) {
+            gsap.fromTo(el, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" });
+          }
+        } else {
+          el.classList.add("hidden");
+        }
+      }
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    // Render page content
+    if (pageId === "orders-view") this.renderOrdersPage();
+    if (pageId === "track-view") this.renderTrackPage(param);
+    if (pageId === "wishlist-view") this.renderWishlistPage();
+    if (pageId === "catalog-view") this.renderProducts(true);
+  }
+
+  // --- THREE-DASH SIDE MENU (Amazon / Flipkart Style) ---
+  openSideMenu() {
+    const drawer = document.getElementById("side-menu-drawer");
+    if (drawer) {
+      drawer.classList.add("active");
+    }
+  }
+
+  closeSideMenu() {
+    const drawer = document.getElementById("side-menu-drawer");
+    if (drawer) {
+      drawer.classList.remove("active");
+    }
+  }
+
+  // --- GENDER / THEME SWITCHER (Silent & Clean, No Toast Notification, Modern Font) ---
   setGender(gender, updateHash = true) {
     this.currentGender = gender;
 
@@ -108,36 +202,29 @@ class AppUI {
     document.querySelectorAll(".gender-tab-btn").forEach(btn => {
       const targetGender = btn.getAttribute("data-gender");
       if (targetGender === gender) {
-        btn.classList.add("active", "bg-black", "text-white", "shadow-md");
+        btn.classList.add("active", "bg-black", "text-white", "shadow-sm");
         btn.classList.remove("text-gray-600", "hover:text-black", "bg-transparent");
         if (gender === "women") {
           btn.classList.add("bg-gradient-to-r", "from-pink-500", "via-rose-500", "to-pink-600");
         }
       } else {
-        btn.classList.remove("active", "bg-black", "text-white", "shadow-md", "bg-gradient-to-r", "from-pink-500", "via-rose-500", "to-pink-600");
+        btn.classList.remove("active", "bg-black", "text-white", "shadow-sm", "bg-gradient-to-r", "from-pink-500", "via-rose-500", "to-pink-600");
         btn.classList.add("text-gray-600", "hover:text-black", "bg-transparent");
       }
     });
 
-    // Update Hero Content & Vibe dynamically
+    // Update Hero Content & Modern Typography dynamically
     this.updateHeroVibe(gender);
 
     // Filter and Re-render Products with smooth GSAP transition
     this.renderProducts(true);
 
-    // Update URL hash
+    // Update URL hash without annoying notification
     if (updateHash) {
       if (gender === "women") window.location.hash = "#women";
       else if (gender === "men") window.location.hash = "#men";
       else window.location.hash = "#catalog";
     }
-
-    const toastMsg = gender === "women" 
-      ? "Switched to Women's Chic Atelier 🌸" 
-      : gender === "men" 
-      ? "Switched to Men's Streetwear Drops ⚡" 
-      : "Viewing All Drops ✦";
-    this.showToast(toastMsg, "info");
   }
 
   updateHeroVibe(gender) {
@@ -151,31 +238,31 @@ class AppUI {
     if (!heroTitle) return;
 
     if (gender === "women") {
-      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-pink-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-pink-700">🌸 L'Atelier Privé • Parisian Elegance & Soft Pastels</span>`;
-      heroTitle.innerHTML = `PARISIAN CHIC.<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500">LIQUID SILK & SATIN.</span><br/>MODERN GLAMOUR.`;
-      heroSubtitle.textContent = "Discover our ethereal women's atelier. Feather-soft mulberry silk slip dresses, cropped marshmallow fleeces, and sculpted rib-knit sets starting at ₹399.";
+      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-pink-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-pink-700">WOMEN'S ATELIER • PARISIAN SILK & COTTON</span>`;
+      heroTitle.innerHTML = `PARISIAN CHIC.<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500">LIQUID SILK & SATIN.</span><br/>MODERN TAILORING.`;
+      heroSubtitle.textContent = "Discover our refined women's atelier. Feather-soft mulberry silk slip dresses, cropped cloud fleeces, and sculpted rib-knit sets starting at ₹399.";
       if (heroImg) heroImg.src = "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=800&q=80";
       if (heroCardTitle) heroCardTitle.textContent = "Parisian Rose Silk Slip";
-      if (heroCardSub) heroCardSub.textContent = "🌸 Atelier Couture Drop";
+      if (heroCardSub) heroCardSub.textContent = "Atelier Collection Drop";
     } else if (gender === "men") {
-      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">⚡ Tokyo Underground • Concrete Streetwear Drops</span>`;
+      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">MEN'S STREETWEAR • HEAVYWEIGHT DROPS</span>`;
       heroTitle.innerHTML = `HEAVYWEIGHT CUTS.<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-gray-700 to-gray-500">TAILORED DRAPE.</span><br/>RAW STREET LUXURY.`;
       heroSubtitle.textContent = "240+ GSM bio-washed heavyweight French terry, utility parachute cargos with 6 deep compartments, and vintage varsity jackets from ₹499 to ₹1,499.";
       if (heroImg) heroImg.src = "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80";
       if (heroCardTitle) heroCardTitle.textContent = "Acid Wash Cyberpunk Tee";
-      if (heroCardSub) heroCardSub.textContent = "🔥 Heavy Street Drop #01";
+      if (heroCardSub) heroCardSub.textContent = "Heavy Street Drop 01";
     } else {
-      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">✦ Maison VÉLOIR • Men & Women Haute Streetwear</span>`;
-      heroTitle.innerHTML = `ELEVATED STREETWEAR.<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-pink-700 to-amber-600">MEN & WOMEN DROPS.</span><br/>HAUTE COUTURE VIBES.`;
-      heroSubtitle.textContent = "India's highest-tier streetwear atelier. Accessible pricing inspired by Zudio, conscious heart inspired by Being Human, and luxury tailored drapes.";
+      heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 pulse-dot"></span><span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">MAISON VÉLOIR • MEN & WOMEN COLLECTIONS</span>`;
+      heroTitle.innerHTML = `ELEVATED STREETWEAR.<br/><span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-pink-700 to-amber-600">MEN & WOMEN DROPS.</span><br/>MODERN CASUALS.`;
+      heroSubtitle.textContent = "India's highest-tier fashion atelier. Accessible pricing inspired by Zudio, conscious heart inspired by Being Human, and modern architectural drapes.";
       if (heroImg) heroImg.src = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80";
       if (heroCardTitle) heroCardTitle.textContent = "Explore Men & Women Fits";
-      if (heroCardSub) heroCardSub.textContent = "✦ Full 2026 Lookbook";
+      if (heroCardSub) heroCardSub.textContent = "Full 2026 Lookbook";
     }
 
     if (window.gsap) {
-      gsap.fromTo(heroTitle, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.4 });
-      if (heroImg) gsap.fromTo(heroImg, { scale: 0.96 }, { scale: 1, duration: 0.45 });
+      gsap.fromTo(heroTitle, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35 });
+      if (heroImg) gsap.fromTo(heroImg, { scale: 0.97 }, { scale: 1, duration: 0.4 });
     }
   }
 
@@ -311,16 +398,12 @@ class AppUI {
     const dropdown = document.getElementById("search-suggestions-dropdown");
     if (dropdown) dropdown.classList.add("hidden");
 
-    this.showCatalogView(true);
+    this.showPage("catalog-view");
     this.renderProducts(true);
 
     const catalogSection = document.getElementById("catalog");
     if (catalogSection) {
       catalogSection.scrollIntoView({ behavior: "smooth" });
-    }
-
-    if (this.searchQuery) {
-      this.showToast(`Filtered by "${this.searchQuery}"`, "info");
     }
   }
 
@@ -367,23 +450,23 @@ class AppUI {
     }
 
     dropdown.innerHTML = `
-      <div class="p-2 border-b border-gray-100 flex items-center justify-between text-[11px] font-bold text-gray-500 uppercase px-3">
+      <div class="p-2 border-b border-gray-100 dark:border-zinc-800 flex items-center justify-between text-[11px] font-bold text-gray-500 uppercase px-3">
         <span>Suggested Drops (${matches.length})</span>
         <span class="text-emerald-600 font-mono">Instant Match</span>
       </div>
-      <div class="divide-y divide-gray-100">
+      <div class="divide-y divide-gray-100 dark:divide-zinc-800">
         ${matches.map(p => `
-          <div onclick="app.selectAutocompleteProduct('${p.id}')" class="p-2.5 flex items-center gap-3 hover:bg-gray-50 cursor-pointer transition-colors group">
-            <img src="${p.image}" alt="${p.name}" class="w-10 h-12 object-cover rounded-md border border-gray-200 group-hover:scale-105 transition-transform" />
+          <div onclick="app.selectAutocompleteProduct('${p.id}')" class="p-2.5 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-zinc-800 cursor-pointer transition-colors group">
+            <img src="${p.image}" alt="${p.name}" class="w-10 h-12 object-cover rounded-md border border-gray-200 dark:border-zinc-700 group-hover:scale-105 transition-transform" />
             <div class="flex-1 min-w-0">
-              <p class="text-xs font-bold text-gray-900 truncate group-hover:text-black">${p.name}</p>
+              <p class="text-xs font-bold text-gray-900 dark:text-white truncate group-hover:text-black dark:group-hover:text-white">${p.name}</p>
               <div class="flex items-center gap-2 text-[10px] text-gray-500">
-                <span class="font-mono text-black font-extrabold">₹${p.price}</span>
+                <span class="font-mono text-black dark:text-white font-extrabold">₹${p.price}</span>
                 <span class="line-through">₹${p.originalPrice || Math.round(p.price * 1.8)}</span>
                 <span class="px-1.5 py-0.2 rounded text-[9px] font-bold ${p.gender === 'women' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-800'}">${p.gender === 'women' ? 'Women' : 'Men'}</span>
               </div>
             </div>
-            <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:text-black group-hover:translate-x-1 transition-all mr-2"></i>
+            <i class="fa-solid fa-arrow-right text-xs text-gray-400 group-hover:text-black dark:group-hover:text-white group-hover:translate-x-1 transition-all mr-2"></i>
           </div>
         `).join('')}
       </div>
@@ -442,7 +525,7 @@ class AppUI {
     if (products.length === 0) {
       grid.innerHTML = `
         <div class="col-span-full py-20 text-center bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-3xl border border-gray-200 dark:border-zinc-800 shadow-sm">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 dark:bg-zinc-800 flex items-center justify-center text-gray-400">
             <i class="fa-solid fa-shirt text-2xl"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">No drops match your filters</h3>
@@ -471,10 +554,10 @@ class AppUI {
           onclick="app.navigateToProduct('${product.id}')"
           data-id="${product.id}"
         >
-          <!-- Top Badges -->
+          <!-- Top Badges (No Emojis) -->
           <div class="absolute top-3 left-3 z-10 flex flex-col gap-1.5 items-start pointer-events-none">
             ${product.badge ? `
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider uppercase ${isWomen ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-yellow-300 text-black'} shadow-sm">
+              <span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider uppercase ${isWomen ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-gray-100 text-gray-900 border border-gray-300'} shadow-sm font-mono">
                 ${product.badge}
               </span>
             ` : ""}
@@ -506,14 +589,14 @@ class AppUI {
             <!-- Quick 1-Click Size Bar -->
             <div class="quick-size-bar absolute bottom-3 inset-x-3 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-2 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-xl flex flex-col gap-1">
               <div class="flex items-center justify-between text-[10px] text-gray-500 font-bold px-1 uppercase font-mono">
-                <span>1-Click Add Size:</span>
+                <span>Quick Add Size:</span>
                 <span class="${isWomen ? 'text-pink-600' : 'text-emerald-600'} font-bold">Fast Bag</span>
               </div>
               <div class="flex items-center gap-1 overflow-x-auto scrollbar-none">
                 ${availableSizes.map(sz => `
                   <button 
                     onclick="event.stopPropagation(); app.quickSelectSizeAndAdd('${product.id}', '${sz}')" 
-                    class="flex-1 py-1 px-1.5 rounded-lg bg-gray-100 hover:bg-black hover:text-white dark:bg-zinc-800 dark:hover:bg-white dark:hover:text-black text-gray-900 dark:text-white text-[11px] font-bold font-mono transition-colors text-center border border-gray-200"
+                    class="flex-1 py-1 px-1.5 rounded-lg bg-gray-100 hover:bg-black hover:text-white dark:bg-zinc-800 dark:hover:bg-white dark:hover:text-black text-gray-900 dark:text-white text-[11px] font-bold font-mono transition-colors text-center border border-gray-200 dark:border-zinc-700"
                     title="Add ${sz}"
                   >
                     ${sz}
@@ -529,15 +612,15 @@ class AppUI {
               <div class="flex items-center justify-between text-xs text-gray-500 mb-1.5">
                 <div class="flex items-center gap-1 text-amber-500">
                   <i class="fa-solid fa-star text-[11px]"></i>
-                  <span class="font-bold text-gray-900 font-mono">${product.rating || '4.8'}</span>
+                  <span class="font-bold text-gray-900 dark:text-white font-mono">${product.rating || '4.8'}</span>
                   <span class="text-[10px] text-gray-400">(${product.reviewCount || 120})</span>
                 </div>
                 <span class="text-[10px] font-bold uppercase tracking-wider ${isWomen ? 'text-pink-600' : 'text-gray-400'} font-mono">
-                  ${isWomen ? '🌸 Femme' : '⚡ Homme'}
+                  ${isWomen ? 'FEMME' : 'HOMME'}
                 </span>
               </div>
 
-              <h4 class="text-sm font-bold text-gray-900 line-clamp-1 group-hover:text-black transition-colors mb-1">
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white line-clamp-1 group-hover:text-black dark:group-hover:text-white transition-colors mb-1">
                 ${product.name}
               </h4>
               <p class="text-[11px] text-gray-500 line-clamp-1 mb-3">
@@ -545,13 +628,13 @@ class AppUI {
               </p>
             </div>
 
-            <div class="pt-3 border-t border-gray-100 flex items-center justify-between">
+            <div class="pt-3 border-t border-gray-100 dark:border-zinc-800 flex items-center justify-between">
               <div>
                 <div class="flex items-baseline gap-1.5">
-                  <span class="text-lg font-black text-gray-950 font-mono">₹${product.price}</span>
+                  <span class="text-lg font-black text-gray-950 dark:text-white font-mono">₹${product.price}</span>
                   <span class="text-xs text-gray-400 line-through font-mono">₹${originalPrice}</span>
                 </div>
-                <span class="text-[10px] font-extrabold ${isWomen ? 'text-pink-600' : 'text-emerald-600'} uppercase tracking-tight">
+                <span class="text-[10px] font-extrabold ${isWomen ? 'text-pink-600' : 'text-emerald-600'} uppercase tracking-tight font-mono">
                   Save ${discount}
                 </span>
               </div>
@@ -572,8 +655,8 @@ class AppUI {
     // GSAP Stagger Entrance Animation
     if (animate && window.gsap) {
       gsap.fromTo(".product-card", 
-        { opacity: 0, y: 25 }, 
-        { opacity: 1, y: 0, stagger: 0.04, duration: 0.35, ease: "power2.out" }
+        { opacity: 0, y: 20 }, 
+        { opacity: 1, y: 0, stagger: 0.035, duration: 0.35, ease: "power2.out" }
       );
     }
   }
@@ -595,7 +678,7 @@ class AppUI {
     const sortSelect = document.getElementById("sort-select");
     if (sortSelect) sortSelect.value = "trending";
 
-    document.querySelectorAll(".category-filter-btn, .story-circle").forEach(el => {
+    document.querySelectorAll(".category-filter-btn").forEach(el => {
       el.classList.remove("active");
     });
     const allCat = document.querySelector('[data-category="all"]');
@@ -612,11 +695,7 @@ class AppUI {
       btn.classList.toggle("active", btn.getAttribute("data-category") === cat);
     });
 
-    document.querySelectorAll(".story-circle").forEach(btn => {
-      btn.classList.toggle("active", btn.getAttribute("data-category") === cat);
-    });
-
-    this.showCatalogView(true);
+    this.showPage("catalog-view");
     this.renderProducts(true);
 
     const catalogSection = document.getElementById("catalog");
@@ -634,7 +713,7 @@ class AppUI {
     const product = window.store.getProductById(productId);
     if (!product) {
       this.showToast("Product not found", "error");
-      this.showCatalogView(false);
+      this.showPage("catalog-view");
       return;
     }
 
@@ -643,10 +722,6 @@ class AppUI {
     this.selectedColor = product.colors ? product.colors[0]?.name : "Standard";
     this.selectedQty = 1;
     this.selectedPdpImgIndex = 0;
-
-    const catalogView = document.getElementById("catalog-view");
-    const pdpView = document.getElementById("product-page-view");
-    if (!pdpView) return;
 
     // Apply gender theme to match product automatically
     if (product.gender === "women") {
@@ -702,7 +777,7 @@ class AppUI {
       if (product.stockCount <= 5) {
         stockEl.innerHTML = `<span class="text-rose-600 font-bold">Only ${product.stockCount} left in stock - order soon.</span>`;
       } else {
-        stockEl.innerHTML = `<span class="text-emerald-700 font-bold">In Stock.</span> Ships from VÉLOIR Mumbai Hub.`;
+        stockEl.innerHTML = `<span class="text-emerald-700 dark:text-emerald-400 font-bold">In Stock.</span> Ships from VÉLOIR Mumbai Hub.`;
       }
     }
 
@@ -715,7 +790,7 @@ class AppUI {
       colorsContainer.innerHTML = (product.colors || [{ name: "Standard", hex: "#111" }]).map((c, idx) => `
         <button 
           onclick="app.selectPdpColor('${c.name}', this)" 
-          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'border-black bg-gray-50' : 'border-gray-200 hover:border-gray-400'}"
+          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'border-black bg-gray-50 dark:border-white dark:bg-zinc-800' : 'border-gray-200 dark:border-zinc-700 hover:border-gray-400'}"
           title="${c.name}"
         >
           <span class="w-4 h-4 rounded-full border border-gray-300 shadow-inner" style="background-color: ${c.hex}"></span>
@@ -730,7 +805,7 @@ class AppUI {
       sizesContainer.innerHTML = (product.sizes || ["S", "M", "L", "XL"]).map((sz, idx) => `
         <button 
           onclick="app.selectPdpSize('${sz}', this)" 
-          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'bg-black text-white border-black' : 'border-gray-200 text-gray-700 hover:border-black'}"
+          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' : 'border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:border-black'}"
         >
           ${sz}
         </button>
@@ -751,7 +826,7 @@ class AppUI {
         "Zero color bleeding and zero post-wash shrinkage"
       ];
       highlightsContainer.innerHTML = highlights.map(h => `
-        <li class="flex items-start gap-2.5 text-xs text-gray-600">
+        <li class="flex items-start gap-2.5 text-xs text-gray-600 dark:text-zinc-400">
           <i class="fa-solid fa-circle-check text-emerald-500 mt-0.5 text-sm"></i>
           <span>${h}</span>
         </li>
@@ -778,43 +853,8 @@ class AppUI {
     // Related Recommendations
     this.renderPdpRelated(product);
 
-    // Smooth Page Transition (GSAP)
-    if (catalogView) catalogView.classList.add("hidden");
-    pdpView.classList.remove("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    if (animate && window.gsap) {
-      gsap.fromTo(pdpView, 
-        { opacity: 0, y: 30 }, 
-        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }
-      );
-    }
-  }
-
-  showCatalogView(animate = true) {
-    const catalogView = document.getElementById("catalog-view");
-    const pdpView = document.getElementById("product-page-view");
-    if (!catalogView || !pdpView) return;
-
-    if (pdpView.classList.contains("hidden")) return;
-
-    if (animate && window.gsap) {
-      gsap.to(pdpView, {
-        opacity: 0,
-        y: 20,
-        duration: 0.2,
-        onComplete: () => {
-          pdpView.classList.add("hidden");
-          catalogView.classList.remove("hidden");
-          window.location.hash = this.currentGender === "women" ? "#women" : this.currentGender === "men" ? "#men" : "#catalog";
-          gsap.fromTo(catalogView, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 });
-        }
-      });
-    } else {
-      pdpView.classList.add("hidden");
-      catalogView.classList.remove("hidden");
-      window.location.hash = this.currentGender === "women" ? "#women" : this.currentGender === "men" ? "#men" : "#catalog";
-    }
+    // Switch view
+    this.showPage("product-page-view");
   }
 
   selectPdpImage(url, el, idx) {
@@ -844,11 +884,11 @@ class AppUI {
   selectPdpSize(size, el) {
     this.selectedSize = size;
     document.querySelectorAll(".pdp-size-btn").forEach(b => {
-      b.classList.remove("bg-black", "text-white", "border-black");
-      b.classList.add("border-gray-200", "text-gray-700");
+      b.classList.remove("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+      b.classList.add("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
     });
-    el.classList.add("bg-black", "text-white", "border-black");
-    el.classList.remove("border-gray-200", "text-gray-700");
+    el.classList.add("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+    el.classList.remove("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
   }
 
   selectPdpColor(colorName, el) {
@@ -857,10 +897,10 @@ class AppUI {
     if (label) label.textContent = colorName;
 
     document.querySelectorAll(".pdp-color-btn").forEach(b => {
-      b.classList.remove("border-black", "border-pink-500", "bg-gray-50", "bg-pink-50");
-      b.classList.add("border-gray-200");
+      b.classList.remove("border-black", "border-pink-500", "bg-gray-50", "bg-pink-50", "dark:border-white", "dark:bg-zinc-800");
+      b.classList.add("border-gray-200", "dark:border-zinc-700");
     });
-    el.classList.add("border-black", "bg-gray-50");
+    el.classList.add("border-black", "bg-gray-50", "dark:border-white", "dark:bg-zinc-800");
   }
 
   updatePdpQty(delta) {
@@ -882,11 +922,11 @@ class AppUI {
 
     result.classList.remove("hidden");
     result.innerHTML = `
-      <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 flex items-start gap-2.5">
+      <div class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-xs text-emerald-800 dark:text-emerald-300 flex items-start gap-2.5">
         <i class="fa-solid fa-truck-fast text-emerald-600 mt-0.5"></i>
         <div>
           <p class="font-bold">FREE Express Delivery to ${pin} by Thursday, 29 Oct</p>
-          <p class="text-[11px] text-emerald-700 mt-0.5">Fastest delivery tomorrow by 2 PM if ordered within 3 hrs.</p>
+          <p class="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">Fastest delivery tomorrow by 2 PM if ordered within 3 hrs.</p>
         </div>
       </div>
     `;
@@ -903,7 +943,7 @@ class AppUI {
       gsap.fromTo(cartBtn, { scale: 1.6 }, { scale: 1, duration: 0.35, ease: "elastic.out(1, 0.4)" });
     }
 
-    this.showToast(`Added ${this.selectedQty}x ${this.activeProduct.name} (${this.selectedSize}) to Bag!`, "success");
+    this.showToast(`Added ${this.selectedQty}x ${this.activeProduct.name} to Bag`, "success");
   }
 
   buyNowFromPdp() {
@@ -925,7 +965,7 @@ class AppUI {
         gsap.fromTo(wishlistBtn, { scale: 1.08 }, { scale: 1, duration: 0.25 });
       }
     }
-    this.showToast(isAdded ? "Saved to your Wishlist!" : "Removed from Wishlist", isAdded ? "success" : "info");
+    this.showToast(isAdded ? "Saved to your Wishlist" : "Removed from Wishlist", isAdded ? "success" : "info");
   }
 
   // --- AMAZON-STYLE REVIEWS SECTION ---
@@ -934,7 +974,6 @@ class AppUI {
     const product = this.activeProduct;
     const reviews = product.reviews || [];
 
-    // Review Summary Counts
     const avgRating = product.rating || 4.8;
     const totalReviews = reviews.length;
 
@@ -966,12 +1005,11 @@ class AppUI {
     document.getElementById("bar-1-star").style.width = `${pct1}%`;
     document.getElementById("bar-1-star-pct").textContent = `${pct1}%`;
 
-    // Render Review Cards
     const reviewsListContainer = document.getElementById("pdp-customer-reviews-list");
     if (reviewsListContainer) {
       if (reviews.length === 0) {
         reviewsListContainer.innerHTML = `
-          <div class="p-8 text-center bg-gray-50 rounded-2xl border border-gray-200">
+          <div class="p-8 text-center bg-gray-50 dark:bg-zinc-800 rounded-2xl border border-gray-200 dark:border-zinc-700">
             <p class="text-xs text-gray-500">No written reviews yet. Be the first customer to share your thoughts!</p>
           </div>
         `;
@@ -979,40 +1017,34 @@ class AppUI {
       }
 
       reviewsListContainer.innerHTML = reviews.map(rev => `
-        <div class="py-5 border-b border-gray-100 last:border-0 flex flex-col gap-2">
-          <!-- Author line -->
+        <div class="py-5 border-b border-gray-100 dark:border-zinc-800 last:border-0 flex flex-col gap-2">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 text-white font-bold text-xs flex items-center justify-center">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-gray-900 to-gray-700 text-white font-bold text-xs flex items-center justify-center font-mono">
               ${rev.author.charAt(0)}
             </div>
             <div>
-              <span class="text-xs font-bold text-gray-900">${rev.author}</span>
-              <div class="flex items-center gap-1.5 text-[10px] text-emerald-600 font-bold">
+              <span class="text-xs font-bold text-gray-900 dark:text-white">${rev.author}</span>
+              <div class="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">
                 <i class="fa-solid fa-circle-check"></i>
                 <span>Verified Purchase</span>
               </div>
             </div>
           </div>
 
-          <!-- Stars & Title -->
           <div class="flex items-center gap-2 text-xs">
             <div class="flex text-amber-400">
               ${Array.from({ length: 5 }, (_, i) => `
                 <i class="${i < rev.rating ? 'fa-solid' : 'fa-regular'} fa-star text-[11px]"></i>
               `).join('')}
             </div>
-            <span class="font-bold text-gray-900">${rev.title}</span>
+            <span class="font-bold text-gray-900 dark:text-white">${rev.title}</span>
           </div>
 
-          <!-- Review Date -->
           <p class="text-[11px] text-gray-400 font-mono">Reviewed on ${rev.date}</p>
+          <p class="text-xs text-gray-700 dark:text-zinc-300 leading-relaxed">${rev.comment}</p>
 
-          <!-- Comment Text -->
-          <p class="text-xs text-gray-700 leading-relaxed">${rev.comment}</p>
-
-          <!-- Helpful Button -->
           <div class="flex items-center gap-3 pt-1">
-            <button onclick="app.voteHelpful('${rev.id}', this)" class="px-3 py-1 rounded-lg border border-gray-200 hover:border-black text-[11px] font-bold text-gray-600 transition-colors flex items-center gap-1.5">
+            <button onclick="app.voteHelpful('${rev.id}', this)" class="px-3 py-1 rounded-lg border border-gray-200 dark:border-zinc-700 hover:border-black text-[11px] font-bold text-gray-600 dark:text-zinc-400 transition-colors flex items-center gap-1.5">
               <i class="fa-regular fa-thumbs-up"></i>
               <span>Helpful (${rev.helpful || 0})</span>
             </button>
@@ -1059,11 +1091,9 @@ class AppUI {
 
     window.store.addReview(this.activeProduct.id, reviewData);
 
-    // Reset Form
     if (titleInput) titleInput.value = "";
     if (textInput) textInput.value = "";
 
-    // Trigger Confetti
     if (window.confetti) {
       window.confetti({ particleCount: 75, spread: 60, origin: { y: 0.8 } });
     }
@@ -1089,13 +1119,13 @@ class AppUI {
     relatedContainer.innerHTML = related.map(item => `
       <div 
         onclick="app.navigateToProduct('${item.id}')" 
-        class="group p-3 rounded-2xl bg-white border border-gray-200 hover:border-black cursor-pointer transition-all shadow-sm hover:shadow-md flex flex-col justify-between"
+        class="group p-3 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 hover:border-black cursor-pointer transition-all shadow-sm hover:shadow-md flex flex-col justify-between"
       >
-        <div class="aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 mb-2.5">
+        <div class="aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 dark:bg-zinc-950 mb-2.5">
           <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
         </div>
         <div>
-          <h5 class="text-xs font-bold text-gray-900 truncate group-hover:text-black">${item.name}</h5>
+          <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate group-hover:text-black">${item.name}</h5>
           <div class="flex items-center justify-between mt-1">
             <span class="text-xs font-black font-mono">₹${item.price}</span>
             <span class="text-[10px] text-gray-400 line-through font-mono">₹${item.originalPrice || Math.round(item.price * 1.8)}</span>
@@ -1103,6 +1133,228 @@ class AppUI {
         </div>
       </div>
     `).join('');
+  }
+
+  // --- DEDICATED MY ORDERS PAGE (#orders-view) ---
+  renderOrdersPage() {
+    const container = document.getElementById("orders-page-list");
+    if (!container) return;
+
+    const orders = window.store.getOrders();
+    if (orders.length === 0) {
+      container.innerHTML = `
+        <div class="py-20 text-center bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-8">
+          <i class="fa-solid fa-box-open text-4xl text-gray-300 dark:text-zinc-600 mb-3"></i>
+          <h4 class="text-base font-bold text-gray-900 dark:text-white">You haven't placed any orders yet</h4>
+          <p class="text-xs text-gray-500 mt-1 mb-5">Explore our seasonal collections and place your first order today.</p>
+          <button onclick="app.showPage('catalog-view')" class="px-6 py-2.5 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-wider">
+            Explore Drops
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = orders.map(order => `
+      <div class="rounded-3xl border border-gray-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-md transition-all">
+        <!-- Order Header Bar -->
+        <div class="p-4 sm:p-5 bg-gray-50/80 dark:bg-zinc-800/50 border-b border-gray-200 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex flex-wrap items-center gap-6">
+            <div>
+              <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Order Placed</span>
+              <p class="font-bold text-gray-900 dark:text-white mt-0.5">${order.date}</p>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Total Amount</span>
+              <p class="font-black font-mono text-gray-950 dark:text-white mt-0.5">₹${order.total}</p>
+            </div>
+            <div>
+              <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Ship To</span>
+              <p class="font-bold text-gray-900 dark:text-white mt-0.5">${order.customer?.name || 'Customer'}</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-gray-500 font-bold">#${order.id}</span>
+            <button onclick="window.location.hash = '#track-${order.id}'" class="px-3.5 py-1.5 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-xs transition-colors">
+              Track Package
+            </button>
+          </div>
+        </div>
+
+        <!-- Order Items Body -->
+        <div class="p-5 sm:p-6 space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full ${order.status === 'Delivered' ? 'bg-emerald-500' : 'bg-blue-500'}"></span>
+              <h5 class="text-sm font-bold text-gray-900 dark:text-white">${order.status}</h5>
+            </div>
+            <span class="text-xs text-gray-500 font-mono">${order.carrier || 'Express Logistics'}</span>
+          </div>
+
+          <div class="divide-y divide-gray-100 dark:divide-zinc-800">
+            ${order.items.map(item => `
+              <div class="py-3 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-12 h-14 rounded-xl bg-gray-100 dark:bg-zinc-800 overflow-hidden flex-shrink-0">
+                    <img src="${item.image || 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=150&q=80'}" alt="${item.name}" class="w-full h-full object-cover" />
+                  </div>
+                  <div class="min-w-0">
+                    <h6 class="text-xs font-bold text-gray-900 dark:text-white truncate">${item.name}</h6>
+                    <p class="text-[11px] text-gray-500 mt-0.5">Size: <b>${item.size}</b> • Color: <b>${item.color || 'Standard'}</b> • Qty: <b>${item.qty}</b></p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-mono font-bold text-gray-950 dark:text-white">₹${item.price * item.qty}</span>
+                  <button onclick="app.quickSelectSizeAndAdd('${item.id}', '${item.size}')" class="px-3 py-1 rounded-lg border border-gray-300 dark:border-zinc-700 hover:border-black text-[11px] font-bold text-gray-700 dark:text-zinc-300">
+                    Buy Again
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- DEDICATED TRACK ORDER PAGE (#track-view) ---
+  renderTrackPage(orderId = null) {
+    const orders = window.store.getOrders();
+    const order = orderId ? (orders.find(o => o.id === orderId) || orders[0]) : orders[0];
+
+    const input = document.getElementById("track-input-search");
+    if (input && order) input.value = order.id;
+
+    if (!order) {
+      document.getElementById("track-page-content").innerHTML = `
+        <div class="py-16 text-center text-gray-400">
+          <p class="text-sm">No active order to track. Enter an order number above.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const container = document.getElementById("track-page-content");
+    if (!container) return;
+
+    container.innerHTML = `
+      <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm space-y-6">
+        <div class="flex flex-wrap items-center justify-between pb-6 border-b border-gray-200 dark:border-zinc-800 gap-4">
+          <div>
+            <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Tracking Package</span>
+            <h3 class="text-xl font-black text-gray-950 dark:text-white font-mono mt-0.5">#${order.id}</h3>
+            <p class="text-xs text-gray-500 mt-0.5">${order.carrier || 'Express Air Courier Logistics'}</p>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Status</span>
+            <h4 class="text-base font-black text-emerald-600 dark:text-emerald-400">${order.status}</h4>
+            <p class="text-xs text-gray-500">Estimated delivery in 2-3 business days</p>
+          </div>
+        </div>
+
+        <!-- Visual Stepper Progress -->
+        <div class="py-4 space-y-6">
+          ${(order.trackingSteps || [
+            { label: "Order Confirmed", date: "Just now", completed: true },
+            { label: "Packed at Warehouse (Mumbai Hub)", date: "Today", completed: false },
+            { label: "Dispatched & In Transit", date: "Tomorrow", completed: false },
+            { label: "Out for Delivery", date: "Pending", completed: false },
+            { label: "Delivered", date: "Pending", completed: false }
+          ]).map((step, idx, arr) => `
+            <div class="flex items-start gap-4 relative">
+              ${idx < arr.length - 1 ? `
+                <div class="absolute top-6 left-3.5 w-0.5 h-12 ${step.completed ? 'bg-emerald-500' : 'bg-gray-200 dark:bg-zinc-800'}"></div>
+              ` : ""}
+              <div class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold z-10 ${step.completed ? 'bg-emerald-500 text-white shadow-md' : 'bg-gray-200 dark:bg-zinc-800 text-gray-400'}">
+                ${step.completed ? '✓' : idx + 1}
+              </div>
+              <div class="flex-1">
+                <h5 class="text-xs font-bold ${step.completed ? 'text-gray-900 dark:text-white' : 'text-gray-400'}">${step.label}</h5>
+                <p class="text-[11px] text-gray-500 font-mono mt-0.5">${step.date}</p>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="pt-6 border-t border-gray-200 dark:border-zinc-800 flex items-center justify-between text-xs text-gray-500">
+          <span>Shipping destination: <b>${order.customer?.address || 'Mumbai'}, ${order.customer?.pincode || '400001'}</b></span>
+          <button onclick="app.showToast('Courier dispatch notifications enabled', 'success')" class="text-black dark:text-white font-bold underline">
+            Get SMS Updates
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  searchTrackOrder() {
+    const input = document.getElementById("track-input-search");
+    if (!input) return;
+    const query = input.value.trim().toUpperCase();
+    if (!query) {
+      this.showToast("Please enter an order ID (e.g. ORD-94821)", "error");
+      return;
+    }
+    this.renderTrackPage(query);
+  }
+
+  // --- DEDICATED WISHLIST PAGE (#wishlist-view) ---
+  renderWishlistPage() {
+    const container = document.getElementById("wishlist-page-grid");
+    const countEl = document.getElementById("wishlist-page-count");
+    if (!container) return;
+
+    const wishlistIds = window.store.getWishlist();
+    const products = wishlistIds.map(id => window.store.getProductById(id)).filter(Boolean);
+
+    if (countEl) countEl.textContent = `${products.length} Saved Items`;
+
+    if (products.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full py-20 text-center bg-white dark:bg-zinc-900 rounded-3xl border border-gray-200 dark:border-zinc-800 p-8">
+          <i class="fa-regular fa-heart text-4xl text-gray-300 dark:text-zinc-600 mb-3"></i>
+          <h4 class="text-base font-bold text-gray-900 dark:text-white">Your Wishlist is Empty</h4>
+          <p class="text-xs text-gray-500 mt-1 mb-5">Save your favorite street drops and couture pieces as you browse.</p>
+          <button onclick="app.showPage('catalog-view')" class="px-6 py-2.5 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-xs uppercase tracking-wider">
+            Explore Drops
+          </button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = products.map(product => `
+      <div class="p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+        <div>
+          <div class="aspect-[4/5] rounded-xl overflow-hidden bg-gray-100 dark:bg-zinc-950 mb-3 cursor-pointer" onclick="app.navigateToProduct('${product.id}')">
+            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover hover:scale-105 transition-transform" />
+          </div>
+          <h5 class="text-xs font-bold text-gray-900 dark:text-white truncate cursor-pointer hover:underline" onclick="app.navigateToProduct('${product.id}')">${product.name}</h5>
+          <div class="flex items-center gap-2 mt-1">
+            <span class="text-sm font-black font-mono">₹${product.price}</span>
+            <span class="text-xs text-gray-400 line-through font-mono">₹${product.originalPrice || Math.round(product.price * 1.8)}</span>
+          </div>
+        </div>
+
+        <div class="pt-3 border-t border-gray-100 dark:border-zinc-800 mt-3 flex items-center gap-2">
+          <button onclick="app.quickSelectSizeAndAdd('${product.id}', '${product.sizes ? product.sizes[0] : 'M'}'); app.toggleWishlist('${product.id}')" class="flex-1 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-wider transition-all">
+            Move to Bag
+          </button>
+          <button onclick="app.toggleWishlist('${product.id}')" class="p-2 rounded-xl border border-gray-200 dark:border-zinc-700 text-gray-400 hover:text-red-500 transition-colors" title="Remove">
+            <i class="fa-solid fa-trash-can text-xs"></i>
+          </button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // --- DEDICATED CUSTOMER SUPPORT PAGE (#support-view) ---
+  submitSupportTicket(e) {
+    e.preventDefault();
+    const name = document.getElementById("support-name")?.value.trim();
+    const subject = document.getElementById("support-subject")?.value.trim();
+    this.showToast(`Thank you ${name}! Support Ticket #${Math.floor(1000 + Math.random() * 9000)} received. Our concierge will reply within 15 mins.`, "success");
+    e.target.reset();
   }
 
   // --- QUICK ACTIONS FROM CATALOG ---
@@ -1118,7 +1370,7 @@ class AppUI {
       gsap.fromTo(cartBtn, { scale: 1.5 }, { scale: 1, duration: 0.3 });
     }
 
-    this.showToast(`Added ${product.name} (Size: ${size}) to Bag!`, "success");
+    this.showToast(`Added ${product.name} (Size: ${size}) to Bag`, "success");
   }
 
   toggleWishlist(productId, btnElement = null) {
@@ -1137,7 +1389,7 @@ class AppUI {
       }
     }
 
-    this.showToast(isAdded ? "Added to Wishlist ❤️" : "Removed from Wishlist", isAdded ? "success" : "info");
+    this.showToast(isAdded ? "Added to Wishlist" : "Removed from Wishlist", isAdded ? "success" : "info");
   }
 
   updateWishlistBadges() {
@@ -1146,56 +1398,6 @@ class AppUI {
       badge.textContent = count;
       badge.classList.toggle("hidden", count === 0);
     });
-  }
-
-  openWishlistDrawer() {
-    const drawer = document.getElementById("wishlist-drawer");
-    if (drawer) {
-      this.renderWishlistItems();
-      drawer.classList.add("active");
-    }
-  }
-
-  closeWishlistDrawer() {
-    const drawer = document.getElementById("wishlist-drawer");
-    if (drawer) drawer.classList.remove("active");
-  }
-
-  renderWishlistItems() {
-    const container = document.getElementById("wishlist-items-container");
-    if (!container) return;
-
-    const wishlistIds = window.store.getWishlist();
-    const products = wishlistIds.map(id => window.store.getProductById(id)).filter(Boolean);
-
-    if (products.length === 0) {
-      container.innerHTML = `
-        <div class="py-16 text-center text-gray-400">
-          <i class="fa-regular fa-heart text-4xl mb-3 text-gray-300"></i>
-          <h4 class="text-sm font-bold text-gray-900 mb-1">Your Wishlist is Empty</h4>
-          <p class="text-xs text-gray-500">Tap the heart on any drop to save your favorites.</p>
-        </div>
-      `;
-      return;
-    }
-
-    container.innerHTML = products.map(product => `
-      <div class="p-3.5 rounded-2xl bg-gray-50 border border-gray-200 flex items-center gap-3">
-        <img src="${product.image}" alt="${product.name}" class="w-14 h-16 object-cover rounded-xl border border-gray-200" />
-        <div class="flex-1 min-w-0">
-          <h5 class="text-xs font-bold text-gray-900 truncate">${product.name}</h5>
-          <p class="text-xs font-black font-mono mt-0.5">₹${product.price}</p>
-          <div class="flex items-center gap-2 mt-2">
-            <button onclick="app.quickSelectSizeAndAdd('${product.id}', '${product.sizes ? product.sizes[0] : 'M'}'); app.toggleWishlist('${product.id}')" class="px-3 py-1 rounded-lg bg-black text-white text-[10px] font-bold">
-              Move to Bag
-            </button>
-            <button onclick="app.toggleWishlist('${product.id}')" class="text-gray-400 hover:text-red-500 text-xs p-1" title="Remove">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-    `).join('');
   }
 
   // --- CART DRAWER ---
@@ -1216,7 +1418,6 @@ class AppUI {
     const cart = window.store.getCart();
     const totals = window.store.calculateCartTotals();
 
-    // Badges
     document.querySelectorAll(".cart-counter").forEach(badge => {
       badge.textContent = totals.itemCount;
     });
@@ -1227,10 +1428,10 @@ class AppUI {
     if (cart.length === 0) {
       itemsContainer.innerHTML = `
         <div class="py-16 text-center text-gray-400">
-          <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-gray-300"></i>
-          <h4 class="text-sm font-bold text-gray-900 mb-1">Your Shopping Bag is Empty</h4>
+          <i class="fa-solid fa-bag-shopping text-4xl mb-3 text-gray-300 dark:text-zinc-700"></i>
+          <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-1">Your Shopping Bag is Empty</h4>
           <p class="text-xs text-gray-500 mb-4">Discover our high-fashion drops and fill your wardrobe.</p>
-          <button onclick="app.closeCartDrawer(); app.showCatalogView(true)" class="px-5 py-2.5 rounded-xl bg-black text-white text-xs font-bold uppercase tracking-wider">
+          <button onclick="app.closeCartDrawer(); app.showPage('catalog-view')" class="px-5 py-2.5 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-wider">
             Shop Drops
           </button>
         </div>
@@ -1240,25 +1441,25 @@ class AppUI {
     }
 
     itemsContainer.innerHTML = cart.map((item, idx) => `
-      <div class="p-3.5 rounded-2xl bg-white border border-gray-200 flex items-start gap-3 shadow-sm">
-        <img src="${item.product.image}" alt="${item.product.name}" class="w-16 h-20 object-cover rounded-xl border border-gray-100 flex-shrink-0" />
+      <div class="p-3.5 rounded-2xl bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 flex items-start gap-3 shadow-sm">
+        <img src="${item.product.image}" alt="${item.product.name}" class="w-16 h-20 object-cover rounded-xl border border-gray-100 dark:border-zinc-700 flex-shrink-0" />
         <div class="flex-1 min-w-0">
           <div class="flex items-start justify-between gap-2">
-            <h5 class="text-xs font-bold text-gray-900 line-clamp-1">${item.product.name}</h5>
+            <h5 class="text-xs font-bold text-gray-900 dark:text-white line-clamp-1">${item.product.name}</h5>
             <button onclick="window.store.removeFromCart(${idx})" class="text-gray-400 hover:text-red-500 text-xs p-1" title="Remove">
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
-          <div class="flex items-center gap-2 text-[11px] text-gray-500 mt-0.5">
-            <span>Size: <b class="text-black">${item.size}</b></span>
+          <div class="flex items-center gap-2 text-[11px] text-gray-500 dark:text-zinc-400 mt-0.5">
+            <span>Size: <b class="text-black dark:text-white">${item.size}</b></span>
             <span>•</span>
-            <span>Color: <b class="text-black">${item.color}</b></span>
+            <span>Color: <b class="text-black dark:text-white">${item.color}</b></span>
           </div>
           <div class="flex items-center justify-between mt-3">
-            <div class="flex items-center border border-gray-200 rounded-lg overflow-hidden bg-gray-50">
-              <button onclick="window.store.updateCartQty(${idx}, -1)" class="px-2 py-0.5 text-xs text-gray-600 hover:bg-gray-200 font-bold">-</button>
-              <span class="px-2.5 py-0.5 text-xs font-mono font-bold text-black">${item.qty}</span>
-              <button onclick="window.store.updateCartQty(${idx}, 1)" class="px-2 py-0.5 text-xs text-gray-600 hover:bg-gray-200 font-bold">+</button>
+            <div class="flex items-center border border-gray-200 dark:border-zinc-700 rounded-lg overflow-hidden bg-gray-50 dark:bg-zinc-900">
+              <button onclick="window.store.updateCartQty(${idx}, -1)" class="px-2 py-0.5 text-xs text-gray-600 dark:text-zinc-300 hover:bg-gray-200 font-bold">-</button>
+              <span class="px-2.5 py-0.5 text-xs font-mono font-bold text-black dark:text-white">${item.qty}</span>
+              <button onclick="window.store.updateCartQty(${idx}, 1)" class="px-2 py-0.5 text-xs text-gray-600 dark:text-zinc-300 hover:bg-gray-200 font-bold">+</button>
             </div>
             <span class="text-xs font-black font-mono">₹${(item.product.price || 0) * item.qty}</span>
           </div>
@@ -1354,60 +1555,12 @@ class AppUI {
 
     this.closeCheckoutModal();
 
-    // Celebration Confetti Explosion
     if (window.confetti) {
       window.confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
 
-    this.showToast(`Order #${order.id} placed successfully! 🎉`, "success");
-    this.openOrderTracker(order.id);
-  }
-
-  // --- ORDER TRACKER ---
-  openOrderTracker(orderId = null) {
-    const modal = document.getElementById("order-tracking-modal");
-    if (!modal) return;
-
-    const orders = window.store.getOrders();
-    const order = orderId ? orders.find(o => o.id === orderId) : orders[0];
-
-    if (!order) {
-      this.showToast("No active orders found", "info");
-      return;
-    }
-
-    const idEl = document.getElementById("track-order-id");
-    const statusEl = document.getElementById("track-order-status");
-    const carrierEl = document.getElementById("track-order-carrier");
-    const stepsContainer = document.getElementById("tracking-steps-container");
-
-    if (idEl) idEl.textContent = order.id;
-    if (statusEl) statusEl.textContent = order.status;
-    if (carrierEl) carrierEl.textContent = order.carrier || "Express Logistics";
-
-    if (stepsContainer && order.trackingSteps) {
-      stepsContainer.innerHTML = order.trackingSteps.map((s, idx) => `
-        <div class="flex items-start gap-3 relative pb-5 last:pb-0">
-          ${idx < order.trackingSteps.length - 1 ? `
-            <div class="absolute top-4 left-3 w-0.5 h-full ${s.completed ? 'bg-emerald-500' : 'bg-gray-200'}"></div>
-          ` : ""}
-          <div class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold z-10 ${s.completed ? 'bg-emerald-500 text-white' : 'bg-gray-200 text-gray-400'}">
-            ${s.completed ? '✓' : idx + 1}
-          </div>
-          <div>
-            <h6 class="text-xs font-bold ${s.completed ? 'text-gray-900' : 'text-gray-400'}">${s.label}</h6>
-            <p class="text-[10px] text-gray-500 font-mono">${s.date}</p>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    modal.classList.add("active");
-  }
-
-  closeOrderTracker() {
-    const modal = document.getElementById("order-tracking-modal");
-    if (modal) modal.classList.remove("active");
+    this.showToast(`Order #${order.id} placed successfully!`, "success");
+    window.location.hash = `#track-${order.id}`;
   }
 
   // --- OUTFIT BUILDER (Complete The Look) ---
@@ -1521,7 +1674,7 @@ class AppUI {
       count++;
     }
 
-    this.showToast(`Added Complete ${count}-Piece Look to Bag! ✨`, "success");
+    this.showToast(`Added Complete ${count}-Piece Look to Bag`, "success");
     this.openCartDrawer();
   }
 
@@ -1533,7 +1686,7 @@ class AppUI {
     if (isActive) {
       modal.classList.remove("active");
     } else {
-      if (window.renderDashboardHQ) window.renderDashboardHQ();
+      if (window.adminDashboard) window.adminDashboard.refresh();
       modal.classList.add("active");
     }
   }
@@ -1560,7 +1713,7 @@ class AppUI {
     setTimeout(() => {
       toast.classList.remove("show");
       setTimeout(() => toast.remove(), 250);
-    }, 3000);
+    }, 2800);
   }
 }
 

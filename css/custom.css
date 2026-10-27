@@ -1,11 +1,12 @@
 /* ==========================================================================
    VÉLOIR — Luxury Retail Fashion Design System (Men's & Women's Atelier)
+   Modern Geometric Typography, High-Contrast Themes, Glassmorphism & Amazon PDP
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800;900&display=swap');
 
 :root {
-  /* Default / Balanced Luxury Theme */
+  /* Default Clean Balanced Theme */
   --bg-core: #ffffff;
   --bg-surface: #f8f9fa;
   --bg-card: #ffffff;
@@ -23,25 +24,24 @@
   --accent-red: #e11d48;
   --accent-emerald: #059669;
   
-  --font-heading: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-serif: 'Playfair Display', Georgia, serif;
   --font-mono: 'Space Grotesk', monospace;
   
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
   --shadow-hover: 0 20px 35px -10px rgba(0, 0, 0, 0.16);
-  --glass-bg: rgba(255, 255, 255, 0.78);
-  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.6);
 }
 
 /* ==========================================================================
-   GIRLY / CHIC LUXURY THEME (WOMEN'S WEAR MODE)
+   GIRLY / CHIC MODERN LUXURY THEME (WOMEN'S WEAR)
    ========================================================================== */
 body.theme-women {
   --bg-core: #fff5f8;
   --bg-surface: #fdf2f8;
-  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card: rgba(255, 255, 255, 0.92);
   --bg-card-hover: #ffffff;
   --border-subtle: #fce7f3;
   --border-hover: #f43f5e;
@@ -56,18 +56,8 @@ body.theme-women {
   --accent-pink: #f43f5e;
   
   --shadow-hover: 0 20px 35px -10px rgba(244, 63, 94, 0.22);
-  --glass-bg: rgba(255, 245, 249, 0.85);
+  --glass-bg: rgba(255, 245, 249, 0.88);
   --glass-border: rgba(251, 207, 232, 0.7);
-}
-
-body.theme-women .brand-hero-title {
-  font-family: var(--font-serif);
-  font-style: italic;
-  color: #831843;
-}
-
-body.theme-women .accent-glow {
-  background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.15), transparent 70%);
 }
 
 body.theme-women .nav-active-pill {
@@ -88,7 +78,7 @@ body.theme-women .btn-primary:hover {
 }
 
 /* ==========================================================================
-   MEN'S STREETWEAR THEME
+   MEN'S STREETWEAR MODERN THEME
    ========================================================================== */
 body.theme-men {
   --bg-core: #fcfcfc;
@@ -109,22 +99,105 @@ body.theme-men {
   --glass-border: rgba(226, 232, 240, 0.8);
 }
 
-/* Dark Mode Support */
+/* ==========================================================================
+   COMPREHENSIVE DARK MODE (100% Surface Coverage)
+   ========================================================================== */
 body.dark-mode {
-  --bg-core: #090a0f;
-  --bg-surface: #12131a;
-  --bg-card: #181a24;
-  --bg-card-hover: #212330;
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(255, 255, 255, 0.35);
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --accent-black: #ffffff;
-  --glass-bg: rgba(24, 26, 36, 0.85);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --bg-core: #0a0b10 !important;
+  --bg-surface: #12141c !important;
+  --bg-card: #151722 !important;
+  --bg-card-hover: #1c1f2e !important;
+  --border-subtle: rgba(255, 255, 255, 0.08) !important;
+  --border-hover: rgba(255, 255, 255, 0.35) !important;
+  --text-primary: #f8fafc !important;
+  --text-secondary: #94a3b8 !important;
+  --text-muted: #64748b !important;
+  --accent-black: #ffffff !important;
+  --glass-bg: rgba(18, 20, 28, 0.92) !important;
+  --glass-border: rgba(255, 255, 255, 0.1) !important;
+  background-color: #0a0b10 !important;
+  color: #f1f5f9 !important;
 }
 
+body.dark-mode header {
+  background-color: rgba(14, 16, 24, 0.94) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-mode .product-card {
+  background-color: #141622 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .product-card h4 {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .amazon-buy-box {
+  background-color: rgba(18, 20, 30, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f8fafc !important;
+}
+
+body.dark-mode .bg-white {
+  background-color: #141622 !important;
+}
+
+body.dark-mode .bg-gray-50 {
+  background-color: #171a26 !important;
+}
+
+body.dark-mode .bg-gray-100 {
+  background-color: #1d2130 !important;
+}
+
+body.dark-mode .text-gray-900,
+body.dark-mode .text-gray-950,
+body.dark-mode .text-black {
+  color: #f8fafc !important;
+}
+
+body.dark-mode .text-gray-700,
+body.dark-mode .text-gray-800 {
+  color: #cbd5e1 !important;
+}
+
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-500 {
+  color: #94a3b8 !important;
+}
+
+body.dark-mode .border-gray-200,
+body.dark-mode .border-gray-100,
+body.dark-mode .border-gray-300 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: #1a1e2c !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+  color: #64748b !important;
+}
+
+body.dark-mode .side-menu-panel,
+body.dark-mode .drawer-panel,
+body.dark-mode .modal-content {
+  background-color: #10121a !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   GLOBAL BASE STYLING
+   ========================================================================== */
 * {
   box-sizing: border-box;
 }
@@ -135,24 +208,34 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 h1, h2, h3, h4, .brand-font {
   font-family: var(--font-heading);
-  letter-spacing: -0.02em;
-}
-
-.serif-font {
-  font-family: var(--font-serif);
+  letter-spacing: -0.025em;
 }
 
 .mono-font {
   font-family: var(--font-mono);
 }
 
+.modern-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.modern-caps {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
 /* ==========================================================================
-   GLASSMORPHISM & TRANSPARENT EFFECTS
+   GLASSMORPHISM UTILITIES
    ========================================================================== */
 .glass-panel {
   background: var(--glass-bg);
@@ -172,13 +255,8 @@ h1, h2, h3, h4, .brand-font {
 .glass-pill {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.theme-women .glass-pill {
-  background: rgba(255, 245, 250, 0.75);
-  border-color: rgba(251, 207, 232, 0.7);
 }
 
 /* Custom Scrollbar */
@@ -206,30 +284,35 @@ h1, h2, h3, h4, .brand-font {
 .animate-marquee {
   display: flex;
   width: 200%;
-  animation: marquee 26s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
 }
 
-/* Story Category Circles */
-.story-circle {
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+/* ==========================================================================
+   AMAZON/FLIPKART STYLE LEFT SIDE MENU DRAWER
+   ========================================================================== */
+.side-menu-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-.story-circle:hover {
-  transform: translateY(-3px);
+.side-menu-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.story-circle.active .circle-img {
-  border-color: #111827;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111827;
+.side-menu-panel {
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 20px 0 50px rgba(0, 0, 0, 0.25);
 }
 
-.theme-women .story-circle.active .circle-img {
-  border-color: #ec4899;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ec4899;
+.side-menu-backdrop.active .side-menu-panel {
+  transform: translateX(0);
 }
 
 /* Hero Carousel Slider */
@@ -310,7 +393,7 @@ h1, h2, h3, h4, .brand-font {
   pointer-events: auto;
 }
 
-/* Heart burst animation for wishlist */
+/* Wishlist Heart Pop */
 @keyframes heartBurst {
   0% { transform: scale(1); }
   50% { transform: scale(1.35); }
@@ -392,11 +475,6 @@ h1, h2, h3, h4, .brand-font {
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.theme-women .toast {
-  background: rgba(131, 24, 67, 0.95);
-  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.35);
-}
-
 .toast.show {
   transform: translateY(0);
   opacity: 1;
@@ -474,13 +552,4 @@ h1, h2, h3, h4, .brand-font {
 .theme-women .thumb-item:hover, .theme-women .thumb-item.active {
   border-color: #f43f5e;
   box-shadow: 0 4px 14px rgba(244, 63, 94, 0.25);
-}
-
-/* Tab Switcher Pills */
-.dept-pill {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dept-pill:hover {
-  transform: translateY(-2px);
 }

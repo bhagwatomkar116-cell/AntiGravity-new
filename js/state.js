@@ -6,7 +6,7 @@
 class AppStore {
   constructor() {
     this.STORAGE_KEYS = {
-      PRODUCTS: "veloir_products_v3",
+      PRODUCTS: "veloir_products_v4",
       CART: "veloir_cart_v3",
       WISHLIST: "veloir_wishlist_v3",
       ORDERS: "veloir_orders_v3",

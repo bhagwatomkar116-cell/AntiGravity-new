@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VÉLOIR — Luxury Men's & Women's Fashion Atelier</title>
+  <title>VÉLOIR — Modern Fashion Atelier & Streetwear</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,157 +32,156 @@
   <!-- Chart.js for Store Admin HQ -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Canvas Confetti for Checkout & Review Celebrations -->
+  <!-- Canvas Confetti for Celebrations -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Custom Styles (Girly & Streetwear Themes, Glassmorphism, Amazon PDP) -->
-  <link rel="stylesheet" href="css/custom.css?v=6.0" />
+  <!-- Custom Styles (Modern Typography, Clean Themes, Glassmorphism & Amazon PDP) -->
+  <link rel="stylesheet" href="css/custom.css?v=7.0" />
 </head>
-<body class="bg-[#f9fafb] text-gray-900 flex flex-col min-h-screen antialiased selection:bg-pink-200 selection:text-black">
+<body class="bg-[#f9fafb] text-gray-900 flex flex-col min-h-screen antialiased selection:bg-gray-200 selection:text-black transition-colors duration-200">
 
   <!-- =========================================================================
-       1. TOP ANNOUNCEMENT TICKER
+       1. TOP ANNOUNCEMENT TICKER (Clean Editorial, No Emojis)
        ========================================================================= -->
   <div class="bg-black text-white text-[11px] font-bold tracking-widest uppercase overflow-hidden py-2 select-none border-b border-gray-900">
     <div class="animate-marquee whitespace-nowrap flex items-center gap-12 font-mono">
       <span>✦ COMPLIMENTARY EXPRESS DELIVERY ON ORDERS OVER ₹999</span>
-      <span>🌸 WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
-      <span>⚡ MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
-      <span>🌿 100% COMBED BIO-WASHED HEAVYWEIGHT COTTON & MULBERRY SILK</span>
-      <span>🔄 7-DAY HASSLE-FREE DOORSTEP EXCHANGES & RETURNS</span>
+      <span>• WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
+      <span>• MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
+      <span>✦ 100% COMBED BIO-WASHED HEAVYWEIGHT COTTON & MULBERRY SILK</span>
+      <span>• 7-DAY HASSLE-FREE DOORSTEP EXCHANGES & RETURNS</span>
       <span>✦ COMPLIMENTARY EXPRESS DELIVERY ON ORDERS OVER ₹999</span>
-      <span>🌸 WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
-      <span>⚡ MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
+      <span>• WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
+      <span>• MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
     </div>
   </div>
 
   <!-- =========================================================================
-       2. PRIMARY NAVIGATION HEADER (Glassmorphic)
+       2. PRIMARY NAVIGATION HEADER (With Amazon/Flipkart 3-Dash Menu on Left)
        ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-sm transition-colors duration-300">
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-zinc-950/90 backdrop-blur-xl border-b border-gray-200 dark:border-zinc-800 shadow-sm transition-colors duration-200">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
-      <!-- Brand Logo -->
-      <div class="flex items-center gap-6 sm:gap-8">
-        <a href="#catalog" onclick="app.showCatalogView(true)" class="flex flex-col group cursor-pointer">
+      <!-- Left: 3-Dash Hamburger Button & Brand Logo -->
+      <div class="flex items-center gap-3 sm:gap-6">
+        <!-- Three-Dash Menu Button (Amazon / Flipkart Style) -->
+        <button 
+          id="hamburger-menu-btn" 
+          onclick="app.openSideMenu()" 
+          class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-800 dark:text-zinc-200 transition-colors flex items-center justify-center focus:outline-none" 
+          title="Open Navigation Menu"
+          aria-label="Open Navigation Menu"
+        >
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+
+        <!-- Brand Logo -->
+        <a href="#catalog" onclick="app.showPage('catalog-view')" class="flex flex-col group cursor-pointer">
           <div class="flex items-center gap-2">
-            <span class="text-2xl sm:text-3xl font-black tracking-[0.2em] uppercase brand-font text-gray-900 group-hover:text-black transition-colors">
+            <span class="text-2xl sm:text-3xl font-black tracking-[0.2em] uppercase brand-font text-gray-950 dark:text-white group-hover:text-black dark:group-hover:text-gray-200 transition-colors">
               VÉLOIR
             </span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white tracking-widest font-mono">
+            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white dark:bg-white dark:text-black tracking-widest font-mono">
               ATELIER
             </span>
           </div>
-          <span class="text-[10px] tracking-[0.22em] uppercase text-gray-500 font-mono -mt-1">
+          <span class="text-[9px] tracking-[0.22em] uppercase text-gray-500 font-mono -mt-1">
             Mumbai • Paris • Tokyo
           </span>
         </a>
 
-        <!-- Department Switcher Tabs (All / Men / Women) -->
-        <nav class="hidden lg:flex items-center p-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-bold font-mono">
+        <!-- Department Switcher Tabs (Modern Geometric Font, No Emojis) -->
+        <nav class="hidden lg:flex items-center p-1 rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-xs font-bold font-mono ml-2">
           <button 
             onclick="app.setGender('all')" 
             data-gender="all" 
-            class="gender-tab-btn active px-4 py-1.5 rounded-full bg-black text-white shadow-sm transition-all flex items-center gap-1.5"
+            class="gender-tab-btn active px-4 py-1.5 rounded-full bg-black text-white dark:bg-white dark:text-black shadow-sm transition-all"
           >
-            <span>All Collections</span>
+            ALL
           </button>
 
           <button 
             onclick="app.setGender('men')" 
             data-gender="men" 
-            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 hover:text-black transition-all flex items-center gap-1.5"
+            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all"
           >
-            <span>⚡ Men's Wear</span>
+            MEN
           </button>
 
           <button 
             onclick="app.setGender('women')" 
             data-gender="women" 
-            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 hover:text-black transition-all flex items-center gap-1.5"
+            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all"
           >
-            <span>🌸 Women's Wear</span>
+            WOMEN
           </button>
         </nav>
       </div>
 
-      <!-- Live Search Box with Instant Autocomplete Dropdown -->
+      <!-- Center: Live Search Box with Instant Autocomplete Dropdown -->
       <div id="search-container-box" class="flex-1 max-w-md hidden md:block relative">
         <div class="relative flex items-center">
           <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
           <input 
             type="text" 
             id="global-search" 
-            placeholder="Search dresses, graphic tees, cargos, boots, hoodies..." 
-            class="w-full pl-9 pr-24 py-2.5 text-xs rounded-full bg-gray-100 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
+            placeholder="Search dresses, tees, cargos, boots, hoodies..." 
+            class="w-full pl-9 pr-24 py-2.5 text-xs rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-black dark:focus:border-white transition-all"
           />
           <button id="clear-search-btn" class="hidden absolute right-16 text-gray-400 hover:text-black p-1 text-xs" title="Clear">
             <i class="fa-solid fa-xmark"></i>
           </button>
-          <button id="search-btn" class="absolute right-1.5 px-3 py-1.5 rounded-full bg-black hover:bg-gray-800 text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
+          <button id="search-btn" class="absolute right-1.5 px-3 py-1.5 rounded-full bg-black hover:bg-gray-800 dark:bg-white dark:text-black text-white text-xs font-bold transition-all shadow-sm flex items-center gap-1.5">
             <span>Search</span>
             <i class="fa-solid fa-arrow-right text-[10px]"></i>
           </button>
         </div>
 
-        <!-- Live Instant Suggestions Dropdown -->
+        <!-- Suggestions Dropdown -->
         <div id="search-suggestions-dropdown" class="hidden"></div>
       </div>
 
-      <!-- Right Header Actions -->
-      <div class="flex items-center gap-2.5 sm:gap-3">
+      <!-- Right: Dark Mode Toggle & Shopping Bag (Wishlist and Orders moved inside 3-dash menu) -->
+      <div class="flex items-center gap-3">
         <!-- Mobile Search Toggle -->
-        <button onclick="document.getElementById('mobile-search-bar').classList.toggle('hidden')" class="md:hidden p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 text-xs transition-colors" title="Search">
+        <button onclick="document.getElementById('mobile-search-bar').classList.toggle('hidden')" class="md:hidden p-2 rounded-full bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-700 dark:text-zinc-300 border border-gray-200 dark:border-zinc-700 text-xs transition-colors" title="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
-        <!-- Order Tracker -->
-        <button onclick="app.openOrderTracker()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-semibold border border-gray-200 transition-colors" title="Track Live Order">
-          <i class="fa-solid fa-truck-fast text-xs text-gray-700"></i>
-          <span>Track Order</span>
+        <!-- Working Dark / Light Mode Switch Button -->
+        <button 
+          onclick="app.toggleTheme()" 
+          class="theme-toggle-btn p-2.5 rounded-full bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-700 dark:text-zinc-300 border border-gray-200 dark:border-zinc-700 text-xs transition-colors" 
+          title="Toggle Dark/Light Mode"
+        >
+          <i class="fa-solid fa-moon text-gray-700 dark:text-yellow-400 text-sm"></i>
         </button>
 
-        <!-- Wishlist -->
-        <button onclick="app.openWishlistDrawer()" class="relative p-2.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-200 transition-colors" title="Saved Items">
-          <i class="fa-regular fa-heart text-sm"></i>
-          <span class="wishlist-counter hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-rose-600 text-[10px] font-bold text-white flex items-center justify-center">0</span>
-        </button>
-
-        <!-- Shopping Bag -->
-        <button onclick="app.openCartDrawer()" class="relative flex items-center gap-2 px-4 py-2 rounded-full bg-black hover:bg-gray-800 text-white font-extrabold text-xs transition-all shadow-md">
-          <i class="fa-solid fa-bag-shopping text-sm text-yellow-400"></i>
+        <!-- Shopping Bag Button -->
+        <button onclick="app.openCartDrawer()" class="relative flex items-center gap-2 px-4 py-2.5 rounded-full bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-extrabold text-xs transition-all shadow-md">
+          <i class="fa-solid fa-bag-shopping text-sm text-yellow-400 dark:text-amber-500"></i>
           <span class="hidden sm:inline">Bag</span>
-          <span class="cart-counter px-1.5 py-0.2 rounded-full bg-yellow-400 text-black text-[10px] font-mono">0</span>
-        </button>
-
-        <!-- Theme Toggle (Light / Dark) -->
-        <button onclick="document.body.classList.toggle('dark-mode')" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 text-xs transition-colors" title="Toggle Dark/Light Mode">
-          <i class="fa-solid fa-circle-half-stroke"></i>
-        </button>
-
-        <!-- Admin HQ -->
-        <button class="toggle-admin-view p-2 rounded-xl text-gray-700 hover:text-black bg-gray-100 hover:bg-gray-200 border border-gray-200 text-xs ml-1 transition-colors" title="Store Owner Dashboard">
-          <i class="fa-solid fa-sliders text-xs"></i>
+          <span class="cart-counter px-1.5 py-0.2 rounded-full bg-yellow-400 dark:bg-black text-black dark:text-white text-[10px] font-mono">0</span>
         </button>
       </div>
 
     </div>
 
     <!-- Mobile Department Switcher Row -->
-    <div class="lg:hidden flex items-center justify-center gap-2 py-2 px-4 border-t border-gray-100 bg-gray-50/80">
-      <button onclick="app.setGender('all')" data-gender="all" class="gender-tab-btn active px-3 py-1 rounded-full text-xs font-bold bg-black text-white">All</button>
-      <button onclick="app.setGender('men')" data-gender="men" class="gender-tab-btn px-3 py-1 rounded-full text-xs font-bold text-gray-600">⚡ Men's</button>
-      <button onclick="app.setGender('women')" data-gender="women" class="gender-tab-btn px-3 py-1 rounded-full text-xs font-bold text-gray-600">🌸 Women's</button>
+    <div class="lg:hidden flex items-center justify-center gap-2 py-2 px-4 border-t border-gray-100 dark:border-zinc-800 bg-gray-50/80 dark:bg-zinc-900/80">
+      <button onclick="app.setGender('all')" data-gender="all" class="gender-tab-btn active px-3.5 py-1 rounded-full text-xs font-bold bg-black text-white dark:bg-white dark:text-black font-mono">ALL</button>
+      <button onclick="app.setGender('men')" data-gender="men" class="gender-tab-btn px-3.5 py-1 rounded-full text-xs font-bold text-gray-600 dark:text-zinc-300 font-mono">MEN</button>
+      <button onclick="app.setGender('women')" data-gender="women" class="gender-tab-btn px-3.5 py-1 rounded-full text-xs font-bold text-gray-600 dark:text-zinc-300 font-mono">WOMEN</button>
     </div>
 
     <!-- Mobile Slide-Down Search Bar -->
-    <div id="mobile-search-bar" class="hidden md:hidden px-4 pb-3 pt-1 border-t border-gray-100 bg-white">
+    <div id="mobile-search-bar" class="hidden md:hidden px-4 pb-3 pt-1 border-t border-gray-100 dark:border-zinc-800 bg-white dark:bg-zinc-900">
       <div class="relative flex items-center">
         <input 
           type="text" 
           placeholder="Search dresses, tees, cargos, boots..." 
           onkeydown="if(event.key==='Enter'){document.getElementById('global-search').value=this.value; app.executeSearch();}" 
-          class="w-full pl-3 pr-20 py-2 text-xs rounded-lg bg-gray-100 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black"
+          class="w-full pl-3 pr-20 py-2 text-xs rounded-lg bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-black"
         />
         <button onclick="document.getElementById('global-search').value=this.previousElementSibling.value; app.executeSearch();" class="absolute right-1 px-3 py-1 rounded-md bg-black text-white text-xs font-bold">
           Search
@@ -192,50 +191,172 @@
   </header>
 
   <!-- =========================================================================
-       3. CATALOG VIEW (Default Main Page)
+       3. AMAZON/FLIPKART STYLE LEFT SIDE MENU DRAWER
+       ========================================================================= -->
+  <div id="side-menu-drawer" class="side-menu-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex justify-start">
+    <div class="side-menu-panel w-full max-w-xs sm:max-w-sm bg-white dark:bg-zinc-900 h-full flex flex-col shadow-2xl overflow-y-auto">
+      
+      <!-- Side Menu User Header -->
+      <div class="p-6 bg-black text-white flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center text-sm font-bold">
+            <i class="fa-solid fa-user text-gray-300"></i>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold">Hello, VÉLOIR VIP</h4>
+            <span class="text-[10px] text-gray-400 font-mono uppercase tracking-wider">Tier: Black Label Access</span>
+          </div>
+        </div>
+        <button onclick="app.closeSideMenu()" class="p-2 text-gray-400 hover:text-white text-sm" title="Close Menu">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Menu Categories -->
+      <div class="p-4 space-y-6 flex-1 text-xs">
+        
+        <!-- Section: Shop By Department -->
+        <div class="space-y-1">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 font-mono px-3 block mb-2">Shop Departments</span>
+          <a href="#catalog" onclick="app.setGender('all'); app.showPage('catalog-view')" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <span>All Collections</span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </a>
+          <a href="#men" onclick="app.setGender('men'); app.showPage('catalog-view')" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <span>Men's Streetwear Drops</span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </a>
+          <a href="#women" onclick="app.setGender('women'); app.showPage('catalog-view')" class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-pink-50 dark:hover:bg-pink-950/30 text-gray-900 dark:text-white font-bold transition-colors">
+            <span>Women's Atelier Collection</span>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </a>
+        </div>
+
+        <!-- Section: My Account, Orders, Wishlist (Dedicated Pages) -->
+        <div class="space-y-1 pt-4 border-t border-gray-100 dark:border-zinc-800">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 font-mono px-3 block mb-2">My Orders & Saved</span>
+          
+          <button onclick="app.showPage('orders-view')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-box text-gray-500 w-4"></i>
+              <span>My Orders & Purchases</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </button>
+
+          <button onclick="app.showPage('track-view')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-truck-fast text-gray-500 w-4"></i>
+              <span>Track Active Order</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </button>
+
+          <button onclick="app.showPage('wishlist-view')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-heart text-red-500 w-4"></i>
+              <span>Saved Wishlist</span>
+            </div>
+            <span class="wishlist-counter px-2 py-0.5 rounded-full bg-red-100 dark:bg-red-950 text-red-600 text-[10px] font-mono font-bold">0</span>
+          </button>
+        </div>
+
+        <!-- Section: Help & Support -->
+        <div class="space-y-1 pt-4 border-t border-gray-100 dark:border-zinc-800">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 font-mono px-3 block mb-2">Customer Support</span>
+          
+          <button onclick="app.showPage('support-view')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-headset text-gray-500 w-4"></i>
+              <span>Customer Care & Concierge</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </button>
+
+          <button onclick="app.showPage('support-view')" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-rotate-left text-gray-500 w-4"></i>
+              <span>7-Day Return & Exchange</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-[10px] text-gray-400"></i>
+          </button>
+        </div>
+
+        <!-- Section: Preferences & Admin -->
+        <div class="space-y-1 pt-4 border-t border-gray-100 dark:border-zinc-800">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400 font-mono px-3 block mb-2">Settings</span>
+          
+          <button onclick="app.toggleTheme()" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-circle-half-stroke text-gray-500 w-4"></i>
+              <span>Toggle Dark / Light Mode</span>
+            </div>
+            <span class="text-[10px] text-gray-400 font-mono">Theme</span>
+          </button>
+
+          <button onclick="app.closeSideMenu(); app.toggleAdminDashboard()" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 text-gray-900 dark:text-white font-bold transition-colors">
+            <div class="flex items-center gap-3">
+              <i class="fa-solid fa-sliders text-gray-500 w-4"></i>
+              <span>Store Owner HQ</span>
+            </div>
+            <span class="text-[10px] text-gray-400 font-mono">Admin</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-4 border-t border-gray-100 dark:border-zinc-800 text-center text-[10px] text-gray-400 font-mono">
+        VÉLOIR ATELIER • Est. 2026
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       4. MAIN CATALOG VIEW
        ========================================================================= -->
   <main id="catalog-view" class="flex-1 transition-all duration-300">
 
-    <!-- HERO CAROUSEL & EDITORIAL CAMPAIGN -->
-    <section id="home" class="relative overflow-hidden border-b border-gray-200 py-10 lg:py-14 transition-colors duration-500">
+    <!-- HERO CAROUSEL & EDITORIAL CAMPAIGN (Modern Typography, No Emojis) -->
+    <section id="home" class="relative overflow-hidden border-b border-gray-200 dark:border-zinc-800 py-10 lg:py-14 transition-colors duration-500">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           <div class="lg:col-span-7 flex flex-col items-start space-y-5">
-            <div id="hero-dynamic-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-gray-200 text-xs shadow-sm">
+            <div id="hero-dynamic-badge" class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border border-gray-200 dark:border-zinc-800 text-xs shadow-sm">
               <span class="w-2 h-2 rounded-full bg-amber-500 pulse-dot"></span>
-              <span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">✦ Maison VÉLOIR • Men & Women Haute Streetwear</span>
+              <span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800 dark:text-zinc-200">MAISON VÉLOIR • MEN & WOMEN COLLECTIONS</span>
             </div>
 
-            <h1 id="hero-dynamic-title" class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-[0.95] brand-font text-gray-950">
+            <h1 id="hero-dynamic-title" class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-[0.95] modern-title text-gray-950 dark:text-white">
               ELEVATED STREETWEAR.<br/>
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-pink-700 to-amber-600">MEN & WOMEN DROPS.</span><br/>
-              HAUTE COUTURE VIBES.
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-pink-700 to-amber-600 dark:from-white dark:via-pink-400 dark:to-amber-400">MEN & WOMEN DROPS.</span><br/>
+              MODERN CASUALS.
             </h1>
 
-            <p id="hero-dynamic-subtitle" class="text-base sm:text-lg text-gray-600 max-w-xl font-normal leading-relaxed">
-              India's highest-tier streetwear atelier. Accessible pricing inspired by Zudio, conscious heart inspired by Being Human, and luxury tailored drapes for all genders.
+            <p id="hero-dynamic-subtitle" class="text-base sm:text-lg text-gray-600 dark:text-zinc-400 max-w-xl font-normal leading-relaxed">
+              India's highest-tier fashion atelier. Accessible pricing inspired by Zudio, conscious heart inspired by Being Human, and modern architectural drapes.
             </p>
 
             <div class="flex flex-wrap items-center gap-3 pt-2">
-              <button onclick="app.setGender('men')" class="px-6 py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                <span>⚡ Shop Men's Wear</span>
+              <button onclick="app.setGender('men')" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <span>Shop Men's Wear</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </button>
 
-              <button onclick="app.setGender('women')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                <span>🌸 Shop Women's Wear</span>
-                <i class="fa-solid fa-sparkles"></i>
+              <button onclick="app.setGender('women')" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <span>Shop Women's Wear</span>
+                <i class="fa-solid fa-arrow-right"></i>
               </button>
             </div>
 
-            <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200/80 w-full max-w-lg">
+            <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200/80 dark:border-zinc-800 w-full max-w-lg">
               <div>
-                <p class="text-2xl font-black text-gray-950 font-mono">₹399</p>
+                <p class="text-2xl font-black text-gray-950 dark:text-white font-mono">₹399</p>
                 <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Starting Price</p>
               </div>
               <div>
-                <p class="text-2xl font-black text-gray-950 font-mono">28 Drops</p>
+                <p class="text-2xl font-black text-gray-950 dark:text-white font-mono">28 Drops</p>
                 <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Men & Women</p>
               </div>
               <div>
@@ -246,20 +367,20 @@
           </div>
 
           <div class="lg:col-span-5 relative">
-            <div class="relative rounded-3xl overflow-hidden border border-gray-200/90 bg-white/70 backdrop-blur-xl p-3 shadow-xl">
-              <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+            <div class="relative rounded-3xl overflow-hidden border border-gray-200/90 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 backdrop-blur-xl p-3 shadow-xl">
+              <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100 dark:bg-zinc-950">
                 <img 
                   id="hero-dynamic-img"
                   src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" 
                   alt="Haute Streetwear Hero" 
                   class="w-full h-full object-cover object-center transition-all duration-500"
                 />
-                <div class="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between">
+                <div class="absolute bottom-4 inset-x-4 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 dark:border-zinc-800 shadow-xl flex items-center justify-between">
                   <div>
-                    <span id="hero-dynamic-card-sub" class="text-[10px] font-extrabold uppercase tracking-widest text-gray-500">✦ 2026 Atelier Lookbook</span>
-                    <div id="hero-dynamic-card-title" class="text-base font-black font-mono text-gray-950">Explore Men & Women Fits</div>
+                    <span id="hero-dynamic-card-sub" class="text-[10px] font-extrabold uppercase tracking-widest text-gray-500 font-mono">2026 Atelier Lookbook</span>
+                    <div id="hero-dynamic-card-title" class="text-base font-black font-mono text-gray-950 dark:text-white">Explore Men & Women Fits</div>
                   </div>
-                  <a href="#catalog" class="px-4 py-2 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
+                  <a href="#catalog" class="px-4 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
                     Browse &rarr;
                   </a>
                 </div>
@@ -271,21 +392,21 @@
       </div>
     </section>
 
-    <!-- DEPARTMENT SEGMENTED SECTIONS (Men vs Women Visual Banners) -->
-    <section class="py-8 bg-white/60 backdrop-blur-md border-b border-gray-200">
+    <!-- DEPARTMENT SEGMENTED BANNERS (Modern Clean Aesthetic) -->
+    <section class="py-8 bg-white/60 dark:bg-zinc-950/60 backdrop-blur-md border-b border-gray-200 dark:border-zinc-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           
-          <!-- Men's Wear Card Banner -->
+          <!-- Men's Card Banner -->
           <div 
             onclick="app.setGender('men')" 
-            class="group relative rounded-3xl overflow-hidden border border-gray-200 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-zinc-900 to-black text-white"
+            class="group relative rounded-3xl overflow-hidden border border-gray-200 dark:border-zinc-800 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-zinc-900 to-black text-white"
           >
             <div class="space-y-3 z-10 max-w-[65%]">
               <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-amber-400 text-black font-mono">
-                ⚡ HOMME COLLECTION
+                HOMME COLLECTION
               </span>
-              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight brand-font">
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight modern-title">
                 Men's Streetwear
               </h3>
               <p class="text-xs text-gray-300 leading-relaxed">
@@ -301,23 +422,23 @@
             </div>
           </div>
 
-          <!-- Women's Wear Girly Card Banner -->
+          <!-- Women's Card Banner -->
           <div 
             onclick="app.setGender('women')" 
-            class="group relative rounded-3xl overflow-hidden border border-pink-200 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-pink-500 via-rose-500 to-pink-600 text-white"
+            class="group relative rounded-3xl overflow-hidden border border-pink-200 dark:border-pink-900 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-pink-500 via-rose-500 to-pink-600 text-white"
           >
             <div class="space-y-3 z-10 max-w-[65%]">
               <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white text-pink-600 font-mono shadow-sm">
-                🌸 FEMME ATELIER
+                FEMME ATELIER
               </span>
-              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight brand-font">
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight modern-title">
                 Women's Chic Glam
               </h3>
               <p class="text-xs text-pink-100 leading-relaxed">
-                Mulberry silk slip dresses, cropped pastel hoodies, tennis skirts, block heels, and cute rose gold jewelry.
+                Mulberry silk slip dresses, cropped pastel hoodies, tennis skirts, block heels, and rose gold jewelry.
               </p>
               <div class="flex items-center gap-2 text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
-                <span>Explore Girly Atelier 🌸</span>
+                <span>Explore Women's Atelier</span>
                 <i class="fa-solid fa-arrow-right"></i>
               </div>
             </div>
@@ -331,31 +452,31 @@
     </section>
 
     <!-- CATEGORY PILLS BAR -->
-    <section class="border-b border-gray-200 bg-white/70 backdrop-blur-md py-4 sticky top-20 z-30 shadow-sm">
+    <section class="border-b border-gray-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-950/70 backdrop-blur-md py-4 sticky top-20 z-30 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 scrollbar-none">
-          <button onclick="app.filterByStoryCategory('all')" data-category="all" class="category-filter-btn active px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+        <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 scrollbar-none font-mono">
+          <button onclick="app.filterByStoryCategory('all')" data-category="all" class="category-filter-btn active px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             All Drops
           </button>
-          <button onclick="app.filterByStoryCategory('tees')" data-category="tees" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('tees')" data-category="tees" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Tees & Tops
           </button>
-          <button onclick="app.filterByStoryCategory('hoodies')" data-category="hoodies" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('hoodies')" data-category="hoodies" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Hoodies & Fleece
           </button>
-          <button onclick="app.filterByStoryCategory('bottoms')" data-category="bottoms" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('bottoms')" data-category="bottoms" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Cargos & Denim
           </button>
-          <button onclick="app.filterByStoryCategory('dresses')" data-category="dresses" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('dresses')" data-category="dresses" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Dresses & Skirts
           </button>
-          <button onclick="app.filterByStoryCategory('jackets')" data-category="jackets" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('jackets')" data-category="jackets" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Jackets & Blazers
           </button>
-          <button onclick="app.filterByStoryCategory('shoes')" data-category="shoes" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('shoes')" data-category="shoes" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Sneakers & Heels
           </button>
-          <button onclick="app.filterByStoryCategory('accessories')" data-category="accessories" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+          <button onclick="app.filterByStoryCategory('accessories')" data-category="accessories" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 dark:bg-zinc-800 hover:bg-gray-200 dark:hover:bg-zinc-700 text-gray-800 dark:text-zinc-200 transition-all flex-shrink-0">
             Bags & Jewelry
           </button>
         </div>
@@ -367,9 +488,9 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Filter Toolbar -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-gray-200">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-gray-200 dark:border-zinc-800">
           <div>
-            <span id="product-count-display" class="text-sm font-black font-mono uppercase tracking-wider text-gray-900">
+            <span id="product-count-display" class="text-sm font-black font-mono uppercase tracking-wider text-gray-900 dark:text-white">
               Showing All Drops
             </span>
             <p class="text-xs text-gray-500">Tap on any piece to open the full Amazon-style detail page with verified reviews.</p>
@@ -379,15 +500,15 @@
             <!-- Price Slider -->
             <div class="flex items-center gap-2 text-xs">
               <span class="text-gray-500 font-bold">Max Price:</span>
-              <input type="range" id="price-filter" min="399" max="2500" step="50" value="2500" class="w-24 sm:w-32 accent-black" />
-              <span id="price-filter-display" class="font-mono font-bold text-gray-900 w-12">₹2500</span>
+              <input type="range" id="price-filter" min="399" max="2500" step="50" value="2500" class="w-24 sm:w-32 accent-black dark:accent-white" />
+              <span id="price-filter-display" class="font-mono font-bold text-gray-900 dark:text-white w-12">₹2500</span>
             </div>
 
             <!-- Sort By -->
             <div class="flex items-center gap-2 text-xs">
               <span class="text-gray-500 font-bold">Sort:</span>
-              <select id="sort-select" class="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-800 focus:outline-none focus:border-black">
-                <option value="trending">🔥 Trending</option>
+              <select id="sort-select" class="px-3 py-1.5 rounded-xl border border-gray-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-xs font-bold text-gray-800 dark:text-zinc-200 focus:outline-none">
+                <option value="trending">Trending</option>
                 <option value="low-high">Price: Low to High</option>
                 <option value="high-low">Price: High to Low</option>
                 <option value="rating">Top Customer Rated</option>
@@ -395,7 +516,7 @@
             </div>
 
             <!-- Reset Filters -->
-            <button onclick="app.resetFilters()" class="text-xs text-gray-500 hover:text-black font-bold underline" title="Reset all active filters">
+            <button onclick="app.resetFilters()" class="text-xs text-gray-500 hover:text-black dark:hover:text-white font-bold underline" title="Reset all active filters">
               Reset
             </button>
           </div>
@@ -409,51 +530,48 @@
       </div>
     </section>
 
-    <!-- COMPLETE THE LOOK (Interactive Outfit Styling Studio) -->
-    <section id="style-studio" class="py-16 bg-white/80 backdrop-blur-md border-t border-gray-200">
+    <!-- COMPLETE THE LOOK STUDIO -->
+    <section id="style-studio" class="py-16 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md border-t border-gray-200 dark:border-zinc-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-10">
-          <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-yellow-300 text-black font-mono">
-            ✨ STYLING STUDIO
+          <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-black dark:bg-white text-white dark:text-black font-mono">
+            STYLING STUDIO
           </span>
-          <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight brand-font mt-2">
+          <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight modern-title mt-2 dark:text-white">
             Complete The Look
           </h2>
-          <p class="text-xs sm:text-sm text-gray-600 mt-1">
-            Mix and match tops, bottoms, and accessories to create your custom drip and add the entire look to bag with 1 click.
+          <p class="text-xs sm:text-sm text-gray-600 dark:text-zinc-400 mt-1">
+            Mix and match tops, bottoms, and accessories to create your custom outfit and add the entire look to your bag in one click.
           </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <!-- Studio Preview Stage (Left) -->
-          <div class="lg:col-span-5 bg-gray-50 p-6 rounded-3xl border border-gray-200 shadow-inner flex flex-col items-center">
+          <div class="lg:col-span-5 bg-gray-50 dark:bg-zinc-900 p-6 rounded-3xl border border-gray-200 dark:border-zinc-800 shadow-inner flex flex-col items-center">
             <div class="w-full max-w-sm flex flex-col items-center gap-3">
-              <!-- Top Preview -->
-              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-md">
                 <img id="stage-top-img" src="" alt="Top" class="w-full h-full object-cover" />
               </div>
-              <p id="stage-top-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+              <p id="stage-top-name" class="text-xs font-bold text-center text-gray-900 dark:text-white truncate w-full"></p>
 
-              <!-- Bottom Preview -->
-              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-md">
                 <img id="stage-bottom-img" src="" alt="Bottom" class="w-full h-full object-cover" />
               </div>
-              <p id="stage-bottom-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+              <p id="stage-bottom-name" class="text-xs font-bold text-center text-gray-900 dark:text-white truncate w-full"></p>
 
-              <!-- Accessory Preview -->
-              <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+              <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-black dark:border-zinc-700 bg-white dark:bg-zinc-800 shadow-md">
                 <img id="stage-acc-img" src="" alt="Accessory" class="w-full h-full object-cover" />
               </div>
-              <p id="stage-acc-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+              <p id="stage-acc-name" class="text-xs font-bold text-center text-gray-900 dark:text-white truncate w-full"></p>
             </div>
 
-            <div class="w-full mt-6 pt-6 border-t border-gray-200 flex items-center justify-between">
+            <div class="w-full mt-6 pt-6 border-t border-gray-200 dark:border-zinc-800 flex items-center justify-between">
               <div>
                 <span class="text-xs text-gray-500 font-bold uppercase font-mono">Complete Look Total</span>
-                <div id="outfit-total-price" class="text-xl font-black font-mono text-black">₹0</div>
+                <div id="outfit-total-price" class="text-xl font-black font-mono text-black dark:text-white">₹0</div>
               </div>
-              <button onclick="app.addCompleteOutfitToCart()" class="px-5 py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md">
+              <button onclick="app.addCompleteOutfitToCart()" class="px-5 py-2.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-md">
                 Add Look to Bag
               </button>
             </div>
@@ -461,21 +579,18 @@
 
           <!-- Studio Piece Pickers (Right) -->
           <div class="lg:col-span-7 space-y-6">
-            <!-- Tops Selector -->
             <div>
-              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">1. Select Upper / Topwear</h4>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-300 font-mono mb-2">1. Select Upper / Topwear</h4>
               <div id="picker-scroll-tops" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
             </div>
 
-            <!-- Bottoms Selector -->
             <div>
-              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">2. Select Lower / Bottomwear</h4>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-300 font-mono mb-2">2. Select Lower / Bottomwear</h4>
               <div id="picker-scroll-bottoms" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
             </div>
 
-            <!-- Accessories Selector -->
             <div>
-              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">3. Select Kicks / Accessory</h4>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-300 font-mono mb-2">3. Select Kicks / Accessory</h4>
               <div id="picker-scroll-acc" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
             </div>
           </div>
@@ -487,27 +602,27 @@
   </main>
 
   <!-- =========================================================================
-       4. DEDICATED AMAZON-STYLE PRODUCT DETAIL PAGE (PDP)
+       5. DEDICATED AMAZON-STYLE PRODUCT DETAIL PAGE (PDP)
        ========================================================================= -->
   <main id="product-page-view" class="hidden min-h-screen pt-4 pb-24 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <!-- Top Breadcrumbs & Back Button Bar -->
-      <div class="flex items-center justify-between py-3 mb-4 border-b border-gray-200/80 text-xs">
+      <div class="flex items-center justify-between py-3 mb-4 border-b border-gray-200/80 dark:border-zinc-800 text-xs">
         <div class="flex items-center gap-2 text-gray-500 font-medium">
-          <button onclick="app.showCatalogView(true)" class="hover:text-black font-bold flex items-center gap-1">
+          <button onclick="app.showPage('catalog-view')" class="hover:text-black dark:hover:text-white font-bold flex items-center gap-1">
             <i class="fa-solid fa-arrow-left"></i>
             <span>Back to Store</span>
           </button>
           <span>/</span>
-          <button id="pdp-breadcrumb-gender" class="hover:text-black font-semibold">Women's Collection</button>
+          <button id="pdp-breadcrumb-gender" class="hover:text-black dark:hover:text-white font-semibold">Women's Collection</button>
           <span>/</span>
           <span id="pdp-breadcrumb-cat" class="text-gray-400 font-mono uppercase">Dresses</span>
           <span>/</span>
-          <span id="pdp-breadcrumb-title" class="text-gray-900 font-bold truncate max-w-xs">Product</span>
+          <span id="pdp-breadcrumb-title" class="text-gray-900 dark:text-white font-bold truncate max-w-xs">Product</span>
         </div>
 
-        <button onclick="app.showCatalogView(true)" class="px-3.5 py-1.5 rounded-full border border-gray-300 hover:border-black text-xs font-bold text-gray-700 hover:text-black transition-all">
+        <button onclick="app.showPage('catalog-view')" class="px-3.5 py-1.5 rounded-full border border-gray-300 dark:border-zinc-700 hover:border-black text-xs font-bold text-gray-700 dark:text-zinc-300 hover:text-black dark:hover:text-white transition-all">
           ✕ Close Product
         </button>
       </div>
@@ -515,26 +630,22 @@
       <!-- Main Amazon-Style Product Grid Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         
-        <!-- COLUMN 1: High-Res Interactive Gallery (5 Cols) -->
+        <!-- COLUMN 1: High-Res Gallery (5 Cols) -->
         <div class="lg:col-span-5 flex flex-col-reverse sm:flex-row gap-4 sticky top-24">
-          <!-- Thumbnails Strip -->
-          <div id="pdp-thumbnails" class="flex sm:flex-col gap-2.5 overflow-x-auto sm:overflow-y-auto scrollbar-none flex-shrink-0">
-            <!-- Populated dynamically -->
-          </div>
+          <div id="pdp-thumbnails" class="flex sm:flex-col gap-2.5 overflow-x-auto sm:overflow-y-auto scrollbar-none flex-shrink-0"></div>
 
-          <!-- Main Interactive Zoom Image Card -->
-          <div class="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden bg-white border border-gray-200/90 shadow-xl group">
+          <div class="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden bg-white dark:bg-zinc-900 border border-gray-200/90 dark:border-zinc-800 shadow-xl group">
             <img 
               id="pdp-main-image" 
               src="" 
               alt="Product Main View" 
               class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 cursor-zoom-in"
             />
-            <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
+            <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5 font-mono">
               <span id="pdp-discount" class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-600 text-white shadow-md">
                 50% OFF
               </span>
-              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-black/80 backdrop-blur-md text-white">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-black/80 text-white">
                 #1 Best Seller
               </span>
             </div>
@@ -543,20 +654,18 @@
 
         <!-- COLUMN 2: Center Product Information & Specs (4 Cols) -->
         <div class="lg:col-span-4 space-y-5">
-          <!-- Brand and Title -->
           <div>
-            <a href="#catalog" id="pdp-brand-link" class="text-xs font-extrabold uppercase tracking-widest text-emerald-700 hover:underline font-mono">
+            <a href="#catalog" id="pdp-brand-link" class="text-xs font-extrabold uppercase tracking-widest text-emerald-700 dark:text-emerald-400 hover:underline font-mono">
               Visit the VÉLOIR Atelier Store
             </a>
-            <h1 id="pdp-title" class="text-2xl sm:text-3xl font-black text-gray-950 mt-1 brand-font leading-tight">
+            <h1 id="pdp-title" class="text-2xl sm:text-3xl font-black text-gray-950 dark:text-white mt-1 modern-title leading-tight">
               Product Title
             </h1>
           </div>
 
-          <!-- Amazon Star Rating & Questions -->
-          <div class="flex items-center gap-3 text-xs border-b border-gray-100 pb-3">
+          <div class="flex items-center gap-3 text-xs border-b border-gray-100 dark:border-zinc-800 pb-3">
             <div class="flex items-center gap-1.5">
-              <span id="pdp-rating-num" class="font-black font-mono text-gray-900 text-sm">4.9</span>
+              <span id="pdp-rating-num" class="font-black font-mono text-gray-900 dark:text-white text-sm">4.9</span>
               <div class="flex text-amber-400 text-xs">
                 <i class="fa-solid fa-star"></i>
                 <i class="fa-solid fa-star"></i>
@@ -565,115 +674,107 @@
                 <i class="fa-solid fa-star-half-stroke"></i>
               </div>
             </div>
-            <a href="#customer-reviews" class="text-gray-500 hover:text-black hover:underline" id="pdp-rating-count">
+            <a href="#customer-reviews" class="text-gray-500 hover:text-black dark:hover:text-white hover:underline" id="pdp-rating-count">
               478 ratings
             </a>
-            <span class="text-gray-300">|</span>
+            <span class="text-gray-300 dark:text-zinc-700">|</span>
             <span class="text-gray-500">84 answered questions</span>
           </div>
 
-          <!-- Amazon Pricing Block -->
-          <div class="space-y-1 bg-gray-50/70 p-4 rounded-2xl border border-gray-200/80">
+          <!-- Pricing Block -->
+          <div class="space-y-1 bg-gray-50/70 dark:bg-zinc-800/50 p-4 rounded-2xl border border-gray-200/80 dark:border-zinc-800">
             <div class="flex items-center gap-2">
-              <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-rose-600 text-white">Limited Time Deal</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-rose-600 text-white font-mono">Limited Time Deal</span>
             </div>
             <div class="flex items-baseline gap-2 pt-1">
-              <span class="text-3xl font-black font-mono text-gray-950" id="pdp-price">₹899</span>
+              <span class="text-3xl font-black font-mono text-gray-950 dark:text-white" id="pdp-price">₹899</span>
               <span class="text-xs text-gray-500">M.R.P.: <span class="line-through font-mono" id="pdp-mrp">₹1799</span></span>
             </div>
-            <p id="pdp-savings" class="text-xs font-bold text-emerald-600">You save ₹900 (50% OFF)</p>
+            <p id="pdp-savings" class="text-xs font-bold text-emerald-600 dark:text-emerald-400">You save ₹900 (50% OFF)</p>
             <p class="text-[11px] text-gray-500">Inclusive of all taxes • EMI options start from ₹79/month</p>
           </div>
 
-          <!-- Amazon Offers Carousel Box -->
-          <div class="p-3.5 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-2">
-            <div class="flex items-center gap-2 text-xs font-bold text-gray-900">
+          <!-- Offers Box -->
+          <div class="p-3.5 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-gray-900 dark:text-white">
               <i class="fa-solid fa-tag text-emerald-600"></i>
               <span>Special Atelier Offers & Coupons</span>
             </div>
             <div class="grid grid-cols-2 gap-2 text-xs">
-              <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-200">
-                <p class="font-bold text-[11px] text-gray-900">Bank Offer</p>
+              <div class="p-2.5 rounded-xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700">
+                <p class="font-bold text-[11px] text-gray-900 dark:text-white">Bank Offer</p>
                 <p class="text-[10px] text-gray-500 mt-0.5">10% instant discount on ICICI & HDFC cards.</p>
               </div>
-              <div class="p-2.5 rounded-xl bg-pink-50 border border-pink-200">
-                <p class="font-bold text-[11px] text-pink-800">Coupon Offer</p>
-                <p class="text-[10px] text-pink-600 mt-0.5">Use code <b>GIRLY20</b> or <b>STREET20</b> at bag.</p>
+              <div class="p-2.5 rounded-xl bg-pink-50 dark:bg-pink-950/30 border border-pink-200 dark:border-pink-900">
+                <p class="font-bold text-[11px] text-pink-800 dark:text-pink-300">Coupon Offer</p>
+                <p class="text-[10px] text-pink-600 dark:text-pink-400 mt-0.5">Use code <b>GIRLY20</b> or <b>STREET20</b> at bag.</p>
               </div>
             </div>
           </div>
 
           <!-- Color Selector -->
           <div class="space-y-2">
-            <div class="text-xs font-bold text-gray-700">
+            <div class="text-xs font-bold text-gray-700 dark:text-zinc-300">
               <span>Color: </span>
-              <span id="pdp-selected-color-label" class="font-black text-black">Rose Gold</span>
+              <span id="pdp-selected-color-label" class="font-black text-black dark:text-white">Rose Gold</span>
             </div>
-            <div id="pdp-color-swatches" class="flex items-center gap-2 flex-wrap">
-              <!-- Rendered dynamically -->
-            </div>
+            <div id="pdp-color-swatches" class="flex items-center gap-2 flex-wrap"></div>
           </div>
 
           <!-- Size Selector -->
           <div class="space-y-2">
-            <div class="flex items-center justify-between text-xs font-bold text-gray-700">
+            <div class="flex items-center justify-between text-xs font-bold text-gray-700 dark:text-zinc-300">
               <span>Select Size:</span>
-              <button onclick="app.showToast('True to standard Indian size fit. Order your regular size.', 'info')" class="text-gray-500 hover:text-black underline font-mono text-[11px]">
-                Size Chart & Guide
+              <button onclick="app.showToast('True to standard Indian size fit. Order your regular size.', 'info')" class="text-gray-500 hover:text-black dark:hover:text-white underline font-mono text-[11px]">
+                Size Guide
               </button>
             </div>
-            <div id="pdp-sizes-container" class="flex items-center gap-2 flex-wrap">
-              <!-- Rendered dynamically -->
-            </div>
+            <div id="pdp-sizes-container" class="flex items-center gap-2 flex-wrap"></div>
           </div>
 
           <!-- Specs Table -->
-          <div class="pt-4 border-t border-gray-100">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 font-mono mb-2.5">Specifications</h4>
+          <div class="pt-4 border-t border-gray-100 dark:border-zinc-800">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white font-mono mb-2.5">Specifications</h4>
             <div class="grid grid-cols-2 gap-y-2 text-xs">
               <span class="text-gray-500">Silhouette Fit:</span>
-              <span id="pdp-spec-fit" class="font-bold text-gray-900">Oversized Boxy</span>
+              <span id="pdp-spec-fit" class="font-bold text-gray-900 dark:text-white">Oversized Boxy</span>
               <span class="text-gray-500">Fabric Composition:</span>
-              <span id="pdp-spec-fabric" class="font-bold text-gray-900">100% Bio-Washed Cotton</span>
+              <span id="pdp-spec-fabric" class="font-bold text-gray-900 dark:text-white">100% Bio-Washed Cotton</span>
               <span class="text-gray-500">Care Instructions:</span>
-              <span class="font-bold text-gray-900">Machine Wash Cold</span>
+              <span class="font-bold text-gray-900 dark:text-white">Machine Wash Cold</span>
               <span class="text-gray-500">Country of Origin:</span>
-              <span class="font-bold text-gray-900">India (Mumbai Atelier)</span>
+              <span class="font-bold text-gray-900 dark:text-white">India (Mumbai Atelier)</span>
             </div>
           </div>
 
-          <!-- About This Item Bullets -->
-          <div class="pt-4 border-t border-gray-100">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 font-mono mb-2.5">About This Item</h4>
-            <p id="pdp-desc" class="text-xs text-gray-600 mb-3 leading-relaxed"></p>
-            <ul id="pdp-highlights-list" class="space-y-2">
-              <!-- Rendered dynamically -->
-            </ul>
+          <!-- About Item Bullets -->
+          <div class="pt-4 border-t border-gray-100 dark:border-zinc-800">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white font-mono mb-2.5">About This Item</h4>
+            <p id="pdp-desc" class="text-xs text-gray-600 dark:text-zinc-400 mb-3 leading-relaxed"></p>
+            <ul id="pdp-highlights-list" class="space-y-2"></ul>
           </div>
         </div>
 
         <!-- COLUMN 3: Amazon Sticky Buy Box (3 Cols) -->
         <div class="lg:col-span-3 sticky top-24">
           <div class="amazon-buy-box p-6 space-y-4">
-            
-            <!-- Price in Buy Box -->
             <div>
-              <span id="pdp-buybox-price" class="text-2xl font-black font-mono text-gray-950">₹899</span>
-              <p class="text-xs text-emerald-600 font-bold mt-0.5">✦ FREE Delivery on orders above ₹999</p>
+              <span id="pdp-buybox-price" class="text-2xl font-black font-mono text-gray-950 dark:text-white">₹899</span>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-bold mt-0.5">FREE Delivery on orders above ₹999</p>
             </div>
 
             <!-- PIN Code Delivery Checker -->
-            <div class="space-y-2 pt-2 border-t border-gray-200">
-              <label class="text-[11px] font-bold text-gray-700 block">Deliver to:</label>
+            <div class="space-y-2 pt-2 border-t border-gray-200 dark:border-zinc-800">
+              <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block">Deliver to:</label>
               <div class="flex gap-1.5">
                 <input 
                   type="text" 
                   id="pdp-pincode-input" 
                   placeholder="Enter 6-digit PIN" 
                   maxlength="6"
-                  class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-black font-mono" 
+                  class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 focus:outline-none font-mono" 
                 />
-                <button onclick="app.checkPdpPincode()" class="px-3 py-2 rounded-xl bg-gray-900 text-white text-xs font-bold hover:bg-black transition-colors">
+                <button onclick="app.checkPdpPincode()" class="px-3 py-2 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-black text-xs font-bold transition-colors">
                   Check
                 </button>
               </div>
@@ -681,32 +782,30 @@
             </div>
 
             <!-- In-Stock Status -->
-            <div id="pdp-stock-status" class="text-xs text-emerald-700 font-bold">
+            <div id="pdp-stock-status" class="text-xs text-emerald-700 dark:text-emerald-400 font-bold">
               In Stock. Ships from VÉLOIR Mumbai Hub.
             </div>
 
             <!-- Quantity Selector -->
             <div class="flex items-center justify-between text-xs pt-2">
-              <span class="font-bold text-gray-700">Quantity:</span>
-              <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden bg-white">
-                <button onclick="app.updatePdpQty(-1)" class="px-3 py-1.5 hover:bg-gray-100 font-bold text-gray-700">-</button>
-                <span id="pdp-qty-display" class="px-3 py-1.5 font-bold font-mono text-black">1</span>
-                <button onclick="app.updatePdpQty(1)" class="px-3 py-1.5 hover:bg-gray-100 font-bold text-gray-700">+</button>
+              <span class="font-bold text-gray-700 dark:text-zinc-300">Quantity:</span>
+              <div class="flex items-center border border-gray-300 dark:border-zinc-700 rounded-xl overflow-hidden bg-white dark:bg-zinc-800">
+                <button onclick="app.updatePdpQty(-1)" class="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-zinc-700 font-bold text-gray-700 dark:text-zinc-200">-</button>
+                <span id="pdp-qty-display" class="px-3 py-1.5 font-bold font-mono text-black dark:text-white">1</span>
+                <button onclick="app.updatePdpQty(1)" class="px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-zinc-700 font-bold text-gray-700 dark:text-zinc-200">+</button>
               </div>
             </div>
 
-            <!-- Action Buttons (Add to Cart & Buy Now) -->
+            <!-- Action Buttons -->
             <div class="space-y-2.5 pt-2">
-              <!-- Add to Cart Button -->
               <button 
                 onclick="app.addToCartFromPdp()" 
-                class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+                class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
               >
                 <i class="fa-solid fa-bag-shopping text-yellow-400"></i>
                 <span>Add to Shopping Bag</span>
               </button>
 
-              <!-- Buy Now Button (Amazon Style Instant Checkout) -->
               <button 
                 onclick="app.buyNowFromPdp()" 
                 class="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-gray-950 font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
@@ -715,11 +814,10 @@
                 <span>Buy Now (Instant Order)</span>
               </button>
 
-              <!-- Add to Wishlist Button -->
               <button 
                 id="pdp-wishlist-btn"
                 onclick="app.toggleWishlistFromPdp()" 
-                class="w-full py-2.5 rounded-xl border border-gray-300 hover:border-black text-gray-800 font-bold text-xs transition-all flex items-center justify-center gap-2"
+                class="w-full py-2.5 rounded-xl border border-gray-300 dark:border-zinc-700 hover:border-black text-gray-800 dark:text-zinc-200 font-bold text-xs transition-all flex items-center justify-center gap-2"
               >
                 <i class="fa-regular fa-heart text-sm"></i>
                 <span>Add to Wish List</span>
@@ -727,21 +825,21 @@
             </div>
 
             <!-- Trust Badges -->
-            <div class="pt-4 border-t border-gray-200 grid grid-cols-2 gap-3 text-[11px] text-gray-500">
+            <div class="pt-4 border-t border-gray-200 dark:border-zinc-800 grid grid-cols-2 gap-3 text-[11px] text-gray-500">
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-lock text-gray-700"></i>
+                <i class="fa-solid fa-lock text-gray-700 dark:text-zinc-400"></i>
                 <span>Secure Payment</span>
               </div>
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-rotate-left text-gray-700"></i>
+                <i class="fa-solid fa-rotate-left text-gray-700 dark:text-zinc-400"></i>
                 <span>7-Day Return</span>
               </div>
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-shield-check text-gray-700"></i>
+                <i class="fa-solid fa-shield-check text-gray-700 dark:text-zinc-400"></i>
                 <span>100% Authentic</span>
               </div>
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-box text-gray-700"></i>
+                <i class="fa-solid fa-box text-gray-700 dark:text-zinc-400"></i>
                 <span>Discreet Pack</span>
               </div>
             </div>
@@ -752,18 +850,18 @@
       </div>
 
       <!-- FULL AMAZON-STYLE CUSTOMER RATINGS & REVIEWS SECTION -->
-      <section id="customer-reviews" class="mt-20 pt-12 border-t border-gray-200">
-        <h3 class="text-2xl font-black uppercase tracking-tight brand-font text-gray-950 mb-8">
+      <section id="customer-reviews" class="mt-20 pt-12 border-t border-gray-200 dark:border-zinc-800">
+        <h3 class="text-2xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white mb-8">
           Customer Ratings & Reviews
         </h3>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
-          <!-- Left Rating Overview & Star Breakdown (4 Cols) -->
+          <!-- Rating Breakdown (4 Cols) -->
           <div class="lg:col-span-4 space-y-6">
             <div>
               <div class="flex items-baseline gap-2">
-                <span id="pdp-reviews-overall-score" class="text-5xl font-black font-mono text-gray-950">4.9</span>
+                <span id="pdp-reviews-overall-score" class="text-5xl font-black font-mono text-gray-950 dark:text-white">4.9</span>
                 <span class="text-sm font-bold text-gray-500">out of 5 stars</span>
               </div>
               <div class="flex text-amber-400 text-base mt-1">
@@ -776,57 +874,57 @@
               <p id="pdp-reviews-total-subtitle" class="text-xs text-gray-500 mt-1">Based on 478 verified global customer ratings</p>
             </div>
 
-            <!-- Star Progress Bars -->
+            <!-- Progress Bars -->
             <div class="space-y-2 text-xs">
               <div class="flex items-center gap-3">
-                <span class="w-12 text-gray-600 font-bold">5 star</span>
+                <span class="w-12 text-gray-600 dark:text-zinc-400 font-bold">5 star</span>
                 <div class="star-progress-bar flex-1">
                   <div id="bar-5-star" class="star-progress-fill" style="width: 78%"></div>
                 </div>
-                <span id="bar-5-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">78%</span>
+                <span id="bar-5-star-pct" class="w-10 text-right font-mono font-bold text-gray-700 dark:text-zinc-300">78%</span>
               </div>
 
               <div class="flex items-center gap-3">
-                <span class="w-12 text-gray-600 font-bold">4 star</span>
+                <span class="w-12 text-gray-600 dark:text-zinc-400 font-bold">4 star</span>
                 <div class="star-progress-bar flex-1">
                   <div id="bar-4-star" class="star-progress-fill" style="width: 16%"></div>
                 </div>
-                <span id="bar-4-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">16%</span>
+                <span id="bar-4-star-pct" class="w-10 text-right font-mono font-bold text-gray-700 dark:text-zinc-300">16%</span>
               </div>
 
               <div class="flex items-center gap-3">
-                <span class="w-12 text-gray-600 font-bold">3 star</span>
+                <span class="w-12 text-gray-600 dark:text-zinc-400 font-bold">3 star</span>
                 <div class="star-progress-bar flex-1">
                   <div id="bar-3-star" class="star-progress-fill" style="width: 4%"></div>
                 </div>
-                <span id="bar-3-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">4%</span>
+                <span id="bar-3-star-pct" class="w-10 text-right font-mono font-bold text-gray-700 dark:text-zinc-300">4%</span>
               </div>
 
               <div class="flex items-center gap-3">
-                <span class="w-12 text-gray-600 font-bold">2 star</span>
+                <span class="w-12 text-gray-600 dark:text-zinc-400 font-bold">2 star</span>
                 <div class="star-progress-bar flex-1">
                   <div id="bar-2-star" class="star-progress-fill" style="width: 1%"></div>
                 </div>
-                <span id="bar-2-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">1%</span>
+                <span id="bar-2-star-pct" class="w-10 text-right font-mono font-bold text-gray-700 dark:text-zinc-300">1%</span>
               </div>
 
               <div class="flex items-center gap-3">
-                <span class="w-12 text-gray-600 font-bold">1 star</span>
+                <span class="w-12 text-gray-600 dark:text-zinc-400 font-bold">1 star</span>
                 <div class="star-progress-bar flex-1">
                   <div id="bar-1-star" class="star-progress-fill" style="width: 1%"></div>
                 </div>
-                <span id="bar-1-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">1%</span>
+                <span id="bar-1-star-pct" class="w-10 text-right font-mono font-bold text-gray-700 dark:text-zinc-300">1%</span>
               </div>
             </div>
 
-            <!-- Write A Review Interactive Form Drawer / Card -->
-            <div class="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-3">
-              <h5 class="text-sm font-bold text-gray-900">Review this product</h5>
+            <!-- Write A Review Form -->
+            <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm space-y-3">
+              <h5 class="text-sm font-bold text-gray-900 dark:text-white">Review this product</h5>
               <p class="text-xs text-gray-500">Share your thoughts and feedback with other customers</p>
               
               <form onsubmit="app.submitProductReview(event)" class="space-y-3 pt-2">
                 <div>
-                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Overall Rating</label>
+                  <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Overall Rating</label>
                   <div class="flex items-center gap-2 review-star-picker">
                     <i onclick="app.setReviewRating(1)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
                     <i onclick="app.setReviewRating(2)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
@@ -837,21 +935,21 @@
                 </div>
 
                 <div>
-                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Your Name</label>
-                  <input type="text" id="review-author-input" placeholder="e.g. Aryan S." required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+                  <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Your Name</label>
+                  <input type="text" id="review-author-input" placeholder="e.g. Aryan S." required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
                 </div>
 
                 <div>
-                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Headline</label>
-                  <input type="text" id="review-title-input" placeholder="What's most important to know?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+                  <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Headline</label>
+                  <input type="text" id="review-title-input" placeholder="What's most important to know?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
                 </div>
 
                 <div>
-                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Written Review</label>
-                  <textarea id="review-text-input" rows="3" placeholder="What did you like or dislike? How was the fit and fabric drape?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black"></textarea>
+                  <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Written Review</label>
+                  <textarea id="review-text-input" rows="3" placeholder="What did you like or dislike? How was the fit and fabric drape?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none"></textarea>
                 </div>
 
-                <button type="submit" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider transition-all">
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-bold text-xs uppercase tracking-wider transition-all">
                   Submit Verified Review
                 </button>
               </form>
@@ -859,87 +957,254 @@
 
           </div>
 
-          <!-- Right Customer Reviews List (8 Cols) -->
+          <!-- Reviews List (8 Cols) -->
           <div class="lg:col-span-8">
-            <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
-              <h4 class="text-sm font-bold text-gray-900 uppercase font-mono">Top Verified Customer Reviews</h4>
+            <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-zinc-800 mb-6">
+              <h4 class="text-sm font-bold text-gray-900 dark:text-white uppercase font-mono">Top Verified Customer Reviews</h4>
               <span class="text-xs text-gray-500">Sorted by most helpful</span>
             </div>
 
-            <!-- Reviews Container -->
-            <div id="pdp-customer-reviews-list" class="space-y-6">
-              <!-- Populated dynamically -->
-            </div>
+            <div id="pdp-customer-reviews-list" class="space-y-6"></div>
           </div>
 
         </div>
       </section>
 
       <!-- RELATED RECOMMENDATIONS CAROUSEL -->
-      <section class="mt-20 pt-12 border-t border-gray-200">
-        <h3 class="text-2xl font-black uppercase tracking-tight brand-font text-gray-950 mb-6">
+      <section class="mt-20 pt-12 border-t border-gray-200 dark:border-zinc-800">
+        <h3 class="text-2xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white mb-6">
           Customers Also Viewed
         </h3>
-        <div id="pdp-related-items" class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
-          <!-- Populated dynamically -->
-        </div>
+        <div id="pdp-related-items" class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6"></div>
       </section>
 
     </div>
   </main>
 
   <!-- =========================================================================
-       5. CART DRAWER (Slide-over)
+       6. DEDICATED MY ORDERS & PURCHASES PAGE (#orders-view)
+       ========================================================================= -->
+  <main id="orders-view" class="hidden min-h-screen py-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
+    <div class="flex items-center justify-between pb-6 mb-8 border-b border-gray-200 dark:border-zinc-800">
+      <div>
+        <button onclick="app.showPage('catalog-view')" class="text-xs text-gray-500 hover:text-black dark:hover:text-white font-bold flex items-center gap-1 mb-2">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Store</span>
+        </button>
+        <h2 class="text-3xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white">
+          My Orders & Purchases
+        </h2>
+        <p class="text-xs text-gray-500 mt-1">Track packages, view past order invoices, and buy items again.</p>
+      </div>
+
+      <div class="hidden sm:flex items-center gap-2">
+        <span class="px-3 py-1.5 rounded-full bg-gray-100 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-xs font-mono font-bold text-gray-700 dark:text-zinc-300">
+          Verified Buyer Protection
+        </span>
+      </div>
+    </div>
+
+    <!-- Orders List Container -->
+    <div id="orders-page-list" class="space-y-6">
+      <!-- Populated dynamically by app.renderOrdersPage() -->
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       7. DEDICATED TRACK ACTIVE ORDER PAGE (#track-view)
+       ========================================================================= -->
+  <main id="track-view" class="hidden min-h-screen py-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
+    <div class="pb-6 mb-8 border-b border-gray-200 dark:border-zinc-800">
+      <button onclick="app.showPage('catalog-view')" class="text-xs text-gray-500 hover:text-black dark:hover:text-white font-bold flex items-center gap-1 mb-2">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Store</span>
+      </button>
+      <h2 class="text-3xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white">
+        Track Your Package
+      </h2>
+      <p class="text-xs text-gray-500 mt-1">Real-time status updates from dispatch to doorstep delivery.</p>
+    </div>
+
+    <!-- Order Tracking Search Box -->
+    <div class="mb-8 p-4 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm flex items-center gap-3">
+      <i class="fa-solid fa-magnifying-glass text-gray-400"></i>
+      <input 
+        type="text" 
+        id="track-input-search" 
+        placeholder="Enter Order ID (e.g. ORD-94821)" 
+        class="flex-1 text-xs bg-transparent focus:outline-none font-mono uppercase text-gray-900 dark:text-white"
+      />
+      <button onclick="app.searchTrackOrder()" class="px-5 py-2 rounded-xl bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-wider">
+        Track
+      </button>
+    </div>
+
+    <!-- Tracking Stepper & Carrier Details -->
+    <div id="track-page-content">
+      <!-- Populated dynamically by app.renderTrackPage() -->
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       8. DEDICATED WISHLIST PAGE (#wishlist-view)
+       ========================================================================= -->
+  <main id="wishlist-view" class="hidden min-h-screen py-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
+    <div class="flex items-center justify-between pb-6 mb-8 border-b border-gray-200 dark:border-zinc-800">
+      <div>
+        <button onclick="app.showPage('catalog-view')" class="text-xs text-gray-500 hover:text-black dark:hover:text-white font-bold flex items-center gap-1 mb-2">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to Store</span>
+        </button>
+        <h2 class="text-3xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white">
+          My Saved Wishlist
+        </h2>
+        <p class="text-xs text-gray-500 mt-1">Saved pieces from Men's Streetwear and Women's Atelier collections.</p>
+      </div>
+
+      <span id="wishlist-page-count" class="text-xs font-mono font-bold px-3 py-1.5 rounded-full bg-gray-100 dark:bg-zinc-800 text-gray-900 dark:text-white">
+        0 Saved Items
+      </span>
+    </div>
+
+    <!-- Wishlist Grid -->
+    <div id="wishlist-page-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      <!-- Populated dynamically by app.renderWishlistPage() -->
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       9. DEDICATED CUSTOMER SUPPORT & CONCIERGE PAGE (#support-view)
+       ========================================================================= -->
+  <main id="support-view" class="hidden min-h-screen py-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300">
+    <div class="pb-6 mb-8 border-b border-gray-200 dark:border-zinc-800">
+      <button onclick="app.showPage('catalog-view')" class="text-xs text-gray-500 hover:text-black dark:hover:text-white font-bold flex items-center gap-1 mb-2">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Store</span>
+      </button>
+      <h2 class="text-3xl font-black uppercase tracking-tight modern-title text-gray-950 dark:text-white">
+        Customer Care & Concierge
+      </h2>
+      <p class="text-xs text-gray-500 mt-1">24/7 dedicated support, instant WhatsApp chat, and 7-day doorstep returns.</p>
+    </div>
+
+    <!-- Support Options Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm text-center space-y-2">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 mx-auto flex items-center justify-center text-xl">
+          <i class="fa-brands fa-whatsapp"></i>
+        </div>
+        <h4 class="text-sm font-bold text-gray-900 dark:text-white">WhatsApp Concierge</h4>
+        <p class="text-[11px] text-gray-500">Instant answers regarding sizing, fabric, and delivery.</p>
+        <button onclick="app.showToast('Connecting to 24/7 WhatsApp Concierge...', 'success')" class="mt-2 px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs">
+          Chat Live
+        </button>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm text-center space-y-2">
+        <div class="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-950/40 text-blue-600 mx-auto flex items-center justify-center text-xl">
+          <i class="fa-solid fa-rotate-left"></i>
+        </div>
+        <h4 class="text-sm font-bold text-gray-900 dark:text-white">7-Day Free Returns</h4>
+        <p class="text-[11px] text-gray-500">Doorstep pickup and instant exchange or full refund.</p>
+        <button onclick="app.showPage('orders-view')" class="mt-2 px-4 py-1.5 rounded-xl bg-black dark:bg-white text-white dark:text-black font-bold text-xs">
+          Start Return
+        </button>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm text-center space-y-2">
+        <div class="w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-950/40 text-purple-600 mx-auto flex items-center justify-center text-xl">
+          <i class="fa-solid fa-envelope"></i>
+        </div>
+        <h4 class="text-sm font-bold text-gray-900 dark:text-white">Email Concierge</h4>
+        <p class="text-[11px] text-gray-500">concierge@veloir.atelier (Reply within 15 mins)</p>
+        <button onclick="app.showToast('Concierge email copied to clipboard', 'info')" class="mt-2 px-4 py-1.5 rounded-xl border border-gray-300 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 font-bold text-xs">
+          Copy Email
+        </button>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="p-6 sm:p-8 rounded-3xl bg-white dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 shadow-sm">
+      <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Submit a Support Ticket</h3>
+      <p class="text-xs text-gray-500 mb-6">Our dedicated support representatives will respond promptly.</p>
+
+      <form onsubmit="app.submitSupportTicket(event)" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Your Full Name</label>
+            <input type="text" id="support-name" placeholder="John Doe" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+          </div>
+          <div>
+            <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Email Address</label>
+            <input type="email" placeholder="john@example.com" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Subject / Issue Category</label>
+          <input type="text" id="support-subject" placeholder="e.g. Order Delivery Status or Size Exchange" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+        </div>
+
+        <div>
+          <label class="text-[11px] font-bold text-gray-700 dark:text-zinc-300 block mb-1">Message Description</label>
+          <textarea rows="4" placeholder="Please describe how we can assist you..." required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none"></textarea>
+        </div>
+
+        <button type="submit" class="px-6 py-3 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-bold text-xs uppercase tracking-wider transition-all">
+          Submit Support Ticket
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <!-- =========================================================================
+       10. CART DRAWER (Slide-over)
        ========================================================================= -->
   <div id="cart-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
-    <div class="drawer-panel w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
-      <!-- Cart Header -->
-      <div class="p-5 border-b border-gray-200 flex items-center justify-between">
+    <div class="drawer-panel w-full max-w-md bg-white dark:bg-zinc-900 h-full flex flex-col shadow-2xl">
+      <!-- Header -->
+      <div class="p-5 border-b border-gray-200 dark:border-zinc-800 flex items-center justify-between">
         <div class="flex items-center gap-2">
           <i class="fa-solid fa-bag-shopping text-base text-yellow-400"></i>
-          <h3 class="text-base font-black uppercase tracking-tight brand-font">Shopping Bag</h3>
-          <span class="cart-counter px-2 py-0.5 rounded-full bg-black text-white text-[10px] font-mono font-bold">0</span>
+          <h3 class="text-base font-black uppercase tracking-tight modern-title text-gray-900 dark:text-white">Shopping Bag</h3>
+          <span class="cart-counter px-2 py-0.5 rounded-full bg-black text-white dark:bg-white dark:text-black text-[10px] font-mono font-bold">0</span>
         </div>
-        <button onclick="app.closeCartDrawer()" class="p-2 text-gray-400 hover:text-black text-sm" title="Close Bag">
+        <button onclick="app.closeCartDrawer()" class="p-2 text-gray-400 hover:text-black dark:hover:text-white text-sm" title="Close Bag">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <!-- Free Shipping Tracker -->
-      <div class="p-4 bg-gray-50 border-b border-gray-200 text-xs">
+      <div class="p-4 bg-gray-50 dark:bg-zinc-800 border-b border-gray-200 dark:border-zinc-700 text-xs">
         <div class="flex items-center justify-between mb-1.5 font-bold">
-          <span id="free-shipping-msg" class="text-gray-700">Add ₹999 for FREE Delivery</span>
+          <span id="free-shipping-msg" class="text-gray-700 dark:text-zinc-300">Add ₹999 for FREE Delivery</span>
         </div>
-        <div class="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-          <div id="free-shipping-progress" class="bg-black h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+        <div class="w-full bg-gray-200 dark:bg-zinc-700 rounded-full h-1.5 overflow-hidden">
+          <div id="free-shipping-progress" class="bg-black dark:bg-white h-full rounded-full transition-all duration-300" style="width: 0%"></div>
         </div>
       </div>
 
-      <!-- Cart Items List -->
-      <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
-        <!-- Rendered dynamically -->
-      </div>
+      <!-- Items List -->
+      <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
 
-      <!-- Cart Footer & Checkout -->
-      <div class="p-5 border-t border-gray-200 bg-gray-50/80 space-y-3">
-        <!-- Coupon Form -->
+      <!-- Cart Footer -->
+      <div class="p-5 border-t border-gray-200 dark:border-zinc-800 bg-gray-50/80 dark:bg-zinc-950/80 space-y-3">
         <div class="flex gap-2">
           <input 
             type="text" 
             id="cart-coupon-input" 
-            placeholder="Enter promo code (e.g. GIRLY20)" 
-            class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white font-mono uppercase focus:outline-none focus:border-black"
+            placeholder="Promo code (e.g. GIRLY20)" 
+            class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 font-mono uppercase focus:outline-none text-gray-900 dark:text-white"
           />
-          <button onclick="app.applyCartCoupon()" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold transition-all">
+          <button onclick="app.applyCartCoupon()" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-black dark:bg-white dark:text-black text-white text-xs font-bold transition-all">
             Apply
           </button>
         </div>
 
-        <!-- Totals Summary -->
         <div class="space-y-1.5 text-xs">
           <div class="flex justify-between text-gray-500">
             <span>Subtotal</span>
-            <span id="cart-subtotal" class="font-mono font-bold text-gray-900">₹0</span>
+            <span id="cart-subtotal" class="font-mono font-bold text-gray-900 dark:text-white">₹0</span>
           </div>
           <div class="flex justify-between text-emerald-600 font-bold">
             <span>Discount Applied</span>
@@ -947,15 +1212,15 @@
           </div>
           <div class="flex justify-between text-gray-500">
             <span>Express Shipping</span>
-            <span id="cart-shipping" class="font-mono font-bold text-gray-900">FREE</span>
+            <span id="cart-shipping" class="font-mono font-bold text-gray-900 dark:text-white">FREE</span>
           </div>
-          <div class="flex justify-between text-base font-black text-gray-950 pt-2 border-t border-gray-200">
+          <div class="flex justify-between text-base font-black text-gray-950 dark:text-white pt-2 border-t border-gray-200 dark:border-zinc-800">
             <span>Total Payable</span>
             <span id="cart-final-total" class="font-mono text-xl">₹0</span>
           </div>
         </div>
 
-        <button onclick="app.openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
+        <button onclick="app.openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
           <span>Proceed to Buy</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
@@ -964,62 +1229,62 @@
   </div>
 
   <!-- =========================================================================
-       6. CHECKOUT MODAL (Complete Amazon-like Purchase Flow)
+       11. CHECKOUT MODAL
        ========================================================================= -->
   <div id="checkout-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-content w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+    <div class="modal-content w-full max-w-lg bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-zinc-800 mb-6">
         <div>
-          <h3 class="text-xl font-black uppercase tracking-tight brand-font">Instant Express Checkout</h3>
-          <p class="text-xs text-gray-500 font-mono">Order total: <b id="checkout-total-display" class="text-black">₹0</b></p>
+          <h3 class="text-xl font-black uppercase tracking-tight modern-title text-gray-900 dark:text-white">Instant Express Checkout</h3>
+          <p class="text-xs text-gray-500 font-mono">Order total: <b id="checkout-total-display" class="text-black dark:text-white">₹0</b></p>
         </div>
-        <button onclick="app.closeCheckoutModal()" class="p-2 text-gray-400 hover:text-black text-sm">
+        <button onclick="app.closeCheckoutModal()" class="p-2 text-gray-400 hover:text-black dark:hover:text-white text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <form onsubmit="app.processOrderPlacement(event)" class="space-y-4">
         <div>
-          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">1. Delivery Address</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-300 font-mono mb-2">1. Delivery Address</h4>
           <div class="grid grid-cols-2 gap-3">
-            <input type="text" id="cust-name" placeholder="Full Name" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
-            <input type="tel" id="cust-phone" placeholder="Mobile Number (+91)" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black font-mono" />
-            <input type="text" id="cust-address" placeholder="Flat, Street, Area" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
-            <input type="text" id="cust-city" placeholder="City (e.g. Mumbai)" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
-            <input type="text" id="cust-pincode" placeholder="PIN Code (6 digits)" maxlength="6" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black font-mono" />
+            <input type="text" id="cust-name" placeholder="Full Name" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+            <input type="tel" id="cust-phone" placeholder="Mobile Number (+91)" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none font-mono" />
+            <input type="text" id="cust-address" placeholder="Flat, Street, Area" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+            <input type="text" id="cust-city" placeholder="City (e.g. Mumbai)" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none" />
+            <input type="text" id="cust-pincode" placeholder="PIN Code (6 digits)" maxlength="6" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 focus:outline-none font-mono" />
           </div>
         </div>
 
         <div class="pt-2">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">2. Payment Method</h4>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 dark:text-zinc-300 font-mono mb-2">2. Payment Method</h4>
           <div class="space-y-2 text-xs">
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 cursor-pointer hover:border-black">
               <input type="radio" name="payment-method" value="UPI (Google Pay / PhonePe)" checked class="accent-black" />
               <div class="flex-1 flex items-center justify-between">
-                <span class="font-bold">UPI / QR (GPay, PhonePe, Paytm)</span>
+                <span class="font-bold text-gray-900 dark:text-white">UPI / QR (GPay, PhonePe, Paytm)</span>
                 <i class="fa-brands fa-google-pay text-lg text-blue-600"></i>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 cursor-pointer hover:border-black">
               <input type="radio" name="payment-method" value="Credit / Debit Card" class="accent-black" />
               <div class="flex-1 flex items-center justify-between">
-                <span class="font-bold">Credit / Debit Card (Visa, Mastercard)</span>
-                <i class="fa-solid fa-credit-card text-gray-700"></i>
+                <span class="font-bold text-gray-900 dark:text-white">Credit / Debit Card (Visa, Mastercard)</span>
+                <i class="fa-solid fa-credit-card text-gray-700 dark:text-zinc-300"></i>
               </div>
             </label>
 
-            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 dark:border-zinc-700 bg-gray-50 dark:bg-zinc-800 cursor-pointer hover:border-black">
               <input type="radio" name="payment-method" value="Cash on Delivery (COD)" class="accent-black" />
               <div class="flex-1 flex items-center justify-between">
-                <span class="font-bold">Cash on Delivery (Pay at Doorstep)</span>
+                <span class="font-bold text-gray-900 dark:text-white">Cash on Delivery (Pay at Doorstep)</span>
                 <i class="fa-solid fa-money-bill-wave text-emerald-600"></i>
               </div>
             </label>
           </div>
         </div>
 
-        <button type="submit" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md mt-4">
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-200 text-white dark:text-black font-black text-xs uppercase tracking-wider transition-all shadow-md mt-4">
           Confirm & Place Order
         </button>
       </form>
@@ -1027,99 +1292,46 @@
   </div>
 
   <!-- =========================================================================
-       7. WISHLIST DRAWER
-       ========================================================================= -->
-  <div id="wishlist-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
-    <div class="drawer-panel w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
-      <div class="p-5 border-b border-gray-200 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-heart text-base text-red-500"></i>
-          <h3 class="text-base font-black uppercase tracking-tight brand-font">Saved Wishlist</h3>
-        </div>
-        <button onclick="app.closeWishlistDrawer()" class="p-2 text-gray-400 hover:text-black text-sm">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
-        <!-- Rendered dynamically -->
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       8. LIVE ORDER TRACKING MODAL
-       ========================================================================= -->
-  <div id="order-tracking-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-content w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
-        <div>
-          <h3 class="text-lg font-black uppercase tracking-tight brand-font">Order Tracking</h3>
-          <p class="text-xs text-gray-500 font-mono">Order ID: <b id="track-order-id" class="text-black">ORD-94821</b></p>
-        </div>
-        <button onclick="app.closeOrderTracker()" class="p-2 text-gray-400 hover:text-black text-sm">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 mb-6 flex items-center justify-between">
-        <div>
-          <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Current Status</span>
-          <h4 id="track-order-status" class="text-base font-black text-emerald-600">Processing</h4>
-        </div>
-        <div class="text-right">
-          <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Carrier</span>
-          <p id="track-order-carrier" class="text-xs font-bold text-gray-800">Express Courier</p>
-        </div>
-      </div>
-
-      <div id="tracking-steps-container" class="space-y-4">
-        <!-- Rendered dynamically -->
-      </div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       9. STORE ADMIN HQ DASHBOARD MODAL
+       12. STORE ADMIN HQ DASHBOARD MODAL
        ========================================================================= -->
   <div id="admin-dashboard-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="modal-content w-full max-w-4xl bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+    <div class="modal-content w-full max-w-4xl bg-white dark:bg-zinc-900 rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-zinc-800 mb-6">
         <div>
           <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white font-mono">STORE OWNER HQ</span>
-            <h3 class="text-xl font-black uppercase tracking-tight brand-font">VÉLOIR Management Console</h3>
+            <span class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white dark:bg-white dark:text-black font-mono">STORE OWNER HQ</span>
+            <h3 class="text-xl font-black uppercase tracking-tight modern-title text-gray-900 dark:text-white">VÉLOIR Management Console</h3>
           </div>
           <p class="text-xs text-gray-500 font-mono">Real-time revenue, orders & catalog inventory metrics</p>
         </div>
-        <button onclick="app.toggleAdminDashboard()" class="p-2 text-gray-400 hover:text-black text-sm">
+        <button onclick="app.toggleAdminDashboard()" class="p-2 text-gray-400 hover:text-black dark:hover:text-white text-sm">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
       <!-- Metrics Cards -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
-        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700">
           <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Total Revenue</span>
-          <p id="kpi-revenue" class="text-2xl font-black font-mono text-gray-900 mt-1">₹48,920</p>
+          <p id="kpi-revenue" class="text-2xl font-black font-mono text-gray-900 dark:text-white mt-1">₹48,920</p>
         </div>
-        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700">
           <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Total Orders</span>
-          <p id="kpi-orders" class="text-2xl font-black font-mono text-gray-900 mt-1">32</p>
+          <p id="kpi-orders" class="text-2xl font-black font-mono text-gray-900 dark:text-white mt-1">32</p>
         </div>
-        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700">
           <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Active Catalog</span>
-          <p id="kpi-catalog" class="text-2xl font-black font-mono text-gray-900 mt-1">28 Drops</p>
+          <p id="kpi-catalog" class="text-2xl font-black font-mono text-gray-900 dark:text-white mt-1">28 Drops</p>
         </div>
-        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+        <div class="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700">
           <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Avg Order Value</span>
-          <p id="kpi-aov" class="text-2xl font-black font-mono text-emerald-600 mt-1">₹1,528</p>
+          <p id="kpi-aov" class="text-2xl font-black font-mono text-emerald-600 dark:text-emerald-400 mt-1">₹1,528</p>
         </div>
       </div>
 
-      <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-xs text-gray-600">
+      <div class="p-4 rounded-2xl bg-gray-50 dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 text-xs text-gray-600 dark:text-zinc-300">
         <p class="font-bold">Catalog Distribution:</p>
-        <p class="mt-1">14 Men's Streetwear Drops • 14 Women's Chic Atelier Drops. Managed with real-time reactive LocalStorage persistence.</p>
+        <p class="mt-1">14 Men's Streetwear Drops • 14 Women's Atelier Drops. Managed with real-time reactive LocalStorage persistence.</p>
       </div>
     </div>
   </div>
@@ -1128,7 +1340,7 @@
   <div id="toast-container"></div>
 
   <!-- =========================================================================
-       10. FOOTER
+       13. FOOTER
        ========================================================================= -->
   <footer class="bg-gray-950 text-white border-t border-gray-800 pt-16 pb-12 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1139,7 +1351,7 @@
             <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-white text-black tracking-widest font-mono">ATELIER</span>
           </div>
           <p class="text-xs text-gray-400 leading-relaxed">
-            India's premium luxury streetwear and modern casuals atelier. Featuring dedicated collections for both Men & Women.
+            India's premium luxury streetwear and modern casuals atelier. Featuring dedicated collections for Men & Women.
           </p>
           <div class="flex gap-3 text-gray-400 text-sm">
             <a href="#" class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center hover:text-white"><i class="fa-brands fa-instagram"></i></a>
@@ -1151,10 +1363,10 @@
         <div>
           <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">Shop Departments</h5>
           <ul class="text-xs text-gray-400 space-y-2">
-            <li><button onclick="app.setGender('men')" class="hover:text-white">⚡ Men's Streetwear Drops</button></li>
-            <li><button onclick="app.setGender('women')" class="hover:text-white">🌸 Women's Chic Atelier</button></li>
+            <li><button onclick="app.setGender('men'); app.showPage('catalog-view')" class="hover:text-white">Men's Streetwear Drops</button></li>
+            <li><button onclick="app.setGender('women'); app.showPage('catalog-view')" class="hover:text-white">Women's Chic Atelier</button></li>
             <li><button onclick="app.filterByStoryCategory('shoes')" class="hover:text-white">Sneakers & Party Heels</button></li>
-            <li><a href="#style-studio" class="hover:text-white">Complete The Look Studio</a></li>
+            <li><a href="#style-studio" onclick="app.showPage('catalog-view')" class="hover:text-white">Complete The Look Studio</a></li>
             <li><button class="toggle-admin-view text-yellow-400 hover:underline font-bold">Store Admin HQ</button></li>
           </ul>
         </div>
@@ -1162,10 +1374,11 @@
         <div>
           <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">Customer Support</h5>
           <ul class="text-xs text-gray-400 space-y-2">
-            <li><button onclick="app.openOrderTracker()" class="hover:text-white">Track Your Order</button></li>
-            <li><a href="#" class="hover:text-white">7-Day Free Returns & Doorstep Exchange</a></li>
-            <li><a href="#" class="hover:text-white">Size Chart & Fit Guide</a></li>
-            <li><a href="#" class="hover:text-white">24/7 WhatsApp Concierge</a></li>
+            <li><button onclick="app.showPage('track-view')" class="hover:text-white">Track Your Order</button></li>
+            <li><button onclick="app.showPage('orders-view')" class="hover:text-white">My Orders & Purchases</button></li>
+            <li><button onclick="app.showPage('wishlist-view')" class="hover:text-white">My Saved Wishlist</button></li>
+            <li><button onclick="app.showPage('support-view')" class="hover:text-white">7-Day Free Returns & Exchange</button></li>
+            <li><button onclick="app.showPage('support-view')" class="hover:text-white">24/7 WhatsApp Concierge</button></li>
           </ul>
         </div>
 
@@ -1174,7 +1387,7 @@
           <p class="text-xs text-gray-400 mb-3">Get private access 15 minutes before new seasonal drops go live.</p>
           <div class="flex gap-2">
             <input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 text-xs rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-white" />
-            <button onclick="app.showToast('Subscribed to drop alerts!', 'success')" class="px-3.5 py-2 rounded-xl bg-white text-black font-extrabold text-xs">Join</button>
+            <button onclick="app.showToast('Subscribed to drop alerts', 'success')" class="px-3.5 py-2 rounded-xl bg-white text-black font-extrabold text-xs">Join</button>
           </div>
         </div>
       </div>
@@ -1187,12 +1400,12 @@
   </footer>
 
   <!-- =========================================================================
-       SCRIPTS (Clean Architecture)
+       SCRIPTS
        ========================================================================= -->
-  <script src="js/data.js?v=6.0"></script>
-  <script src="js/state.js?v=6.0"></script>
-  <script src="js/dashboard.js?v=6.0"></script>
-  <script src="js/app.js?v=6.0"></script>
+  <script src="js/data.js?v=7.0"></script>
+  <script src="js/state.js?v=7.0"></script>
+  <script src="js/dashboard.js?v=7.0"></script>
+  <script src="js/app.js?v=7.0"></script>
 
 </body>
 </html>
