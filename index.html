@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VÉLOIR — Luxury Streetwear & Modern Casuals</title>
+  <title>VÉLOIR — Luxury Men's & Women's Fashion Atelier</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -26,79 +26,94 @@
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <!-- GSAP 3.12 for Silk-Smooth Animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
   <!-- Chart.js for Store Admin HQ -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Canvas Confetti for Checkout Celebrations -->
+  <!-- Canvas Confetti for Checkout & Review Celebrations -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Custom Styles (with cache buster) -->
-  <link rel="stylesheet" href="css/custom.css?v=5.0" />
+  <!-- Custom Styles (Girly & Streetwear Themes, Glassmorphism, Amazon PDP) -->
+  <link rel="stylesheet" href="css/custom.css?v=6.0" />
 </head>
-<body class="bg-[#f9fafb] text-gray-900 flex flex-col min-h-screen antialiased selection:bg-yellow-300 selection:text-black">
+<body class="bg-[#f9fafb] text-gray-900 flex flex-col min-h-screen antialiased selection:bg-pink-200 selection:text-black">
 
   <!-- =========================================================================
-       1. TOP ANNOUNCEMENT TICKER (Zudio & Being Human Brand Guarantees)
+       1. TOP ANNOUNCEMENT TICKER
        ========================================================================= -->
   <div class="bg-black text-white text-[11px] font-bold tracking-widest uppercase overflow-hidden py-2 select-none border-b border-gray-900">
     <div class="animate-marquee whitespace-nowrap flex items-center gap-12 font-mono">
       <span>✦ COMPLIMENTARY EXPRESS DELIVERY ON ORDERS OVER ₹999</span>
-      <span>⚡ USE CODE <b class="text-yellow-400">VELOIR10</b> FOR 10% OFF YOUR FIRST ORDER</span>
-      <span>🌿 100% COMBED BIO-WASHED HEAVYWEIGHT COTTON (240+ GSM)</span>
+      <span>🌸 WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
+      <span>⚡ MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
+      <span>🌿 100% COMBED BIO-WASHED HEAVYWEIGHT COTTON & MULBERRY SILK</span>
       <span>🔄 7-DAY HASSLE-FREE DOORSTEP EXCHANGES & RETURNS</span>
-      <span>❤️ CONSCIOUS FASHION • 10% OF PROFITS EMPOWER YOUTH ARTISTS</span>
       <span>✦ COMPLIMENTARY EXPRESS DELIVERY ON ORDERS OVER ₹999</span>
-      <span>⚡ USE CODE <b class="text-yellow-400">VELOIR10</b> FOR 10% OFF YOUR FIRST ORDER</span>
-      <span>🌿 100% COMBED BIO-WASHED HEAVYWEIGHT COTTON (240+ GSM)</span>
-      <span>🔄 7-DAY HASSLE-FREE DOORSTEP EXCHANGES & RETURNS</span>
+      <span>🌸 WOMEN'S ATELIER: USE CODE <b class="text-pink-400">GIRLY20</b> FOR 20% OFF</span>
+      <span>⚡ MEN'S STREETWEAR: USE CODE <b class="text-yellow-400">STREET20</b> FOR 20% OFF</span>
     </div>
   </div>
 
   <!-- =========================================================================
-       2. PRIMARY NAVIGATION HEADER
+       2. PRIMARY NAVIGATION HEADER (Glassmorphic)
        ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-gray-200 shadow-sm transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
       <!-- Brand Logo -->
-      <div class="flex items-center gap-8">
-        <a href="#home" class="flex flex-col group cursor-pointer">
+      <div class="flex items-center gap-6 sm:gap-8">
+        <a href="#catalog" onclick="app.showCatalogView(true)" class="flex flex-col group cursor-pointer">
           <div class="flex items-center gap-2">
             <span class="text-2xl sm:text-3xl font-black tracking-[0.2em] uppercase brand-font text-gray-900 group-hover:text-black transition-colors">
               VÉLOIR
             </span>
             <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white tracking-widest font-mono">
-              STUDIO
+              ATELIER
             </span>
           </div>
           <span class="text-[10px] tracking-[0.22em] uppercase text-gray-500 font-mono -mt-1">
-            Est. 2026 • Mumbai & Paris
+            Mumbai • Paris • Tokyo
           </span>
         </a>
 
-        <!-- Desktop Department Nav Links -->
-        <nav class="hidden lg:flex items-center gap-6 text-xs font-bold uppercase tracking-wider text-gray-700">
-          <a href="#catalog" onclick="app.filterByStoryCategory('all')" class="hover:text-black transition-colors">All Drops</a>
-          <a href="#catalog" onclick="app.filterByStoryCategory('tees')" class="hover:text-black transition-colors">Oversized Tees</a>
-          <a href="#catalog" onclick="app.filterByStoryCategory('bottoms')" class="hover:text-black transition-colors">Cargos & Denim</a>
-          <a href="#catalog" onclick="app.filterByStoryCategory('hoodies')" class="hover:text-black transition-colors">Hoodies</a>
-          <a href="#style-studio" class="text-black hover:underline flex items-center gap-1.5 font-extrabold">
-            <i class="fa-solid fa-wand-magic-sparkles text-yellow-500"></i> Complete The Look
-          </a>
-          <a href="#catalog" onclick="document.getElementById('price-filter').value=499; app.maxPrice=499; app.renderProducts()" class="text-rose-600 hover:text-rose-700 font-extrabold">
-            Under ₹499 Zone
-          </a>
+        <!-- Department Switcher Tabs (All / Men / Women) -->
+        <nav class="hidden lg:flex items-center p-1 rounded-full bg-gray-100 border border-gray-200 text-xs font-bold font-mono">
+          <button 
+            onclick="app.setGender('all')" 
+            data-gender="all" 
+            class="gender-tab-btn active px-4 py-1.5 rounded-full bg-black text-white shadow-sm transition-all flex items-center gap-1.5"
+          >
+            <span>All Collections</span>
+          </button>
+
+          <button 
+            onclick="app.setGender('men')" 
+            data-gender="men" 
+            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 hover:text-black transition-all flex items-center gap-1.5"
+          >
+            <span>⚡ Men's Wear</span>
+          </button>
+
+          <button 
+            onclick="app.setGender('women')" 
+            data-gender="women" 
+            class="gender-tab-btn px-4 py-1.5 rounded-full text-gray-600 hover:text-black transition-all flex items-center gap-1.5"
+          >
+            <span>🌸 Women's Wear</span>
+          </button>
         </nav>
       </div>
 
-      <!-- High-Performance Interactive Search Box with Search Button & Dropdown -->
+      <!-- Live Search Box with Instant Autocomplete Dropdown -->
       <div id="search-container-box" class="flex-1 max-w-md hidden md:block relative">
         <div class="relative flex items-center">
           <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
           <input 
             type="text" 
             id="global-search" 
-            placeholder="Search acid wash tees, cargos, hoodies..." 
+            placeholder="Search dresses, graphic tees, cargos, boots, hoodies..." 
             class="w-full pl-9 pr-24 py-2.5 text-xs rounded-full bg-gray-100 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all"
           />
           <button id="clear-search-btn" class="hidden absolute right-16 text-gray-400 hover:text-black p-1 text-xs" title="Clear">
@@ -116,13 +131,12 @@
 
       <!-- Right Header Actions -->
       <div class="flex items-center gap-2.5 sm:gap-3">
-        
         <!-- Mobile Search Toggle -->
         <button onclick="document.getElementById('mobile-search-bar').classList.toggle('hidden')" class="md:hidden p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 text-xs transition-colors" title="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
 
-        <!-- Track Order -->
+        <!-- Order Tracker -->
         <button onclick="app.openOrderTracker()" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-semibold border border-gray-200 transition-colors" title="Track Live Order">
           <i class="fa-solid fa-truck-fast text-xs text-gray-700"></i>
           <span>Track Order</span>
@@ -141,12 +155,12 @@
           <span class="cart-counter px-1.5 py-0.2 rounded-full bg-yellow-400 text-black text-[10px] font-mono">0</span>
         </button>
 
-        <!-- Theme Toggle Button (Light / Dark) -->
-        <button onclick="document.body.classList.toggle('dark-mode')" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 text-xs transition-colors" title="Toggle Light/Dark Theme">
+        <!-- Theme Toggle (Light / Dark) -->
+        <button onclick="document.body.classList.toggle('dark-mode')" class="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200 text-xs transition-colors" title="Toggle Dark/Light Mode">
           <i class="fa-solid fa-circle-half-stroke"></i>
         </button>
 
-        <!-- Discrete Store Admin HQ Toggle -->
+        <!-- Admin HQ -->
         <button class="toggle-admin-view p-2 rounded-xl text-gray-700 hover:text-black bg-gray-100 hover:bg-gray-200 border border-gray-200 text-xs ml-1 transition-colors" title="Store Owner Dashboard">
           <i class="fa-solid fa-sliders text-xs"></i>
         </button>
@@ -154,12 +168,19 @@
 
     </div>
 
+    <!-- Mobile Department Switcher Row -->
+    <div class="lg:hidden flex items-center justify-center gap-2 py-2 px-4 border-t border-gray-100 bg-gray-50/80">
+      <button onclick="app.setGender('all')" data-gender="all" class="gender-tab-btn active px-3 py-1 rounded-full text-xs font-bold bg-black text-white">All</button>
+      <button onclick="app.setGender('men')" data-gender="men" class="gender-tab-btn px-3 py-1 rounded-full text-xs font-bold text-gray-600">⚡ Men's</button>
+      <button onclick="app.setGender('women')" data-gender="women" class="gender-tab-btn px-3 py-1 rounded-full text-xs font-bold text-gray-600">🌸 Women's</button>
+    </div>
+
     <!-- Mobile Slide-Down Search Bar -->
     <div id="mobile-search-bar" class="hidden md:hidden px-4 pb-3 pt-1 border-t border-gray-100 bg-white">
       <div class="relative flex items-center">
         <input 
           type="text" 
-          placeholder="Search oversized tees, cargos..." 
+          placeholder="Search dresses, tees, cargos, boots..." 
           onkeydown="if(event.key==='Enter'){document.getElementById('global-search').value=this.value; app.executeSearch();}" 
           class="w-full pl-3 pr-20 py-2 text-xs rounded-lg bg-gray-100 border border-gray-200 text-gray-900 placeholder-gray-500 focus:outline-none focus:border-black"
         />
@@ -171,1276 +192,943 @@
   </header>
 
   <!-- =========================================================================
-       3. VISUAL CATEGORY STORY CIRCLES (Zudio / Urbanic Mobile Navigation)
+       3. CATALOG VIEW (Default Main Page)
        ========================================================================= -->
-  <section class="border-b border-gray-200 bg-white py-4 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-4 sm:gap-8 overflow-x-auto pb-2 scrollbar-none justify-start md:justify-center">
-        
-        <!-- Story Circle 1: All Drops -->
-        <div onclick="app.filterByStoryCategory('all')" data-category="all" class="story-circle active flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=200&q=80" alt="All Drops" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-800 group-hover:text-black tracking-wide">All Drops</span>
-        </div>
+  <main id="catalog-view" class="flex-1 transition-all duration-300">
 
-        <!-- Story Circle 2: Graphic Tees -->
-        <div onclick="app.filterByStoryCategory('tees')" data-category="tees" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-gray-300 group-hover:border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=80" alt="Oversized Tees" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-700 group-hover:text-black tracking-wide">Tees (₹399+)</span>
-        </div>
-
-        <!-- Story Circle 3: Cargos -->
-        <div onclick="app.filterByStoryCategory('bottoms')" data-category="bottoms" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-gray-300 group-hover:border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=200&q=80" alt="Cargos" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-700 group-hover:text-black tracking-wide">Cargos & Denim</span>
-        </div>
-
-        <!-- Story Circle 4: Hoodies -->
-        <div onclick="app.filterByStoryCategory('hoodies')" data-category="hoodies" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-gray-300 group-hover:border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=200&q=80" alt="Hoodies" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-700 group-hover:text-black tracking-wide">Heavy Hoodies</span>
-        </div>
-
-        <!-- Story Circle 5: Varsity & Jackets -->
-        <div onclick="app.filterByStoryCategory('jackets')" data-category="jackets" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-gray-300 group-hover:border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=200&q=80" alt="Varsity" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-700 group-hover:text-black tracking-wide">Jackets & Outerwear</span>
-        </div>
-
-        <!-- Story Circle 6: Co-ords -->
-        <div onclick="app.filterByStoryCategory('coords')" data-category="coords" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-gray-300 group-hover:border-black overflow-hidden transition-all bg-gray-100 shadow-sm">
-            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=200&q=80" alt="Co-ords" class="w-full h-full object-cover rounded-full" />
-          </div>
-          <span class="text-[11px] font-bold text-gray-700 group-hover:text-black tracking-wide">Co-ords & Sets</span>
-        </div>
-
-        <!-- Story Circle 7: Under ₹499 Zone -->
-        <div onclick="document.getElementById('price-filter').value=499; app.maxPrice=499; app.renderProducts(); document.getElementById('catalog').scrollIntoView({behavior:'smooth'})" class="story-circle flex flex-col items-center gap-1.5 cursor-pointer flex-shrink-0 group">
-          <div class="circle-img w-16 h-16 sm:w-18 sm:h-18 rounded-full p-0.5 border-2 border-rose-500 overflow-hidden transition-all bg-rose-50 shadow-sm flex items-center justify-center">
-            <span class="text-xs font-black font-mono text-rose-600">₹399+</span>
-          </div>
-          <span class="text-[11px] font-bold text-rose-600 group-hover:text-rose-700 tracking-wide">Under ₹499</span>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =========================================================================
-       MAIN STOREFRONT VIEW
-       ========================================================================= -->
-  <main id="storefront-view" class="flex-1">
-
-    <!-- EDITORIAL CAMPAIGN HERO SLIDER (Real Sliding Carousel Features) -->
-    <section id="home" class="relative overflow-hidden bg-white border-b border-gray-200">
-      <div id="hero-slider-container" class="hero-slider-container relative">
-        
-        <!-- Sliding Track -->
-        <div id="hero-slider-track" class="hero-slider-track">
+    <!-- HERO CAROUSEL & EDITORIAL CAMPAIGN -->
+    <section id="home" class="relative overflow-hidden border-b border-gray-200 py-10 lg:py-14 transition-colors duration-500">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
-          <!-- SLIDE 1: Heavyweight Drops -->
-          <div class="hero-slide py-12 lg:py-16">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                <div class="lg:col-span-7 flex flex-col items-start space-y-5">
-                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 border border-gray-200 text-xs text-gray-800">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span>
-                    <span class="font-mono uppercase tracking-wider text-[11px] font-bold">Slide 1 of 3 • Autumn / Winter '26 Lookbook</span>
-                  </div>
-
-                  <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight text-gray-950 leading-[0.95] brand-font">
-                    HEAVYWEIGHT CUTS.<br/>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-gray-700 to-gray-500">TAILORED DRAPE.</span><br/>
-                    EVERYDAY LUXURY.
-                  </h1>
-
-                  <p class="text-base sm:text-lg text-gray-600 max-w-xl font-normal leading-relaxed">
-                    Experience the pinnacle of Indian streetwear. 240+ GSM bio-washed French terry, authentic skater denim, and rugged utility cargos — priced honestly from ₹399 to ₹999.
-                  </p>
-
-                  <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <a href="#catalog" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                      <span>Shop The Collection</span>
-                      <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                    <a href="#style-studio" class="px-7 py-3.5 rounded-xl bg-white hover:bg-gray-50 text-gray-900 font-bold text-xs uppercase tracking-wider border border-gray-300 transition-all flex items-center gap-2 shadow-sm">
-                      <i class="fa-solid fa-wand-magic-sparkles text-yellow-500"></i>
-                      <span>Complete The Look</span>
-                    </a>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200 w-full max-w-lg">
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">₹399</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Starting Price</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">240+ GSM</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Heavy Cotton</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-rose-600 font-mono">10%</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Charity Giveback</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-5 relative">
-                  <div class="relative rounded-3xl overflow-hidden border border-gray-200 bg-white p-3 shadow-xl">
-                    <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
-                      <img 
-                        src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80" 
-                        alt="Heavyweight Street Drop" 
-                        class="w-full h-full object-cover object-center"
-                      />
-                      <div class="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between">
-                        <div>
-                          <span class="text-[10px] font-extrabold uppercase tracking-widest text-gray-500">Drop #01</span>
-                          <div class="text-base font-black font-mono text-gray-950">Acid Wash Cyber Tee</div>
-                        </div>
-                        <button onclick="app.openProductModal('prod-01')" class="px-4 py-2 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
-                          View &rarr;
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div class="lg:col-span-7 flex flex-col items-start space-y-5">
+            <div id="hero-dynamic-badge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-gray-200 text-xs shadow-sm">
+              <span class="w-2 h-2 rounded-full bg-amber-500 pulse-dot"></span>
+              <span class="font-mono uppercase tracking-wider text-[11px] font-bold text-gray-800">✦ Maison VÉLOIR • Men & Women Haute Streetwear</span>
             </div>
-          </div>
 
-          <!-- SLIDE 2: Parachute Cargo Edit -->
-          <div class="hero-slide py-12 lg:py-16 bg-[#fbfbfc]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                <div class="lg:col-span-7 flex flex-col items-start space-y-5">
-                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-100 border border-yellow-300 text-xs text-yellow-800">
-                    <span class="w-2 h-2 rounded-full bg-yellow-500 pulse-dot"></span>
-                    <span class="font-mono uppercase tracking-wider text-[11px] font-bold">Slide 2 of 3 • Trending Bottomwear</span>
-                  </div>
+            <h1 id="hero-dynamic-title" class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight leading-[0.95] brand-font text-gray-950">
+              ELEVATED STREETWEAR.<br/>
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-950 via-pink-700 to-amber-600">MEN & WOMEN DROPS.</span><br/>
+              HAUTE COUTURE VIBES.
+            </h1>
 
-                  <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight text-gray-950 leading-[0.95] brand-font">
-                    PARACHUTE UTILITY.<br/>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 to-gray-900">BAGGY COMFORT.</span><br/>
-                    UNDER ₹899.
-                  </h1>
-
-                  <p class="text-base sm:text-lg text-gray-600 max-w-xl font-normal leading-relaxed">
-                    Engineered with 6 deep utility pockets, adjustable bungee ankle cuffs, and ripstop fabric that drapes effortlessly over your favorite sneakers.
-                  </p>
-
-                  <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <button onclick="app.filterByStoryCategory('bottoms')" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                      <span>Explore Cargos</span>
-                      <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                    <button onclick="app.openProductModal('prod-02')" class="px-7 py-3.5 rounded-xl bg-white hover:bg-gray-50 text-gray-900 font-bold text-xs uppercase tracking-wider border border-gray-300 transition-all shadow-sm">
-                      View Olive Cargos
-                    </button>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200 w-full max-w-lg">
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">₹899</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Parachute Cargos</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">6 Pockets</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Deep Utility</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-emerald-700 font-mono">Bestseller</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">500+ Sold</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-5 relative">
-                  <div class="relative rounded-3xl overflow-hidden border border-gray-200 bg-white p-3 shadow-xl">
-                    <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
-                      <img 
-                        src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?auto=format&fit=crop&w=800&q=80" 
-                        alt="Utility Cargos" 
-                        class="w-full h-full object-cover object-center"
-                      />
-                      <div class="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between">
-                        <div>
-                          <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-700 font-bold">Bestseller</span>
-                          <div class="text-base font-black font-mono text-gray-950">Olive Parachute Cargos</div>
-                        </div>
-                        <button onclick="app.openProductModal('prod-02')" class="px-4 py-2 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
-                          View &rarr;
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- SLIDE 3: Varsity Legacy -->
-          <div class="hero-slide py-12 lg:py-16 bg-white">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-                <div class="lg:col-span-7 flex flex-col items-start space-y-5">
-                  <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 border border-rose-300 text-xs text-rose-800">
-                    <span class="w-2 h-2 rounded-full bg-rose-500 pulse-dot"></span>
-                    <span class="font-mono uppercase tracking-wider text-[11px] font-bold">Slide 3 of 3 • Limited Outerwear Drop</span>
-                  </div>
-
-                  <h1 class="text-4xl sm:text-6xl xl:text-7xl font-black uppercase tracking-tight text-gray-950 leading-[0.95] brand-font">
-                    COLLEGE VARSITY.<br/>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-800 to-gray-950">90s SKATER DENIM.</span><br/>
-                    HERITAGE ARCHIVE.
-                  </h1>
-
-                  <p class="text-base sm:text-lg text-gray-600 max-w-xl font-normal leading-relaxed">
-                    Heavy wool-blend body, vegan leather sleeves, and retro chenille embroidery. Paired with 13.5 oz rigid skater denim for timeless vintage energy.
-                  </p>
-
-                  <div class="flex flex-wrap items-center gap-3 pt-2">
-                    <button onclick="app.loadPresetOutfit(1); document.getElementById('style-studio').scrollIntoView({behavior:'smooth'})" class="px-7 py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
-                      <span>Shop Varsity Fit</span>
-                      <i class="fa-solid fa-arrow-right"></i>
-                    </button>
-                    <button onclick="app.openProductModal('prod-04')" class="px-7 py-3.5 rounded-xl bg-white hover:bg-gray-50 text-gray-900 font-bold text-xs uppercase tracking-wider border border-gray-300 transition-all shadow-sm">
-                      View Bomber Jacket
-                    </button>
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200 w-full max-w-lg">
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">₹1,499</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Varsity Bomber</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-gray-950 font-mono">13.5 Oz</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Rigid Denim</p>
-                    </div>
-                    <div>
-                      <p class="text-2xl font-black text-rose-600 font-mono">Limited</p>
-                      <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Archive Piece</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="lg:col-span-5 relative">
-                  <div class="relative rounded-3xl overflow-hidden border border-gray-200 bg-white p-3 shadow-xl">
-                    <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
-                      <img 
-                        src="https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&w=800&q=80" 
-                        alt="Varsity Bomber" 
-                        class="w-full h-full object-cover object-center"
-                      />
-                      <div class="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between">
-                        <div>
-                          <span class="text-[10px] font-extrabold uppercase tracking-widest text-rose-700 font-bold">Limited Edition</span>
-                          <div class="text-base font-black font-mono text-gray-950">Varsity Bomber Jacket</div>
-                        </div>
-                        <button onclick="app.openProductModal('prod-04')" class="px-4 py-2 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
-                          View &rarr;
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Slider Navigation Arrows -->
-        <button onclick="app.prevHeroSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-black shadow-lg border border-gray-200 flex items-center justify-center transition-all hover:scale-105 z-20" title="Previous Slide">
-          <i class="fa-solid fa-chevron-left text-sm"></i>
-        </button>
-        <button onclick="app.nextHeroSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white text-black shadow-lg border border-gray-200 flex items-center justify-center transition-all hover:scale-105 z-20" title="Next Slide">
-          <i class="fa-solid fa-chevron-right text-sm"></i>
-        </button>
-
-        <!-- Slider Pagination Dots -->
-        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
-          <button onclick="app.goToHeroSlide(0)" class="slider-dot active w-2.5 h-2.5 rounded-full bg-black transition-all" title="Slide 1"></button>
-          <button onclick="app.goToHeroSlide(1)" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all" title="Slide 2"></button>
-          <button onclick="app.goToHeroSlide(2)" class="slider-dot w-2.5 h-2.5 rounded-full bg-gray-300 transition-all" title="Slide 3"></button>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- TRUST PILLARS -->
-    <section class="border-b border-gray-200 bg-white py-6">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center md:text-left">
-          <div class="flex items-center gap-3.5 justify-center md:justify-start">
-            <i class="fa-solid fa-truck-fast text-2xl text-gray-800"></i>
-            <div>
-              <h5 class="text-xs font-bold text-gray-900 uppercase tracking-wider">Express Delivery</h5>
-              <p class="text-[11px] text-gray-500">Free over ₹999 across India</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-3.5 justify-center md:justify-start">
-            <i class="fa-solid fa-arrows-rotate text-2xl text-gray-800"></i>
-            <div>
-              <h5 class="text-xs font-bold text-gray-900 uppercase tracking-wider">7-Day Free Returns</h5>
-              <p class="text-[11px] text-gray-500">Easy doorstep exchange & refunds</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-3.5 justify-center md:justify-start">
-            <i class="fa-solid fa-shield-halved text-2xl text-gray-800"></i>
-            <div>
-              <h5 class="text-xs font-bold text-gray-900 uppercase tracking-wider">100% Cotton Guarantee</h5>
-              <p class="text-[11px] text-gray-500">Pre-shrunk 240+ GSM French terry</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-3.5 justify-center md:justify-start">
-            <i class="fa-solid fa-hand-holding-heart text-2xl text-rose-500"></i>
-            <div>
-              <h5 class="text-xs font-bold text-gray-900 uppercase tracking-wider">Conscious Fashion</h5>
-              <p class="text-[11px] text-gray-500">10% funds youth arts programs</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         4. "COMPLETE THE LOOK" INTERACTIVE STYLE STUDIO (With Smooth Horizontal Sliders)
-         ========================================================================= -->
-    <section id="style-studio" class="py-16 bg-[#f8f9fa] border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Studio Header -->
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-          <div>
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-yellow-100 border border-yellow-300 text-yellow-800 text-xs font-bold uppercase mb-2">
-              <i class="fa-solid fa-wand-magic-sparkles"></i> Curated Outfit Studio
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-black uppercase text-gray-950 brand-font">
-              COMPLETE THE <span class="text-gray-500">LOOK</span>
-            </h2>
-            <p class="text-xs sm:text-sm text-gray-600 mt-1 max-w-xl">
-              Coordinate your Top, Bottom, and Footwear together on the canvas. Grab the complete styled look and automatically enjoy a <b>15% Bundle Discount</b>!
+            <p id="hero-dynamic-subtitle" class="text-base sm:text-lg text-gray-600 max-w-xl font-normal leading-relaxed">
+              India's highest-tier streetwear atelier. Accessible pricing inspired by Zudio, conscious heart inspired by Being Human, and luxury tailored drapes for all genders.
             </p>
+
+            <div class="flex flex-wrap items-center gap-3 pt-2">
+              <button onclick="app.setGender('men')" class="px-6 py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <span>⚡ Shop Men's Wear</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+
+              <button onclick="app.setGender('women')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-2">
+                <span>🌸 Shop Women's Wear</span>
+                <i class="fa-solid fa-sparkles"></i>
+              </button>
+            </div>
+
+            <div class="grid grid-cols-3 gap-6 pt-4 border-t border-gray-200/80 w-full max-w-lg">
+              <div>
+                <p class="text-2xl font-black text-gray-950 font-mono">₹399</p>
+                <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Starting Price</p>
+              </div>
+              <div>
+                <p class="text-2xl font-black text-gray-950 font-mono">28 Drops</p>
+                <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Men & Women</p>
+              </div>
+              <div>
+                <p class="text-2xl font-black text-rose-600 font-mono">4.9 ★</p>
+                <p class="text-[11px] text-gray-500 uppercase mt-0.5 font-bold">Amazon Rating</p>
+              </div>
+            </div>
           </div>
 
-          <!-- Quick Presets -->
-          <div class="flex items-center gap-2">
-            <span class="text-xs text-gray-500 font-bold uppercase">Styled Presets:</span>
-            <button onclick="app.loadPresetOutfit(0)" class="px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 hover:bg-black hover:text-white text-xs font-semibold text-gray-900 shadow-sm transition-colors">Gen-Z Drip</button>
-            <button onclick="app.loadPresetOutfit(1)" class="px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 hover:bg-black hover:text-white text-xs font-semibold text-gray-900 shadow-sm transition-colors">Varsity</button>
-            <button onclick="app.loadPresetOutfit(2)" class="px-3.5 py-1.5 rounded-lg bg-white border border-gray-300 hover:bg-black hover:text-white text-xs font-semibold text-gray-900 shadow-sm transition-colors">Minimalist</button>
+          <div class="lg:col-span-5 relative">
+            <div class="relative rounded-3xl overflow-hidden border border-gray-200/90 bg-white/70 backdrop-blur-xl p-3 shadow-xl">
+              <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100">
+                <img 
+                  id="hero-dynamic-img"
+                  src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" 
+                  alt="Haute Streetwear Hero" 
+                  class="w-full h-full object-cover object-center transition-all duration-500"
+                />
+                <div class="absolute bottom-4 inset-x-4 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-gray-200 shadow-xl flex items-center justify-between">
+                  <div>
+                    <span id="hero-dynamic-card-sub" class="text-[10px] font-extrabold uppercase tracking-widest text-gray-500">✦ 2026 Atelier Lookbook</span>
+                    <div id="hero-dynamic-card-title" class="text-base font-black font-mono text-gray-950">Explore Men & Women Fits</div>
+                  </div>
+                  <a href="#catalog" class="px-4 py-2 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors shadow">
+                    Browse &rarr;
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPARTMENT SEGMENTED SECTIONS (Men vs Women Visual Banners) -->
+    <section class="py-8 bg-white/60 backdrop-blur-md border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Men's Wear Card Banner -->
+          <div 
+            onclick="app.setGender('men')" 
+            class="group relative rounded-3xl overflow-hidden border border-gray-200 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-zinc-900 to-black text-white"
+          >
+            <div class="space-y-3 z-10 max-w-[65%]">
+              <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-amber-400 text-black font-mono">
+                ⚡ HOMME COLLECTION
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight brand-font">
+                Men's Streetwear
+              </h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Acid wash oversized tees, multi-pocket parachute cargos, raw skate denim, and heavyweight fleece hoodies.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-bold text-amber-300 group-hover:translate-x-1 transition-transform">
+                <span>Explore Men's Drops</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </div>
+            </div>
+            <div class="w-28 h-36 rounded-2xl overflow-hidden border border-white/20 shadow-lg flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=400&q=80" alt="Men's Fashion" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            </div>
+          </div>
+
+          <!-- Women's Wear Girly Card Banner -->
+          <div 
+            onclick="app.setGender('women')" 
+            class="group relative rounded-3xl overflow-hidden border border-pink-200 shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300 p-6 flex items-center justify-between bg-gradient-to-br from-pink-500 via-rose-500 to-pink-600 text-white"
+          >
+            <div class="space-y-3 z-10 max-w-[65%]">
+              <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-white text-pink-600 font-mono shadow-sm">
+                🌸 FEMME ATELIER
+              </span>
+              <h3 class="text-2xl sm:text-3xl font-black uppercase tracking-tight brand-font">
+                Women's Chic Glam
+              </h3>
+              <p class="text-xs text-pink-100 leading-relaxed">
+                Mulberry silk slip dresses, cropped pastel hoodies, tennis skirts, block heels, and cute rose gold jewelry.
+              </p>
+              <div class="flex items-center gap-2 text-xs font-bold text-white group-hover:translate-x-1 transition-transform">
+                <span>Explore Girly Atelier 🌸</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </div>
+            </div>
+            <div class="w-28 h-36 rounded-2xl overflow-hidden border border-white/30 shadow-lg flex-shrink-0">
+              <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80" alt="Women's Fashion" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CATEGORY PILLS BAR -->
+    <section class="border-b border-gray-200 bg-white/70 backdrop-blur-md py-4 sticky top-20 z-30 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2 sm:gap-3 overflow-x-auto pb-1 scrollbar-none">
+          <button onclick="app.filterByStoryCategory('all')" data-category="all" class="category-filter-btn active px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            All Drops
+          </button>
+          <button onclick="app.filterByStoryCategory('tees')" data-category="tees" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Tees & Tops
+          </button>
+          <button onclick="app.filterByStoryCategory('hoodies')" data-category="hoodies" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Hoodies & Fleece
+          </button>
+          <button onclick="app.filterByStoryCategory('bottoms')" data-category="bottoms" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Cargos & Denim
+          </button>
+          <button onclick="app.filterByStoryCategory('dresses')" data-category="dresses" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Dresses & Skirts
+          </button>
+          <button onclick="app.filterByStoryCategory('jackets')" data-category="jackets" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Jackets & Blazers
+          </button>
+          <button onclick="app.filterByStoryCategory('shoes')" data-category="shoes" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Sneakers & Heels
+          </button>
+          <button onclick="app.filterByStoryCategory('accessories')" data-category="accessories" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider bg-gray-100 hover:bg-gray-200 text-gray-800 transition-all flex-shrink-0">
+            Bags & Jewelry
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATALOG GRID & FILTERS TOOLBAR -->
+    <section id="catalog" class="py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Filter Toolbar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 mb-6 border-b border-gray-200">
+          <div>
+            <span id="product-count-display" class="text-sm font-black font-mono uppercase tracking-wider text-gray-900">
+              Showing All Drops
+            </span>
+            <p class="text-xs text-gray-500">Tap on any piece to open the full Amazon-style detail page with verified reviews.</p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <!-- Price Slider -->
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-gray-500 font-bold">Max Price:</span>
+              <input type="range" id="price-filter" min="399" max="2500" step="50" value="2500" class="w-24 sm:w-32 accent-black" />
+              <span id="price-filter-display" class="font-mono font-bold text-gray-900 w-12">₹2500</span>
+            </div>
+
+            <!-- Sort By -->
+            <div class="flex items-center gap-2 text-xs">
+              <span class="text-gray-500 font-bold">Sort:</span>
+              <select id="sort-select" class="px-3 py-1.5 rounded-xl border border-gray-200 bg-white text-xs font-bold text-gray-800 focus:outline-none focus:border-black">
+                <option value="trending">🔥 Trending</option>
+                <option value="low-high">Price: Low to High</option>
+                <option value="high-low">Price: High to Low</option>
+                <option value="rating">Top Customer Rated</option>
+              </select>
+            </div>
+
+            <!-- Reset Filters -->
+            <button onclick="app.resetFilters()" class="text-xs text-gray-500 hover:text-black font-bold underline" title="Reset all active filters">
+              Reset
+            </button>
           </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Products Grid Container -->
+        <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <!-- Populated dynamically by app.renderProducts() -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COMPLETE THE LOOK (Interactive Outfit Styling Studio) -->
+    <section id="style-studio" class="py-16 bg-white/80 backdrop-blur-md border-t border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+          <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-yellow-300 text-black font-mono">
+            ✨ STYLING STUDIO
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-black uppercase tracking-tight brand-font mt-2">
+            Complete The Look
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-1">
+            Mix and match tops, bottoms, and accessories to create your custom drip and add the entire look to bag with 1 click.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <!-- LEFT: Outfit Preview Canvas -->
-          <div class="lg:col-span-5 bg-white rounded-3xl p-6 border border-gray-200 shadow-xl">
-            <div class="flex items-center justify-between mb-4 pb-3 border-b border-gray-200">
-              <span class="text-xs font-black uppercase tracking-wider text-gray-500 font-mono">Live Coordinated Look</span>
-              <span id="outfit-savings-badge" class="px-2.5 py-1 rounded text-xs font-black bg-yellow-300 text-black uppercase">
-                Bundle Save 15% OFF
-              </span>
-            </div>
-
-            <!-- The 3 Layered Outfit Slots -->
-            <div class="space-y-3">
-              <div class="relative w-full h-36 rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden flex items-center justify-center p-2 group" id="outfit-top-preview"></div>
-              <div class="relative w-full h-36 rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden flex items-center justify-center p-2 group" id="outfit-bottom-preview"></div>
-              <div class="relative w-full h-28 rounded-2xl border border-gray-200 bg-gray-50 overflow-hidden flex items-center justify-center p-2 group" id="outfit-acc-preview"></div>
-            </div>
-
-            <!-- Price Tally & Add Outfit Button -->
-            <div class="mt-6 pt-4 border-t border-gray-200 flex items-center justify-between">
-              <div>
-                <p class="text-xs text-gray-500">Complete Look Value:</p>
-                <div class="flex items-baseline gap-2">
-                  <span id="outfit-total-price" class="text-2xl font-black font-mono text-gray-950">₹2,199</span>
-                  <span id="outfit-total-mrp" class="text-sm strikethrough text-gray-400">₹3,197</span>
-                </div>
+          <!-- Studio Preview Stage (Left) -->
+          <div class="lg:col-span-5 bg-gray-50 p-6 rounded-3xl border border-gray-200 shadow-inner flex flex-col items-center">
+            <div class="w-full max-w-sm flex flex-col items-center gap-3">
+              <!-- Top Preview -->
+              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+                <img id="stage-top-img" src="" alt="Top" class="w-full h-full object-cover" />
               </div>
-              <button onclick="app.addCompleteOutfitToCart()" class="px-6 py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg">
-                <i class="fa-solid fa-cart-plus"></i> Add Full Look to Bag
+              <p id="stage-top-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+
+              <!-- Bottom Preview -->
+              <div class="w-36 h-44 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+                <img id="stage-bottom-img" src="" alt="Bottom" class="w-full h-full object-cover" />
+              </div>
+              <p id="stage-bottom-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+
+              <!-- Accessory Preview -->
+              <div class="w-24 h-24 rounded-2xl overflow-hidden border-2 border-black bg-white shadow-md">
+                <img id="stage-acc-img" src="" alt="Accessory" class="w-full h-full object-cover" />
+              </div>
+              <p id="stage-acc-name" class="text-xs font-bold text-center text-gray-900 truncate w-full"></p>
+            </div>
+
+            <div class="w-full mt-6 pt-6 border-t border-gray-200 flex items-center justify-between">
+              <div>
+                <span class="text-xs text-gray-500 font-bold uppercase font-mono">Complete Look Total</span>
+                <div id="outfit-total-price" class="text-xl font-black font-mono text-black">₹0</div>
+              </div>
+              <button onclick="app.addCompleteOutfitToCart()" class="px-5 py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider transition-all shadow-md">
+                Add Look to Bag
               </button>
             </div>
           </div>
 
-          <!-- RIGHT: Coordinate Selectors with Horizontal Arrow Sliders -->
-          <div class="lg:col-span-7 space-y-5">
-            <!-- 1. Topwear Slider -->
-            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm relative">
-              <div class="flex items-center justify-between mb-2.5">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-gray-100 text-black flex items-center justify-center font-mono text-[10px] font-bold">1</span>
-                  Topwear (Graphic Tees, Hoodies, Jackets)
-                </h4>
-                <div class="flex items-center gap-1">
-                  <button onclick="app.scrollPicker('builder-tops-picker', -180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Left">
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </button>
-                  <button onclick="app.scrollPicker('builder-tops-picker', 180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Right">
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
-              <div id="builder-tops-picker" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none scroll-smooth"></div>
-            </div>
-
-            <!-- 2. Bottomwear Slider -->
-            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm relative">
-              <div class="flex items-center justify-between mb-2.5">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-gray-100 text-black flex items-center justify-center font-mono text-[10px] font-bold">2</span>
-                  Bottomwear (Parachute Cargos, Skater Jeans)
-                </h4>
-                <div class="flex items-center gap-1">
-                  <button onclick="app.scrollPicker('builder-bottoms-picker', -180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Left">
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </button>
-                  <button onclick="app.scrollPicker('builder-bottoms-picker', 180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Right">
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
-              <div id="builder-bottoms-picker" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none scroll-smooth"></div>
-            </div>
-
-            <!-- 3. Footwear Slider -->
-            <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm relative">
-              <div class="flex items-center justify-between mb-2.5">
-                <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-gray-100 text-black flex items-center justify-center font-mono text-[10px] font-bold">3</span>
-                  Footwear & Accessories (Sneakers, Hats)
-                </h4>
-                <div class="flex items-center gap-1">
-                  <button onclick="app.scrollPicker('builder-acc-picker', -180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Left">
-                    <i class="fa-solid fa-chevron-left"></i>
-                  </button>
-                  <button onclick="app.scrollPicker('builder-acc-picker', 180)" class="picker-scroll-btn w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xs" title="Scroll Right">
-                    <i class="fa-solid fa-chevron-right"></i>
-                  </button>
-                </div>
-              </div>
-              <div id="builder-acc-picker" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none scroll-smooth"></div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================================
-         5. CATALOG & DROPS (Fast Real-Time Search & Sizing)
-         ========================================================================= -->
-    <section id="catalog" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      
-      <!-- Catalog Header & Category Pills -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
-        <div>
-          <span class="text-xs font-mono font-bold text-gray-500 uppercase tracking-wider">Curated Catalog</span>
-          <h2 class="text-3xl sm:text-4xl font-black uppercase text-gray-950 brand-font">
-            EXPLORE THE <span class="text-gray-500">DROPS</span>
-          </h2>
-          <p class="text-xs text-gray-500 mt-1" id="product-count-display">Showing 12 Drops</p>
-        </div>
-
-        <!-- Category Nav Pills -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-          <button data-category="all" class="category-filter-btn active px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-black text-white hover:bg-gray-800">All</button>
-          <button data-category="tees" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Tees (₹399+)</button>
-          <button data-category="hoodies" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Hoodies</button>
-          <button data-category="bottoms" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Cargos & Denim</button>
-          <button data-category="jackets" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Jackets</button>
-          <button data-category="coords" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Co-ords</button>
-          <button data-category="accessories" class="category-filter-btn px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-white border border-gray-200 text-gray-700 hover:bg-gray-50">Accessories</button>
-        </div>
-      </div>
-
-      <!-- Filters & Sorting Control Bar -->
-      <div class="p-4 rounded-2xl bg-white border border-gray-200 shadow-sm mb-8 flex flex-col md:flex-row items-center justify-between gap-4">
-        
-        <!-- Max Price Slider -->
-        <div class="flex items-center gap-3 w-full md:w-auto">
-          <span class="text-xs text-gray-500 font-bold uppercase font-mono">Max Budget:</span>
-          <input 
-            type="range" 
-            id="price-filter" 
-            min="399" 
-            max="2500" 
-            step="100" 
-            value="2500" 
-            class="w-36 accent-black"
-          />
-          <span id="price-filter-val" class="font-mono text-xs font-bold text-gray-900 bg-gray-100 px-2.5 py-1 rounded">₹2500</span>
-        </div>
-
-        <!-- Fast Budget Buttons -->
-        <div class="flex items-center gap-2 text-xs">
-          <span class="text-gray-400 font-mono">Quick Price:</span>
-          <button onclick="document.getElementById('price-filter').value=499; app.maxPrice=499; document.getElementById('price-filter-val').textContent='₹499'; app.renderProducts()" class="px-2.5 py-1 rounded-md bg-gray-100 hover:bg-black hover:text-white text-gray-800 font-bold transition-colors">Under ₹499</button>
-          <button onclick="document.getElementById('price-filter').value=799; app.maxPrice=799; document.getElementById('price-filter-val').textContent='₹799'; app.renderProducts()" class="px-2.5 py-1 rounded-md bg-gray-100 hover:bg-black hover:text-white text-gray-800 font-bold transition-colors">Under ₹799</button>
-          <button onclick="document.getElementById('price-filter').value=999; app.maxPrice=999; document.getElementById('price-filter-val').textContent='₹999'; app.renderProducts()" class="px-2.5 py-1 rounded-md bg-gray-100 hover:bg-black hover:text-white text-gray-800 font-bold transition-colors">Under ₹999</button>
-        </div>
-
-        <!-- Sort Selector -->
-        <div class="flex items-center gap-2 w-full md:w-auto justify-end">
-          <span class="text-xs text-gray-500 font-bold uppercase font-mono">Sort:</span>
-          <select id="sort-select" class="px-3 py-1.5 rounded-xl bg-gray-100 border border-gray-200 text-xs font-semibold text-gray-800 focus:outline-none focus:border-black">
-            <option value="trending">🔥 Trending Now</option>
-            <option value="low-high">Price: Low to High</option>
-            <option value="high-low">Price: High to Low</option>
-            <option value="rating">Top Customer Rated</option>
-          </select>
-        </div>
-
-      </div>
-
-      <!-- PRODUCT CARDS GRID (With Zara/Urbanic Instant Size Selector Bar on Hover) -->
-      <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-        <!-- Rendered dynamically by app.js with zero delay -->
-      </div>
-
-    </section>
-
-    <!-- =========================================================================
-         6. #WORNBYYOU // COMMUNITY ARCHIVE & VERIFIED REVIEWS
-         ========================================================================= -->
-    <section class="py-16 bg-white border-t border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-xl mx-auto mb-10">
-          <span class="text-xs font-mono font-bold text-gray-500 uppercase tracking-wider">Social Proof</span>
-          <h3 class="text-2xl sm:text-3xl font-black uppercase text-gray-950 brand-font mt-1">
-            #WORNBYYOU // <span class="text-gray-500">COMMUNITY</span>
-          </h3>
-          <p class="text-xs text-gray-500 mt-1">
-            Real people styling Maison Véloir across Mumbai, Bangalore, and Delhi. Tag @maisonveloir to be featured.
-          </p>
-        </div>
-
-        <!-- Verified Reviews Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-6 rounded-2xl bg-[#f9fafb] border border-gray-200 shadow-sm flex flex-col justify-between">
+          <!-- Studio Piece Pickers (Right) -->
+          <div class="lg:col-span-7 space-y-6">
+            <!-- Tops Selector -->
             <div>
-              <div class="flex items-center text-amber-500 text-xs mb-2">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-2 text-[11px] font-mono">5.0</span>
-              </div>
-              <p class="text-xs text-gray-700 italic leading-relaxed">
-                "The 240 GSM drop on the Acid Wash Tee is insane. Heavyweight collar that doesn't stretch out after washing. Literally feels like an expensive ₹3,000 streetwear brand for just ₹499."
-              </p>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">1. Select Upper / Topwear</h4>
+              <div id="picker-scroll-tops" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
             </div>
-            <div class="mt-4 pt-3 border-t border-gray-200 flex items-center justify-between">
-              <div>
-                <h5 class="text-xs font-bold text-gray-900">Kabir Sharma</h5>
-                <p class="text-[10px] text-gray-500 font-mono">Bandra, Mumbai • Verified Buyer</p>
-              </div>
-              <span class="text-xs text-emerald-600 font-semibold">✓ Verified</span>
+
+            <!-- Bottoms Selector -->
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">2. Select Lower / Bottomwear</h4>
+              <div id="picker-scroll-bottoms" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
+            </div>
+
+            <!-- Accessories Selector -->
+            <div>
+              <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">3. Select Kicks / Accessory</h4>
+              <div id="picker-scroll-acc" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-none"></div>
             </div>
           </div>
 
-          <div class="p-6 rounded-2xl bg-[#f9fafb] border border-gray-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center text-amber-500 text-xs mb-2">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-2 text-[11px] font-mono">5.0</span>
-              </div>
-              <p class="text-xs text-gray-700 italic leading-relaxed">
-                "Finally utility cargos that have deep functional pockets and adjustable ankle bungees that actually hold! Got delivered in 2 days to Bangalore. Already ordered the olive shade."
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-gray-200 flex items-center justify-between">
-              <div>
-                <h5 class="text-xs font-bold text-gray-900">Ananya Murthy</h5>
-                <p class="text-[10px] text-gray-500 font-mono">Indiranagar, Bengaluru • Verified Buyer</p>
-              </div>
-              <span class="text-xs text-emerald-600 font-semibold">✓ Verified</span>
-            </div>
-          </div>
-
-          <div class="p-6 rounded-2xl bg-[#f9fafb] border border-gray-200 shadow-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center text-amber-500 text-xs mb-2">
-                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                <span class="text-gray-400 ml-2 text-[11px] font-mono">5.0</span>
-              </div>
-              <p class="text-xs text-gray-700 italic leading-relaxed">
-                "Bought the Complete Look combo with the varsity bomber jacket and skater jeans. Got the 15% bundle discount and free express shipping. Unbeatable quality at this price."
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-gray-200 flex items-center justify-between">
-              <div>
-                <h5 class="text-xs font-bold text-gray-900">Rohan Kulkarni</h5>
-                <p class="text-[10px] text-gray-500 font-mono">Koregaon Park, Pune • Verified Buyer</p>
-              </div>
-              <span class="text-xs text-emerald-600 font-semibold">✓ Verified</span>
-            </div>
-          </div>
         </div>
-
       </div>
     </section>
 
   </main>
 
   <!-- =========================================================================
-       7. SELLER & ADMIN HQ DASHBOARD VIEW (Full Merchant Operations)
+       4. DEDICATED AMAZON-STYLE PRODUCT DETAIL PAGE (PDP)
        ========================================================================= -->
-  <main id="dashboard-view" class="hidden flex-1 bg-white py-8">
+  <main id="product-page-view" class="hidden min-h-screen pt-4 pb-24 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <!-- Dashboard Top Header Bar -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-gray-200 gap-4 mb-8">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold font-mono uppercase mb-1">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span> Store Operations HQ
-          </div>
-          <h1 class="text-3xl font-black uppercase text-gray-950 brand-font">
-            COMMERCE ANALYTICS & <span class="text-gray-500">MERCHANT HQ</span>
-          </h1>
-          <p class="text-xs text-gray-500">Manage orders, catalog SKUs, live inventory, and revenue metrics.</p>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <button onclick="adminDashboard.openAddProductModal()" class="px-4 py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white font-extrabold text-xs uppercase tracking-wider flex items-center gap-2 shadow-md transition-colors">
-            <i class="fa-solid fa-plus"></i> Add New Drop
+      <!-- Top Breadcrumbs & Back Button Bar -->
+      <div class="flex items-center justify-between py-3 mb-4 border-b border-gray-200/80 text-xs">
+        <div class="flex items-center gap-2 text-gray-500 font-medium">
+          <button onclick="app.showCatalogView(true)" class="hover:text-black font-bold flex items-center gap-1">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Back to Store</span>
           </button>
-          <button class="toggle-admin-view px-4 py-2.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-xs border border-gray-200 flex items-center gap-2">
-            <i class="fa-solid fa-arrow-left"></i> Return to Storefront
-          </button>
+          <span>/</span>
+          <button id="pdp-breadcrumb-gender" class="hover:text-black font-semibold">Women's Collection</button>
+          <span>/</span>
+          <span id="pdp-breadcrumb-cat" class="text-gray-400 font-mono uppercase">Dresses</span>
+          <span>/</span>
+          <span id="pdp-breadcrumb-title" class="text-gray-900 font-bold truncate max-w-xs">Product</span>
         </div>
+
+        <button onclick="app.showCatalogView(true)" class="px-3.5 py-1.5 rounded-full border border-gray-300 hover:border-black text-xs font-bold text-gray-700 hover:text-black transition-all">
+          ✕ Close Product
+        </button>
       </div>
 
-      <!-- 1. Executive KPI Metrics -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase text-gray-500 font-mono">Gross Revenue</span>
-            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">+22.4%</span>
+      <!-- Main Amazon-Style Product Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        
+        <!-- COLUMN 1: High-Res Interactive Gallery (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col-reverse sm:flex-row gap-4 sticky top-24">
+          <!-- Thumbnails Strip -->
+          <div id="pdp-thumbnails" class="flex sm:flex-col gap-2.5 overflow-x-auto sm:overflow-y-auto scrollbar-none flex-shrink-0">
+            <!-- Populated dynamically -->
           </div>
-          <h3 id="kpi-revenue" class="text-2xl sm:text-3xl font-black text-gray-900 font-mono mt-2">₹1,42,850</h3>
-          <p class="text-[11px] text-gray-400 mt-1">Confirmed customer orders</p>
-        </div>
 
-        <div class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase text-gray-500 font-mono">Total Orders</span>
-            <i class="fa-solid fa-cart-shopping text-gray-400"></i>
-          </div>
-          <h3 id="kpi-orders" class="text-2xl sm:text-3xl font-black text-gray-900 font-mono mt-2">3</h3>
-          <p class="text-[11px] text-gray-400 mt-1">Live checkouts in session</p>
-        </div>
-
-        <div class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase text-gray-500 font-mono">Average Order Value</span>
-            <i class="fa-solid fa-receipt text-gray-400"></i>
-          </div>
-          <h3 id="kpi-aov" class="text-2xl sm:text-3xl font-black text-gray-900 font-mono mt-2">₹1,488</h3>
-          <p class="text-[11px] text-gray-400 mt-1">Boosted by bundle styling</p>
-        </div>
-
-        <div class="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase text-gray-500 font-mono">Catalog SKUs</span>
-            <i class="fa-solid fa-shirt text-gray-400"></i>
-          </div>
-          <h3 id="kpi-catalog" class="text-2xl sm:text-3xl font-black text-gray-900 font-mono mt-2">12</h3>
-          <p class="text-[11px] text-gray-400 mt-1">Active inventory lines</p>
-        </div>
-      </div>
-
-      <!-- 2. Charts -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-        <div class="lg:col-span-8 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <div class="flex items-center justify-between mb-4">
-            <div>
-              <h4 class="text-sm font-bold text-gray-900 uppercase font-mono">Weekly Sales Velocity</h4>
-              <p class="text-xs text-gray-500">Daily gross revenue trajectory</p>
-            </div>
-            <span class="text-xs font-mono font-bold text-gray-700 bg-gray-100 px-2 py-1 rounded border border-gray-200">Live Sync</span>
-          </div>
-          <div class="relative w-full h-64">
-            <canvas id="sales-trend-chart"></canvas>
-          </div>
-        </div>
-
-        <div class="lg:col-span-4 p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
-          <h4 class="text-sm font-bold text-gray-900 uppercase font-mono">Category Share</h4>
-          <p class="text-xs text-gray-500 mb-3">Inventory distribution by department</p>
-          <div class="relative w-full h-56">
-            <canvas id="category-share-chart"></canvas>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3. Low Stock Alerts -->
-      <div class="mb-8">
-        <div class="flex items-center justify-between mb-3">
-          <h4 class="text-sm font-black uppercase text-gray-900 font-mono flex items-center gap-2">
-            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Low Stock Alerts (&lt; 10 Units)
-          </h4>
-          <span class="text-xs text-gray-500 font-mono">One-click replenishment</span>
-        </div>
-        <div id="dash-low-stock-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-      </div>
-
-      <!-- 4. Live Customer Orders -->
-      <div class="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm mb-8">
-        <h4 class="text-sm font-black uppercase text-gray-900 font-mono mb-4 flex items-center gap-2">
-          <i class="fa-solid fa-dolly text-gray-700"></i> Order Fulfillment Center
-        </h4>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b border-gray-200 text-[11px] font-mono uppercase text-gray-500">
-                <th class="py-2.5 px-4">Order ID</th>
-                <th class="py-2.5 px-4">Customer</th>
-                <th class="py-2.5 px-4">Items</th>
-                <th class="py-2.5 px-4">Amount</th>
-                <th class="py-2.5 px-4">Payment</th>
-                <th class="py-2.5 px-4">Status</th>
-                <th class="py-2.5 px-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="dash-orders-tbody"></tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- 5. Product Management Table -->
-      <div class="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-200 gap-4 mb-4">
-          <h4 class="text-sm font-black uppercase text-gray-900 font-mono flex items-center gap-2">
-            <i class="fa-solid fa-boxes-stacked text-gray-700"></i> Catalog SKU Management
-          </h4>
-          <div class="flex items-center gap-3">
-            <input 
-              type="text" 
-              id="dash-product-search" 
-              placeholder="Search catalog SKUs..." 
-              class="px-3 py-1.5 rounded-xl bg-gray-100 border border-gray-200 text-xs text-gray-900 focus:outline-none focus:border-black"
+          <!-- Main Interactive Zoom Image Card -->
+          <div class="flex-1 relative aspect-[4/5] rounded-3xl overflow-hidden bg-white border border-gray-200/90 shadow-xl group">
+            <img 
+              id="pdp-main-image" 
+              src="" 
+              alt="Product Main View" 
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 cursor-zoom-in"
             />
-            <button onclick="adminDashboard.openAddProductModal()" class="px-3.5 py-1.5 rounded-xl bg-black text-white font-extrabold text-xs hover:bg-gray-800 transition-colors">
-              + New Drop
-            </button>
+            <div class="absolute top-4 left-4 z-10 flex flex-col gap-1.5">
+              <span id="pdp-discount" class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-rose-600 text-white shadow-md">
+                50% OFF
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase bg-black/80 backdrop-blur-md text-white">
+                #1 Best Seller
+              </span>
+            </div>
           </div>
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="border-b border-gray-200 text-[11px] font-mono uppercase text-gray-500">
-                <th class="py-2.5 px-4">Product Details</th>
-                <th class="py-2.5 px-4">Price</th>
-                <th class="py-2.5 px-4">Stock Level</th>
-                <th class="py-2.5 px-4">Rating</th>
-                <th class="py-2.5 px-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody id="dash-products-tbody"></tbody>
-          </table>
+
+        <!-- COLUMN 2: Center Product Information & Specs (4 Cols) -->
+        <div class="lg:col-span-4 space-y-5">
+          <!-- Brand and Title -->
+          <div>
+            <a href="#catalog" id="pdp-brand-link" class="text-xs font-extrabold uppercase tracking-widest text-emerald-700 hover:underline font-mono">
+              Visit the VÉLOIR Atelier Store
+            </a>
+            <h1 id="pdp-title" class="text-2xl sm:text-3xl font-black text-gray-950 mt-1 brand-font leading-tight">
+              Product Title
+            </h1>
+          </div>
+
+          <!-- Amazon Star Rating & Questions -->
+          <div class="flex items-center gap-3 text-xs border-b border-gray-100 pb-3">
+            <div class="flex items-center gap-1.5">
+              <span id="pdp-rating-num" class="font-black font-mono text-gray-900 text-sm">4.9</span>
+              <div class="flex text-amber-400 text-xs">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star-half-stroke"></i>
+              </div>
+            </div>
+            <a href="#customer-reviews" class="text-gray-500 hover:text-black hover:underline" id="pdp-rating-count">
+              478 ratings
+            </a>
+            <span class="text-gray-300">|</span>
+            <span class="text-gray-500">84 answered questions</span>
+          </div>
+
+          <!-- Amazon Pricing Block -->
+          <div class="space-y-1 bg-gray-50/70 p-4 rounded-2xl border border-gray-200/80">
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-rose-600 text-white">Limited Time Deal</span>
+            </div>
+            <div class="flex items-baseline gap-2 pt-1">
+              <span class="text-3xl font-black font-mono text-gray-950" id="pdp-price">₹899</span>
+              <span class="text-xs text-gray-500">M.R.P.: <span class="line-through font-mono" id="pdp-mrp">₹1799</span></span>
+            </div>
+            <p id="pdp-savings" class="text-xs font-bold text-emerald-600">You save ₹900 (50% OFF)</p>
+            <p class="text-[11px] text-gray-500">Inclusive of all taxes • EMI options start from ₹79/month</p>
+          </div>
+
+          <!-- Amazon Offers Carousel Box -->
+          <div class="p-3.5 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-2">
+            <div class="flex items-center gap-2 text-xs font-bold text-gray-900">
+              <i class="fa-solid fa-tag text-emerald-600"></i>
+              <span>Special Atelier Offers & Coupons</span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs">
+              <div class="p-2.5 rounded-xl bg-gray-50 border border-gray-200">
+                <p class="font-bold text-[11px] text-gray-900">Bank Offer</p>
+                <p class="text-[10px] text-gray-500 mt-0.5">10% instant discount on ICICI & HDFC cards.</p>
+              </div>
+              <div class="p-2.5 rounded-xl bg-pink-50 border border-pink-200">
+                <p class="font-bold text-[11px] text-pink-800">Coupon Offer</p>
+                <p class="text-[10px] text-pink-600 mt-0.5">Use code <b>GIRLY20</b> or <b>STREET20</b> at bag.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Color Selector -->
+          <div class="space-y-2">
+            <div class="text-xs font-bold text-gray-700">
+              <span>Color: </span>
+              <span id="pdp-selected-color-label" class="font-black text-black">Rose Gold</span>
+            </div>
+            <div id="pdp-color-swatches" class="flex items-center gap-2 flex-wrap">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Size Selector -->
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs font-bold text-gray-700">
+              <span>Select Size:</span>
+              <button onclick="app.showToast('True to standard Indian size fit. Order your regular size.', 'info')" class="text-gray-500 hover:text-black underline font-mono text-[11px]">
+                Size Chart & Guide
+              </button>
+            </div>
+            <div id="pdp-sizes-container" class="flex items-center gap-2 flex-wrap">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Specs Table -->
+          <div class="pt-4 border-t border-gray-100">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 font-mono mb-2.5">Specifications</h4>
+            <div class="grid grid-cols-2 gap-y-2 text-xs">
+              <span class="text-gray-500">Silhouette Fit:</span>
+              <span id="pdp-spec-fit" class="font-bold text-gray-900">Oversized Boxy</span>
+              <span class="text-gray-500">Fabric Composition:</span>
+              <span id="pdp-spec-fabric" class="font-bold text-gray-900">100% Bio-Washed Cotton</span>
+              <span class="text-gray-500">Care Instructions:</span>
+              <span class="font-bold text-gray-900">Machine Wash Cold</span>
+              <span class="text-gray-500">Country of Origin:</span>
+              <span class="font-bold text-gray-900">India (Mumbai Atelier)</span>
+            </div>
+          </div>
+
+          <!-- About This Item Bullets -->
+          <div class="pt-4 border-t border-gray-100">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-900 font-mono mb-2.5">About This Item</h4>
+            <p id="pdp-desc" class="text-xs text-gray-600 mb-3 leading-relaxed"></p>
+            <ul id="pdp-highlights-list" class="space-y-2">
+              <!-- Rendered dynamically -->
+            </ul>
+          </div>
         </div>
+
+        <!-- COLUMN 3: Amazon Sticky Buy Box (3 Cols) -->
+        <div class="lg:col-span-3 sticky top-24">
+          <div class="amazon-buy-box p-6 space-y-4">
+            
+            <!-- Price in Buy Box -->
+            <div>
+              <span id="pdp-buybox-price" class="text-2xl font-black font-mono text-gray-950">₹899</span>
+              <p class="text-xs text-emerald-600 font-bold mt-0.5">✦ FREE Delivery on orders above ₹999</p>
+            </div>
+
+            <!-- PIN Code Delivery Checker -->
+            <div class="space-y-2 pt-2 border-t border-gray-200">
+              <label class="text-[11px] font-bold text-gray-700 block">Deliver to:</label>
+              <div class="flex gap-1.5">
+                <input 
+                  type="text" 
+                  id="pdp-pincode-input" 
+                  placeholder="Enter 6-digit PIN" 
+                  maxlength="6"
+                  class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white focus:outline-none focus:border-black font-mono" 
+                />
+                <button onclick="app.checkPdpPincode()" class="px-3 py-2 rounded-xl bg-gray-900 text-white text-xs font-bold hover:bg-black transition-colors">
+                  Check
+                </button>
+              </div>
+              <div id="pdp-pincode-result" class="hidden"></div>
+            </div>
+
+            <!-- In-Stock Status -->
+            <div id="pdp-stock-status" class="text-xs text-emerald-700 font-bold">
+              In Stock. Ships from VÉLOIR Mumbai Hub.
+            </div>
+
+            <!-- Quantity Selector -->
+            <div class="flex items-center justify-between text-xs pt-2">
+              <span class="font-bold text-gray-700">Quantity:</span>
+              <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden bg-white">
+                <button onclick="app.updatePdpQty(-1)" class="px-3 py-1.5 hover:bg-gray-100 font-bold text-gray-700">-</button>
+                <span id="pdp-qty-display" class="px-3 py-1.5 font-bold font-mono text-black">1</span>
+                <button onclick="app.updatePdpQty(1)" class="px-3 py-1.5 hover:bg-gray-100 font-bold text-gray-700">+</button>
+              </div>
+            </div>
+
+            <!-- Action Buttons (Add to Cart & Buy Now) -->
+            <div class="space-y-2.5 pt-2">
+              <!-- Add to Cart Button -->
+              <button 
+                onclick="app.addToCartFromPdp()" 
+                class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+              >
+                <i class="fa-solid fa-bag-shopping text-yellow-400"></i>
+                <span>Add to Shopping Bag</span>
+              </button>
+
+              <!-- Buy Now Button (Amazon Style Instant Checkout) -->
+              <button 
+                onclick="app.buyNowFromPdp()" 
+                class="w-full py-3.5 rounded-xl bg-amber-400 hover:bg-amber-500 text-gray-950 font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2 active:scale-95"
+              >
+                <i class="fa-solid fa-bolt"></i>
+                <span>Buy Now (Instant Order)</span>
+              </button>
+
+              <!-- Add to Wishlist Button -->
+              <button 
+                id="pdp-wishlist-btn"
+                onclick="app.toggleWishlistFromPdp()" 
+                class="w-full py-2.5 rounded-xl border border-gray-300 hover:border-black text-gray-800 font-bold text-xs transition-all flex items-center justify-center gap-2"
+              >
+                <i class="fa-regular fa-heart text-sm"></i>
+                <span>Add to Wish List</span>
+              </button>
+            </div>
+
+            <!-- Trust Badges -->
+            <div class="pt-4 border-t border-gray-200 grid grid-cols-2 gap-3 text-[11px] text-gray-500">
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-lock text-gray-700"></i>
+                <span>Secure Payment</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-rotate-left text-gray-700"></i>
+                <span>7-Day Return</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-shield-check text-gray-700"></i>
+                <span>100% Authentic</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fa-solid fa-box text-gray-700"></i>
+                <span>Discreet Pack</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      <!-- FULL AMAZON-STYLE CUSTOMER RATINGS & REVIEWS SECTION -->
+      <section id="customer-reviews" class="mt-20 pt-12 border-t border-gray-200">
+        <h3 class="text-2xl font-black uppercase tracking-tight brand-font text-gray-950 mb-8">
+          Customer Ratings & Reviews
+        </h3>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          
+          <!-- Left Rating Overview & Star Breakdown (4 Cols) -->
+          <div class="lg:col-span-4 space-y-6">
+            <div>
+              <div class="flex items-baseline gap-2">
+                <span id="pdp-reviews-overall-score" class="text-5xl font-black font-mono text-gray-950">4.9</span>
+                <span class="text-sm font-bold text-gray-500">out of 5 stars</span>
+              </div>
+              <div class="flex text-amber-400 text-base mt-1">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <p id="pdp-reviews-total-subtitle" class="text-xs text-gray-500 mt-1">Based on 478 verified global customer ratings</p>
+            </div>
+
+            <!-- Star Progress Bars -->
+            <div class="space-y-2 text-xs">
+              <div class="flex items-center gap-3">
+                <span class="w-12 text-gray-600 font-bold">5 star</span>
+                <div class="star-progress-bar flex-1">
+                  <div id="bar-5-star" class="star-progress-fill" style="width: 78%"></div>
+                </div>
+                <span id="bar-5-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">78%</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-12 text-gray-600 font-bold">4 star</span>
+                <div class="star-progress-bar flex-1">
+                  <div id="bar-4-star" class="star-progress-fill" style="width: 16%"></div>
+                </div>
+                <span id="bar-4-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">16%</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-12 text-gray-600 font-bold">3 star</span>
+                <div class="star-progress-bar flex-1">
+                  <div id="bar-3-star" class="star-progress-fill" style="width: 4%"></div>
+                </div>
+                <span id="bar-3-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">4%</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-12 text-gray-600 font-bold">2 star</span>
+                <div class="star-progress-bar flex-1">
+                  <div id="bar-2-star" class="star-progress-fill" style="width: 1%"></div>
+                </div>
+                <span id="bar-2-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">1%</span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <span class="w-12 text-gray-600 font-bold">1 star</span>
+                <div class="star-progress-bar flex-1">
+                  <div id="bar-1-star" class="star-progress-fill" style="width: 1%"></div>
+                </div>
+                <span id="bar-1-star-pct" class="w-10 text-right font-mono font-bold text-gray-700">1%</span>
+              </div>
+            </div>
+
+            <!-- Write A Review Interactive Form Drawer / Card -->
+            <div class="p-6 rounded-2xl bg-white border border-gray-200 shadow-sm space-y-3">
+              <h5 class="text-sm font-bold text-gray-900">Review this product</h5>
+              <p class="text-xs text-gray-500">Share your thoughts and feedback with other customers</p>
+              
+              <form onsubmit="app.submitProductReview(event)" class="space-y-3 pt-2">
+                <div>
+                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Overall Rating</label>
+                  <div class="flex items-center gap-2 review-star-picker">
+                    <i onclick="app.setReviewRating(1)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
+                    <i onclick="app.setReviewRating(2)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
+                    <i onclick="app.setReviewRating(3)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
+                    <i onclick="app.setReviewRating(4)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
+                    <i onclick="app.setReviewRating(5)" class="fa-solid fa-star text-amber-400 text-lg cursor-pointer"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Your Name</label>
+                  <input type="text" id="review-author-input" placeholder="e.g. Aryan S." required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+                </div>
+
+                <div>
+                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Headline</label>
+                  <input type="text" id="review-title-input" placeholder="What's most important to know?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+                </div>
+
+                <div>
+                  <label class="text-[11px] font-bold text-gray-700 block mb-1">Written Review</label>
+                  <textarea id="review-text-input" rows="3" placeholder="What did you like or dislike? How was the fit and fabric drape?" required class="w-full px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black"></textarea>
+                </div>
+
+                <button type="submit" class="w-full py-2.5 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase tracking-wider transition-all">
+                  Submit Verified Review
+                </button>
+              </form>
+            </div>
+
+          </div>
+
+          <!-- Right Customer Reviews List (8 Cols) -->
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+              <h4 class="text-sm font-bold text-gray-900 uppercase font-mono">Top Verified Customer Reviews</h4>
+              <span class="text-xs text-gray-500">Sorted by most helpful</span>
+            </div>
+
+            <!-- Reviews Container -->
+            <div id="pdp-customer-reviews-list" class="space-y-6">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- RELATED RECOMMENDATIONS CAROUSEL -->
+      <section class="mt-20 pt-12 border-t border-gray-200">
+        <h3 class="text-2xl font-black uppercase tracking-tight brand-font text-gray-950 mb-6">
+          Customers Also Viewed
+        </h3>
+        <div id="pdp-related-items" class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6">
+          <!-- Populated dynamically -->
+        </div>
+      </section>
 
     </div>
   </main>
 
   <!-- =========================================================================
-       8. SHOPPING BAG DRAWER
+       5. CART DRAWER (Slide-over)
        ========================================================================= -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 drawer-backdrop bg-black/60 backdrop-blur-sm flex justify-end">
-    <div class="drawer-panel w-full max-w-md bg-white border-l border-gray-200 h-full flex flex-col justify-between shadow-2xl">
-      
-      <!-- Drawer Header -->
+  <div id="cart-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
+    <div class="drawer-panel w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
+      <!-- Cart Header -->
       <div class="p-5 border-b border-gray-200 flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <i class="fa-solid fa-bag-shopping text-gray-900"></i>
-          <h3 class="text-base font-black uppercase text-gray-900 font-mono">Shopping Bag</h3>
-          <span class="cart-counter px-2 py-0.5 rounded-full bg-gray-100 text-xs font-bold text-gray-900">0</span>
+          <i class="fa-solid fa-bag-shopping text-base text-yellow-400"></i>
+          <h3 class="text-base font-black uppercase tracking-tight brand-font">Shopping Bag</h3>
+          <span class="cart-counter px-2 py-0.5 rounded-full bg-black text-white text-[10px] font-mono font-bold">0</span>
         </div>
-        <button onclick="app.closeCartDrawer()" class="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black transition-colors">
-          <i class="fa-solid fa-xmark text-lg"></i>
+        <button onclick="app.closeCartDrawer()" class="p-2 text-gray-400 hover:text-black text-sm" title="Close Bag">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <!-- Free Shipping Progress Bar -->
-      <div class="px-5 py-3 bg-gray-50 border-b border-gray-200">
-        <p id="shipping-threshold-msg" class="text-xs text-gray-700 font-medium mb-1.5">
-          Add <span class="text-black font-bold">₹999</span> for FREE Express Delivery!
-        </p>
-        <div class="w-full h-1.5 rounded-full bg-gray-200 overflow-hidden">
-          <div id="free-shipping-progress" class="h-full bg-black transition-all duration-300" style="width: 0%"></div>
+      <!-- Free Shipping Tracker -->
+      <div class="p-4 bg-gray-50 border-b border-gray-200 text-xs">
+        <div class="flex items-center justify-between mb-1.5 font-bold">
+          <span id="free-shipping-msg" class="text-gray-700">Add ₹999 for FREE Delivery</span>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
+          <div id="free-shipping-progress" class="bg-black h-full rounded-full transition-all duration-300" style="width: 0%"></div>
         </div>
       </div>
 
-      <!-- Items Scroll -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-3">
-        <div id="cart-empty-state" class="hidden py-16 text-center text-gray-400">
-          <i class="fa-solid fa-bag-shopping text-5xl mb-3 text-gray-300"></i>
-          <p class="font-bold text-gray-900 text-base">Your shopping bag is empty</p>
-          <p class="text-xs text-gray-500 mt-1">Explore our latest streetwear drops and select your size!</p>
-          <button onclick="app.closeCartDrawer()" class="mt-4 px-5 py-2.5 rounded-xl bg-black text-white font-extrabold text-xs uppercase">
-            Start Shopping
-          </button>
-        </div>
-        <div id="cart-items-container" class="space-y-3"></div>
+      <!-- Cart Items List -->
+      <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+        <!-- Rendered dynamically -->
       </div>
 
-      <!-- Summary & Checkout -->
-      <div id="cart-footer" class="p-5 border-t border-gray-200 bg-gray-50 space-y-4">
-        <!-- Coupon -->
+      <!-- Cart Footer & Checkout -->
+      <div class="p-5 border-t border-gray-200 bg-gray-50/80 space-y-3">
+        <!-- Coupon Form -->
         <div class="flex gap-2">
           <input 
             type="text" 
             id="cart-coupon-input" 
-            placeholder="Promo code: VELOIR10 or HAUTE20" 
-            class="flex-1 px-3 py-2 text-xs rounded-xl bg-white border border-gray-300 text-gray-900 uppercase font-mono placeholder:normal-case placeholder-gray-400 focus:outline-none focus:border-black"
+            placeholder="Enter promo code (e.g. GIRLY20)" 
+            class="flex-1 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-white font-mono uppercase focus:outline-none focus:border-black"
           />
-          <button onclick="app.applyCartCoupon()" class="px-4 py-2 rounded-xl bg-black hover:bg-gray-800 text-white font-bold text-xs uppercase transition-colors">
+          <button onclick="app.applyCartCoupon()" class="px-4 py-2 rounded-xl bg-gray-900 hover:bg-black text-white text-xs font-bold transition-all">
             Apply
           </button>
         </div>
 
-        <!-- Totals -->
-        <div class="space-y-1.5 text-xs text-gray-600 font-mono">
-          <div class="flex justify-between">
-            <span>Bag Subtotal:</span>
-            <span id="cart-subtotal" class="text-gray-900 font-bold">₹0</span>
+        <!-- Totals Summary -->
+        <div class="space-y-1.5 text-xs">
+          <div class="flex justify-between text-gray-500">
+            <span>Subtotal</span>
+            <span id="cart-subtotal" class="font-mono font-bold text-gray-900">₹0</span>
           </div>
-          <div class="flex justify-between text-emerald-700">
-            <span>Catalog Savings:</span>
-            <span id="cart-mrp-savings">- ₹0</span>
+          <div class="flex justify-between text-emerald-600 font-bold">
+            <span>Discount Applied</span>
+            <span id="cart-discount" class="font-mono">-₹0</span>
           </div>
-          <div id="cart-coupon-row" class="hidden flex justify-between text-yellow-700">
-            <span>Promo Discount:</span>
-            <span id="cart-coupon-savings">- ₹0</span>
-          </div>
-          <div class="flex justify-between">
-            <span>Express Delivery:</span>
-            <span id="cart-shipping-fee" class="text-gray-900">FREE</span>
+          <div class="flex justify-between text-gray-500">
+            <span>Express Shipping</span>
+            <span id="cart-shipping" class="font-mono font-bold text-gray-900">FREE</span>
           </div>
           <div class="flex justify-between text-base font-black text-gray-950 pt-2 border-t border-gray-200">
-            <span>Total Payable:</span>
-            <span id="cart-final-total" class="font-mono text-gray-950">₹0</span>
+            <span>Total Payable</span>
+            <span id="cart-final-total" class="font-mono text-xl">₹0</span>
           </div>
         </div>
 
-        <button onclick="app.openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg">
-          <span>Proceed To Checkout</span>
+        <button onclick="app.openCheckoutModal()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-2">
+          <span>Proceed to Buy</span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-
     </div>
   </div>
 
   <!-- =========================================================================
-       9. WISHLIST DRAWER
+       6. CHECKOUT MODAL (Complete Amazon-like Purchase Flow)
        ========================================================================= -->
-  <div id="wishlist-drawer" class="fixed inset-0 z-50 drawer-backdrop bg-black/60 backdrop-blur-sm flex justify-end">
-    <div class="drawer-panel w-full max-w-md bg-white border-l border-gray-200 h-full flex flex-col justify-between shadow-2xl">
-      <div class="p-5 border-b border-gray-200 flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-heart text-rose-500"></i>
-          <h3 class="text-base font-black uppercase text-gray-900 font-mono">Saved Wishlist</h3>
+  <div id="checkout-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+        <div>
+          <h3 class="text-xl font-black uppercase tracking-tight brand-font">Instant Express Checkout</h3>
+          <p class="text-xs text-gray-500 font-mono">Order total: <b id="checkout-total-display" class="text-black">₹0</b></p>
         </div>
-        <button onclick="app.closeWishlistDrawer()" class="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-black">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-      <div class="flex-1 overflow-y-auto p-5 space-y-3" id="wishlist-items-container"></div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       10. PRODUCT DETAIL & REVIEWS MODAL
-       ========================================================================= -->
-  <div id="product-detail-modal" class="fixed inset-0 z-50 modal-backdrop bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-    <div class="modal-content relative w-full max-w-4xl bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-2xl my-8">
-      
-      <button onclick="app.closeProductModal()" class="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white/90 text-gray-700 hover:text-black flex items-center justify-center border border-gray-200 shadow-md">
-        <i class="fa-solid fa-xmark text-base"></i>
-      </button>
-
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-6 p-6 sm:p-8">
-        <!-- Gallery -->
-        <div class="md:col-span-6 space-y-3">
-          <div class="relative aspect-[4/5] rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
-            <img id="modal-prod-main-img" src="" alt="Product" class="w-full h-full object-cover object-center" />
-            <span id="modal-prod-badge" class="absolute top-3 left-3 px-2.5 py-1 rounded text-[10px] font-black uppercase bg-yellow-300 text-black">
-              DROP
-            </span>
-          </div>
-          <div id="modal-prod-thumbs" class="flex gap-2"></div>
-        </div>
-
-        <!-- Info & Actions -->
-        <div class="md:col-span-6 flex flex-col justify-between space-y-5">
-          <div>
-            <div class="flex items-center gap-2 text-xs">
-              <div class="flex items-center text-amber-500">
-                <i class="fa-solid fa-star"></i>
-                <span id="modal-prod-rating" class="font-bold text-gray-900 ml-1">4.8</span>
-              </div>
-              <span class="text-gray-300">|</span>
-              <span id="modal-prod-reviews" class="text-gray-500">324 reviews</span>
-              <span class="px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 text-[10px] font-bold border border-emerald-200">
-                ✓ In Stock
-              </span>
-            </div>
-
-            <h2 id="modal-prod-title" class="text-2xl font-black uppercase text-gray-950 mt-2 leading-tight brand-font">
-              Product Title
-            </h2>
-
-            <div class="flex items-baseline gap-3 mt-3 pt-3 border-t border-gray-200">
-              <span id="modal-prod-price" class="text-3xl font-black font-mono text-gray-950">₹499</span>
-              <span id="modal-prod-mrp" class="text-sm strikethrough text-gray-400">₹999</span>
-              <span id="modal-prod-discount" class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                50% OFF
-              </span>
-            </div>
-            <p class="text-[11px] text-gray-500 mt-0.5 font-mono">Inclusive of all taxes</p>
-
-            <!-- Colors -->
-            <div class="mt-4">
-              <label class="text-xs font-bold uppercase text-gray-700 block mb-1.5">Color Shade:</label>
-              <div id="modal-prod-colors" class="flex items-center gap-2"></div>
-            </div>
-
-            <!-- Sizes -->
-            <div class="mt-4">
-              <div class="flex items-center justify-between mb-1.5">
-                <label class="text-xs font-bold uppercase text-gray-700">Select Size:</label>
-                <button onclick="alert('Size Guide: S(38in), M(40in), L(42in), XL(44in). Oversized drop-shoulder fit.')" class="text-[11px] text-black hover:underline font-bold">
-                  Size Guide & Measurements
-                </button>
-              </div>
-              <div id="modal-prod-sizes" class="flex flex-wrap gap-2"></div>
-            </div>
-
-            <!-- PINCODE DELIVERY ESTIMATOR -->
-            <div class="mt-5 p-3.5 rounded-xl bg-gray-50 border border-gray-200 space-y-2">
-              <label class="text-xs font-bold uppercase text-gray-700 flex items-center gap-1.5">
-                <i class="fa-solid fa-location-dot text-black"></i> Delivery Availability & COD:
-              </label>
-              <div class="flex gap-2">
-                <input 
-                  type="text" 
-                  id="pincode-input" 
-                  placeholder="Enter 6-digit PIN (e.g. 400050)" 
-                  maxlength="6"
-                  class="flex-1 px-3 py-1.5 text-xs rounded-lg bg-white border border-gray-300 text-gray-900 font-mono placeholder-gray-400 focus:outline-none focus:border-black"
-                />
-                <button id="check-pincode-btn" class="px-3.5 py-1.5 rounded-lg bg-black hover:bg-gray-800 text-white font-bold text-xs">
-                  Check
-                </button>
-              </div>
-              <div id="pincode-result" class="hidden pt-1"></div>
-            </div>
-
-            <div class="mt-4 text-xs text-gray-600 space-y-1 font-mono">
-              <p>🧵 Fabric: <span id="modal-prod-fabric" class="text-gray-900 font-bold">240 GSM 100% Combed Cotton</span></p>
-              <p>📐 Silhouette: <span id="modal-prod-fit" class="text-gray-900 font-bold">Boxy Drop-Shoulder</span></p>
-              <p class="text-gray-600 font-sans mt-2" id="modal-prod-desc"></p>
-            </div>
-          </div>
-
-          <!-- CTAs -->
-          <div class="flex gap-3 pt-4 border-t border-gray-200">
-            <button onclick="app.addProductModalToCart()" class="flex-1 py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md">
-              <i class="fa-solid fa-bag-shopping"></i> Add To Bag
-            </button>
-            <button onclick="app.buyNowProductModal()" class="flex-1 py-3 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-black text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-md">
-              <i class="fa-solid fa-bolt"></i> Buy Now
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       11. MULTI-STEP CHECKOUT MODAL
-       ========================================================================= -->
-  <div id="checkout-modal" class="fixed inset-0 z-50 modal-backdrop bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-    <div class="modal-content relative w-full max-w-xl bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-2xl my-8">
-      
-      <div class="p-5 border-b border-gray-200 flex items-center justify-between bg-gray-50">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved text-black"></i>
-          <h3 class="text-base font-black uppercase text-gray-900 font-mono">Express Checkout</h3>
-        </div>
-        <button onclick="app.closeCheckoutModal()" class="p-1.5 rounded-full hover:bg-gray-200 text-gray-500 hover:text-black">
-          <i class="fa-solid fa-xmark text-base"></i>
+        <button onclick="app.closeCheckoutModal()" class="p-2 text-gray-400 hover:text-black text-sm">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="px-6 py-2.5 bg-gray-50 flex items-center justify-between border-b border-gray-200 text-xs">
-        <span class="text-gray-500">Total Payable: <span id="checkout-items-summary" class="text-gray-700 font-mono font-bold">1 item</span></span>
-        <span id="checkout-order-total" class="font-mono font-black text-black text-lg">₹0</span>
-      </div>
+      <form onsubmit="app.processOrderPlacement(event)" class="space-y-4">
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">1. Delivery Address</h4>
+          <div class="grid grid-cols-2 gap-3">
+            <input type="text" id="cust-name" placeholder="Full Name" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+            <input type="tel" id="cust-phone" placeholder="Mobile Number (+91)" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black font-mono" />
+            <input type="text" id="cust-address" placeholder="Flat, Street, Area" required class="col-span-2 px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+            <input type="text" id="cust-city" placeholder="City (e.g. Mumbai)" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black" />
+            <input type="text" id="cust-pincode" placeholder="PIN Code (6 digits)" maxlength="6" required class="px-3 py-2 text-xs rounded-xl border border-gray-300 bg-gray-50 focus:outline-none focus:border-black font-mono" />
+          </div>
+        </div>
 
-      <div class="p-6">
-        
-        <!-- Step 1: Address -->
-        <div id="checkout-step-1" class="space-y-4">
-          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">Step 1/2: Delivery Address</h4>
-          <div class="space-y-3">
-            <div>
-              <label class="text-[11px] text-gray-700 font-semibold block mb-1">Full Name</label>
-              <input type="text" id="ship-name" value="Omkar Bhagwat" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="text-[11px] text-gray-700 font-semibold block mb-1">Mobile Number</label>
-                <input type="text" id="ship-phone" value="+91 98200 12345" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
+        <div class="pt-2">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-700 font-mono mb-2">2. Payment Method</h4>
+          <div class="space-y-2 text-xs">
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+              <input type="radio" name="payment-method" value="UPI (Google Pay / PhonePe)" checked class="accent-black" />
+              <div class="flex-1 flex items-center justify-between">
+                <span class="font-bold">UPI / QR (GPay, PhonePe, Paytm)</span>
+                <i class="fa-brands fa-google-pay text-lg text-blue-600"></i>
               </div>
-              <div>
-                <label class="text-[11px] text-gray-700 font-semibold block mb-1">PIN Code</label>
-                <input type="text" id="ship-pincode" value="400050" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
+            </label>
+
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+              <input type="radio" name="payment-method" value="Credit / Debit Card" class="accent-black" />
+              <div class="flex-1 flex items-center justify-between">
+                <span class="font-bold">Credit / Debit Card (Visa, Mastercard)</span>
+                <i class="fa-solid fa-credit-card text-gray-700"></i>
               </div>
-            </div>
-            <div>
-              <label class="text-[11px] text-gray-700 font-semibold block mb-1">Street Address</label>
-              <input type="text" id="ship-address" value="Flat 402, Sea Green Apts, Hill Road, Bandra West" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
-            </div>
-          </div>
-          <button onclick="app.proceedToPayment()" class="w-full mt-4 py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all">
-            Continue To Payment &rarr;
-          </button>
-        </div>
+            </label>
 
-        <!-- Step 2: Payment -->
-        <div id="checkout-step-2" class="hidden space-y-4">
-          <div class="flex items-center justify-between">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-gray-500 font-mono">Step 2/2: Payment Gateway</h4>
-            <button onclick="app.setCheckoutStep(1)" class="text-[11px] text-gray-500 hover:text-black">&larr; Edit Address</button>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2">
-            <button onclick="app.selectPaymentTab('upi')" data-method="upi" class="payment-method-card p-3 rounded-xl border-2 border-black bg-white text-center transition-all shadow-sm">
-              <i class="fa-solid fa-qrcode text-lg text-black mb-1 block"></i>
-              <span class="text-xs font-bold text-gray-900">Instant UPI</span>
-            </button>
-            <button onclick="app.selectPaymentTab('card')" data-method="card" class="payment-method-card p-3 rounded-xl border border-gray-200 bg-white text-center transition-all">
-              <i class="fa-solid fa-credit-card text-lg text-blue-600 mb-1 block"></i>
-              <span class="text-xs font-bold text-gray-900">Cards / Net</span>
-            </button>
-            <button onclick="app.selectPaymentTab('cod')" data-method="cod" class="payment-method-card p-3 rounded-xl border border-gray-200 bg-white text-center transition-all">
-              <i class="fa-solid fa-money-bill-wave text-lg text-emerald-600 mb-1 block"></i>
-              <span class="text-xs font-bold text-gray-900">Cash (COD)</span>
-            </button>
-          </div>
-
-          <!-- UPI Panel -->
-          <div id="upi-payment-panel" class="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-center space-y-3">
-            <p class="text-xs text-gray-700 font-medium">Scan QR using any UPI app (GPay / PhonePe / Paytm / BHIM)</p>
-            <div class="w-40 h-40 bg-white p-2 rounded-2xl mx-auto flex items-center justify-center shadow-md border border-gray-200">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=veloir@icici" alt="UPI QR" class="w-full h-full" />
-            </div>
-            <p class="text-[11px] text-gray-800 font-mono font-bold">UPI ID: veloir@icici • Zero handling fee</p>
-          </div>
-
-          <!-- Cards Panel -->
-          <div id="card-payment-panel" class="hidden p-4 rounded-2xl bg-gray-50 border border-gray-200 space-y-3">
-            <div>
-              <label class="text-[11px] text-gray-700 block mb-1">Card Number</label>
-              <input type="text" value="4242 •••• •••• 4242" class="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-xs text-gray-900 font-mono" />
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="text-[11px] text-gray-700 block mb-1">Expiry</label>
-                <input type="text" value="12/28" class="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-xs text-gray-900 font-mono" />
+            <label class="flex items-center gap-3 p-3 rounded-xl border border-gray-200 bg-gray-50 cursor-pointer hover:border-black">
+              <input type="radio" name="payment-method" value="Cash on Delivery (COD)" class="accent-black" />
+              <div class="flex-1 flex items-center justify-between">
+                <span class="font-bold">Cash on Delivery (Pay at Doorstep)</span>
+                <i class="fa-solid fa-money-bill-wave text-emerald-600"></i>
               </div>
-              <div>
-                <label class="text-[11px] text-gray-700 block mb-1">CVV</label>
-                <input type="password" value="789" class="w-full px-3 py-2 rounded-lg bg-white border border-gray-300 text-xs text-gray-900 font-mono" />
-              </div>
-            </div>
-          </div>
-
-          <!-- COD Panel -->
-          <div id="cod-payment-panel" class="hidden p-4 rounded-2xl bg-gray-50 border border-gray-200 text-center space-y-2">
-            <i class="fa-solid fa-truck text-emerald-600 text-2xl"></i>
-            <h5 class="text-xs font-bold text-gray-900">Cash on Delivery Available</h5>
-            <p class="text-[11px] text-gray-500">Pay cash or UPI on doorstep arrival. No advance payment required.</p>
-          </div>
-
-          <button onclick="app.confirmAndPlaceOrder()" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-lg">
-            Pay & Confirm Order
-          </button>
-        </div>
-
-        <!-- Step 3: Success -->
-        <div id="checkout-step-3" class="hidden text-center py-6 space-y-4">
-          <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto pulse-dot">
-            ✓
-          </div>
-          <h3 class="text-2xl font-black uppercase text-gray-950 brand-font">ORDER CONFIRMED!</h3>
-          <p class="text-xs text-gray-600 max-w-sm mx-auto">
-            Your streetwear drop is being packed at our central fulfillment warehouse.
-          </p>
-
-          <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-left font-mono text-xs space-y-1.5">
-            <div class="flex justify-between">
-              <span class="text-gray-500">Order ID:</span>
-              <span id="placed-order-id" class="text-gray-900 font-bold">ORD-00000</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Amount:</span>
-              <span id="placed-order-total" class="text-black font-bold">₹0</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Payment:</span>
-              <span id="placed-order-method" class="text-gray-900">UPI</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-gray-500">Address:</span>
-              <span id="placed-order-address" class="text-gray-700 truncate max-w-[200px]">Address</span>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-center gap-3 pt-2">
-            <button onclick="app.openOrderTracker()" class="px-5 py-2.5 rounded-xl bg-black text-white font-extrabold text-xs uppercase flex items-center gap-2">
-              <i class="fa-solid fa-map-location-dot"></i> Track Live Package
-            </button>
-            <button onclick="app.closeCheckoutModal()" class="px-4 py-2.5 rounded-xl bg-gray-100 text-gray-700 text-xs font-semibold">
-              Continue Shopping
-            </button>
+            </label>
           </div>
         </div>
 
-      </div>
-
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       12. ORDER TRACKING MODAL (Delhivery / Bluedart Live Stepper)
-       ========================================================================= -->
-  <div id="order-tracking-modal" class="fixed inset-0 z-50 modal-backdrop bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="modal-content relative w-full max-w-md bg-white border border-gray-200 rounded-3xl p-6 shadow-2xl">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
-        <div>
-          <h4 class="text-sm font-black uppercase text-gray-900 font-mono flex items-center gap-2">
-            <i class="fa-solid fa-box-open text-black"></i> Package Live Tracking
-          </h4>
-          <div class="flex items-center gap-2 mt-0.5">
-            <span class="text-xs text-gray-500 font-mono" id="track-order-id">ORD-98412</span>
-            <span class="text-[10px] text-gray-400 font-mono" id="track-order-date"></span>
-          </div>
-        </div>
-        <button onclick="app.closeOrderTracker()" class="p-1 rounded-full text-gray-400 hover:text-black">
-          <i class="fa-solid fa-xmark text-base"></i>
-        </button>
-      </div>
-
-      <div class="p-3 rounded-xl bg-gray-50 border border-gray-200 mb-6 text-xs font-mono flex justify-between items-center">
-        <div>
-          <span class="text-gray-400 block text-[10px]">Logistics Partner</span>
-          <span id="track-carrier" class="text-gray-900 font-bold">Delhivery Express</span>
-        </div>
-        <span id="track-order-status" class="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-[11px] font-bold">
-          Delivered
-        </span>
-      </div>
-
-      <div id="tracking-steps-container" class="space-y-1"></div>
-    </div>
-  </div>
-
-  <!-- =========================================================================
-       13. ADMIN: ADD PRODUCT MODAL
-       ========================================================================= -->
-  <div id="product-form-modal" class="fixed inset-0 z-50 modal-backdrop bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-    <div class="modal-content relative w-full max-w-lg bg-white border border-gray-200 rounded-3xl p-6 shadow-2xl my-8">
-      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-4">
-        <h3 id="modal-form-heading" class="text-base font-black uppercase text-gray-900 font-mono">
-          Add New Streetwear Drop
-        </h3>
-        <button onclick="adminDashboard.closeProductFormModal()" class="p-1.5 rounded-full text-gray-400 hover:text-black">
-          <i class="fa-solid fa-xmark text-base"></i>
-        </button>
-      </div>
-
-      <form id="add-product-form" class="space-y-3.5">
-        <div>
-          <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Product Title</label>
-          <input type="text" id="prod-form-title" required placeholder="e.g. Vintage Acid Wash Tee" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
-        </div>
-
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Category</label>
-            <select id="prod-form-category" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black">
-              <option value="tees">Graphic Tees</option>
-              <option value="hoodies">Hoodies</option>
-              <option value="bottoms">Cargos & Denim</option>
-              <option value="jackets">Varsity & Jackets</option>
-              <option value="coords">Co-ords</option>
-              <option value="accessories">Accessories</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Badge Tag</label>
-            <input type="text" id="prod-form-badge" placeholder="e.g. BESTSELLER" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
-          </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-3">
-          <div>
-            <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Price (₹)</label>
-            <input type="number" id="prod-form-price" required placeholder="499" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-black" />
-          </div>
-          <div>
-            <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">MRP (₹)</label>
-            <input type="number" id="prod-form-mrp" placeholder="999" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-black" />
-          </div>
-          <div>
-            <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Stock</label>
-            <input type="number" id="prod-form-stock" required value="25" class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 font-mono focus:outline-none focus:border-black" />
-          </div>
-        </div>
-
-        <div>
-          <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Image URL</label>
-          <input type="url" id="prod-form-img" placeholder="https://images.unsplash.com/..." class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black" />
-          <img id="prod-form-img-preview" src="" class="hidden w-20 h-24 object-cover rounded-lg mt-2 border border-gray-200 bg-gray-100" />
-        </div>
-
-        <div>
-          <label class="text-[11px] font-bold uppercase text-gray-700 block mb-1">Fabric & Specs Description</label>
-          <textarea id="prod-form-desc" rows="2" placeholder="Fabric weight, drape, silhouette..." class="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-300 text-xs text-gray-900 focus:outline-none focus:border-black"></textarea>
-        </div>
-
-        <button type="submit" class="w-full py-3 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all">
-          Save Drop to Store Catalog
+        <button type="submit" class="w-full py-3.5 rounded-xl bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-wider transition-all shadow-md mt-4">
+          Confirm & Place Order
         </button>
       </form>
     </div>
   </div>
 
-  <!-- TOAST NOTIFICATIONS -->
+  <!-- =========================================================================
+       7. WISHLIST DRAWER
+       ========================================================================= -->
+  <div id="wishlist-drawer" class="drawer-backdrop fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex justify-end">
+    <div class="drawer-panel w-full max-w-md bg-white h-full flex flex-col shadow-2xl">
+      <div class="p-5 border-b border-gray-200 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-heart text-base text-red-500"></i>
+          <h3 class="text-base font-black uppercase tracking-tight brand-font">Saved Wishlist</h3>
+        </div>
+        <button onclick="app.closeWishlistDrawer()" class="p-2 text-gray-400 hover:text-black text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="wishlist-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       8. LIVE ORDER TRACKING MODAL
+       ========================================================================= -->
+  <div id="order-tracking-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-2xl">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+        <div>
+          <h3 class="text-lg font-black uppercase tracking-tight brand-font">Order Tracking</h3>
+          <p class="text-xs text-gray-500 font-mono">Order ID: <b id="track-order-id" class="text-black">ORD-94821</b></p>
+        </div>
+        <button onclick="app.closeOrderTracker()" class="p-2 text-gray-400 hover:text-black text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 mb-6 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Current Status</span>
+          <h4 id="track-order-status" class="text-base font-black text-emerald-600">Processing</h4>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] font-bold uppercase text-gray-400 font-mono">Carrier</span>
+          <p id="track-order-carrier" class="text-xs font-bold text-gray-800">Express Courier</p>
+        </div>
+      </div>
+
+      <div id="tracking-steps-container" class="space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       9. STORE ADMIN HQ DASHBOARD MODAL
+       ========================================================================= -->
+  <div id="admin-dashboard-modal" class="modal-backdrop fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="modal-content w-full max-w-4xl bg-white rounded-3xl p-6 sm:p-8 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded text-[10px] font-black uppercase bg-black text-white font-mono">STORE OWNER HQ</span>
+            <h3 class="text-xl font-black uppercase tracking-tight brand-font">VÉLOIR Management Console</h3>
+          </div>
+          <p class="text-xs text-gray-500 font-mono">Real-time revenue, orders & catalog inventory metrics</p>
+        </div>
+        <button onclick="app.toggleAdminDashboard()" class="p-2 text-gray-400 hover:text-black text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Metrics Cards -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+          <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Total Revenue</span>
+          <p id="kpi-revenue" class="text-2xl font-black font-mono text-gray-900 mt-1">₹48,920</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+          <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Total Orders</span>
+          <p id="kpi-orders" class="text-2xl font-black font-mono text-gray-900 mt-1">32</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+          <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Active Catalog</span>
+          <p id="kpi-catalog" class="text-2xl font-black font-mono text-gray-900 mt-1">28 Drops</p>
+        </div>
+        <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200">
+          <span class="text-[10px] font-bold uppercase text-gray-500 font-mono">Avg Order Value</span>
+          <p id="kpi-aov" class="text-2xl font-black font-mono text-emerald-600 mt-1">₹1,528</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-gray-50 border border-gray-200 text-xs text-gray-600">
+        <p class="font-bold">Catalog Distribution:</p>
+        <p class="mt-1">14 Men's Streetwear Drops • 14 Women's Chic Atelier Drops. Managed with real-time reactive LocalStorage persistence.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATIONS CONTAINER -->
   <div id="toast-container"></div>
 
   <!-- =========================================================================
-       14. FOOTER (Credible Fashion Brand & Care)
+       10. FOOTER
        ========================================================================= -->
   <footer class="bg-gray-950 text-white border-t border-gray-800 pt-16 pb-12 mt-auto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1448,10 +1136,10 @@
         <div class="space-y-4">
           <div class="flex items-center gap-2">
             <span class="text-2xl font-black tracking-[0.2em] uppercase brand-font text-white">VÉLOIR</span>
-            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-white text-black tracking-widest font-mono">STUDIO</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-black uppercase bg-white text-black tracking-widest font-mono">ATELIER</span>
           </div>
           <p class="text-xs text-gray-400 leading-relaxed">
-            Redefining youth Indian fashion with Zudio-accessible pricing and Being Human conscious authenticity. Crafted in 240+ GSM bio-washed cotton.
+            India's premium luxury streetwear and modern casuals atelier. Featuring dedicated collections for both Men & Women.
           </p>
           <div class="flex gap-3 text-gray-400 text-sm">
             <a href="#" class="w-8 h-8 rounded-full bg-gray-900 flex items-center justify-center hover:text-white"><i class="fa-brands fa-instagram"></i></a>
@@ -1463,10 +1151,10 @@
         <div>
           <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">Shop Departments</h5>
           <ul class="text-xs text-gray-400 space-y-2">
-            <li><a href="#catalog" onclick="app.filterByStoryCategory('tees')" class="hover:text-white">Oversized Tees</a></li>
-            <li><a href="#catalog" onclick="app.filterByStoryCategory('bottoms')" class="hover:text-white">Utility Cargos</a></li>
-            <li><a href="#catalog" onclick="app.filterByStoryCategory('hoodies')" class="hover:text-white">Heavy Hoodies</a></li>
-            <li><a href="#style-studio" class="hover:text-white">Complete The Look</a></li>
+            <li><button onclick="app.setGender('men')" class="hover:text-white">⚡ Men's Streetwear Drops</button></li>
+            <li><button onclick="app.setGender('women')" class="hover:text-white">🌸 Women's Chic Atelier</button></li>
+            <li><button onclick="app.filterByStoryCategory('shoes')" class="hover:text-white">Sneakers & Party Heels</button></li>
+            <li><a href="#style-studio" class="hover:text-white">Complete The Look Studio</a></li>
             <li><button class="toggle-admin-view text-yellow-400 hover:underline font-bold">Store Admin HQ</button></li>
           </ul>
         </div>
@@ -1475,15 +1163,15 @@
           <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">Customer Support</h5>
           <ul class="text-xs text-gray-400 space-y-2">
             <li><button onclick="app.openOrderTracker()" class="hover:text-white">Track Your Order</button></li>
-            <li><a href="#" class="hover:text-white">7-Day Free Returns</a></li>
+            <li><a href="#" class="hover:text-white">7-Day Free Returns & Doorstep Exchange</a></li>
             <li><a href="#" class="hover:text-white">Size Chart & Fit Guide</a></li>
-            <li><a href="#" class="hover:text-white">24/7 WhatsApp Helpdesk</a></li>
+            <li><a href="#" class="hover:text-white">24/7 WhatsApp Concierge</a></li>
           </ul>
         </div>
 
         <div>
-          <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">Exclusive Drop Alerts</h5>
-          <p class="text-xs text-gray-400 mb-3">Get private access 15 minutes before Friday 6 PM drop goes live.</p>
+          <h5 class="text-xs font-bold uppercase tracking-wider text-white font-mono mb-3">VIP Drop Alerts</h5>
+          <p class="text-xs text-gray-400 mb-3">Get private access 15 minutes before new seasonal drops go live.</p>
           <div class="flex gap-2">
             <input type="email" placeholder="Enter your email" class="flex-1 px-3 py-2 text-xs rounded-xl bg-gray-900 border border-gray-800 text-white focus:outline-none focus:border-white" />
             <button onclick="app.showToast('Subscribed to drop alerts!', 'success')" class="px-3.5 py-2 rounded-xl bg-white text-black font-extrabold text-xs">Join</button>
@@ -1493,18 +1181,18 @@
 
       <div class="pt-8 border-t border-gray-900 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 gap-4">
         <p>© 2026 MAISON VÉLOIR INC. All rights reserved.</p>
-        <p class="font-mono">Engineered for Street Culture • Mumbai, India</p>
+        <p class="font-mono">Engineered for Modern Culture • Mumbai, India</p>
       </div>
     </div>
   </footer>
 
   <!-- =========================================================================
-       SCRIPTS (Clean Architecture with cache buster)
+       SCRIPTS (Clean Architecture)
        ========================================================================= -->
-  <script src="js/data.js?v=5.0"></script>
-  <script src="js/state.js?v=5.0"></script>
-  <script src="js/dashboard.js?v=5.0"></script>
-  <script src="js/app.js?v=5.0"></script>
+  <script src="js/data.js?v=6.0"></script>
+  <script src="js/state.js?v=6.0"></script>
+  <script src="js/dashboard.js?v=6.0"></script>
+  <script src="js/app.js?v=6.0"></script>
 
 </body>
 </html>

@@ -1,11 +1,11 @@
 /* ==========================================================================
-   VÉLOIR — High-Performance Retail Fashion Design System (Zudio x Being Human)
+   VÉLOIR — Luxury Retail Fashion Design System (Men's & Women's Atelier)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  /* Clean, Authentic Retail Light Theme (Default) */
+  /* Default / Balanced Luxury Theme */
   --bg-core: #ffffff;
   --bg-surface: #f8f9fa;
   --bg-card: #ffffff;
@@ -19,16 +19,94 @@
   
   --accent-black: #111827;
   --accent-gold: #c59b27;
+  --accent-primary: #111827;
   --accent-red: #e11d48;
   --accent-emerald: #059669;
   
   --font-heading: 'Syne', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
   --font-mono: 'Space Grotesk', monospace;
   
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
   --shadow-hover: 0 20px 35px -10px rgba(0, 0, 0, 0.16);
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-border: rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================================================================
+   GIRLY / CHIC LUXURY THEME (WOMEN'S WEAR MODE)
+   ========================================================================== */
+body.theme-women {
+  --bg-core: #fff5f8;
+  --bg-surface: #fdf2f8;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-card-hover: #ffffff;
+  --border-subtle: #fce7f3;
+  --border-hover: #f43f5e;
+  
+  --text-primary: #1f1224;
+  --text-secondary: #831843;
+  --text-muted: #9d174d;
+  
+  --accent-black: #db2777;
+  --accent-primary: #ec4899;
+  --accent-gold: #fb7185;
+  --accent-pink: #f43f5e;
+  
+  --shadow-hover: 0 20px 35px -10px rgba(244, 63, 94, 0.22);
+  --glass-bg: rgba(255, 245, 249, 0.85);
+  --glass-border: rgba(251, 207, 232, 0.7);
+}
+
+body.theme-women .brand-hero-title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: #831843;
+}
+
+body.theme-women .accent-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(244, 63, 94, 0.15), transparent 70%);
+}
+
+body.theme-women .nav-active-pill {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #db2777 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(244, 63, 94, 0.35);
+}
+
+body.theme-women .btn-primary {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #db2777 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.3);
+}
+
+body.theme-women .btn-primary:hover {
+  box-shadow: 0 8px 24px rgba(244, 63, 94, 0.45);
+  filter: brightness(1.04);
+}
+
+/* ==========================================================================
+   MEN'S STREETWEAR THEME
+   ========================================================================== */
+body.theme-men {
+  --bg-core: #fcfcfc;
+  --bg-surface: #f1f5f9;
+  --bg-card: #ffffff;
+  --border-subtle: #e2e8f0;
+  --border-hover: #0f172a;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  
+  --accent-primary: #0f172a;
+  --accent-gold: #c59b27;
+  
+  --shadow-hover: 0 20px 35px -10px rgba(15, 23, 42, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(226, 232, 240, 0.8);
 }
 
 /* Dark Mode Support */
@@ -43,6 +121,8 @@ body.dark-mode {
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --accent-black: #ffffff;
+  --glass-bg: rgba(24, 26, 36, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.12);
 }
 
 * {
@@ -55,7 +135,7 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, h4, .brand-font {
@@ -63,8 +143,42 @@ h1, h2, h3, h4, .brand-font {
   letter-spacing: -0.02em;
 }
 
+.serif-font {
+  font-family: var(--font-serif);
+}
+
 .mono-font {
   font-family: var(--font-mono);
+}
+
+/* ==========================================================================
+   GLASSMORPHISM & TRANSPARENT EFFECTS
+   ========================================================================== */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.04);
+}
+
+.glass-pill {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.theme-women .glass-pill {
+  background: rgba(255, 245, 250, 0.75);
+  border-color: rgba(251, 207, 232, 0.7);
 }
 
 /* Custom Scrollbar */
@@ -113,6 +227,11 @@ h1, h2, h3, h4, .brand-font {
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px #111827;
 }
 
+.theme-women .story-circle.active .circle-img {
+  border-color: #ec4899;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #ec4899;
+}
+
 /* Hero Carousel Slider */
 .hero-slider-container {
   position: relative;
@@ -122,7 +241,7 @@ h1, h2, h3, h4, .brand-font {
 
 .hero-slider-track {
   display: flex;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
 }
 
@@ -132,8 +251,8 @@ h1, h2, h3, h4, .brand-font {
 }
 
 .slider-dot.active {
-  background-color: #111827;
-  width: 28px;
+  background-color: var(--accent-black);
+  width: 32px;
 }
 
 /* Instant Search Dropdown */
@@ -143,40 +262,38 @@ h1, h2, h3, h4, .brand-font {
   left: 0;
   right: 0;
   z-index: 60;
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
   border-radius: 16px;
-  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.15);
-  max-height: 380px;
+  box-shadow: 0 20px 45px -5px rgba(0, 0, 0, 0.15);
+  max-height: 400px;
   overflow-y: auto;
-}
-
-body.dark-mode #search-suggestions-dropdown {
-  background: #181a24;
-  border-color: #27272a;
 }
 
 /* Product Cards */
 .product-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+  position: relative;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   border-color: var(--border-hover);
   box-shadow: var(--shadow-hover);
 }
 
 .product-card .img-zoom {
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-card:hover .img-zoom {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
 /* Quick Size Picker Bar on Hover */
@@ -196,7 +313,7 @@ body.dark-mode #search-suggestions-dropdown {
 /* Heart burst animation for wishlist */
 @keyframes heartBurst {
   0% { transform: scale(1); }
-  50% { transform: scale(1.3); }
+  50% { transform: scale(1.35); }
   100% { transform: scale(1); }
 }
 
@@ -208,7 +325,7 @@ body.dark-mode #search-suggestions-dropdown {
 .drawer-backdrop {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.24s ease;
 }
 
 .drawer-backdrop.active {
@@ -218,7 +335,7 @@ body.dark-mode #search-suggestions-dropdown {
 
 .drawer-panel {
   transform: translateX(100%);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .drawer-backdrop.active .drawer-panel {
@@ -228,7 +345,7 @@ body.dark-mode #search-suggestions-dropdown {
 .modal-backdrop {
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.22s ease;
 }
 
 .modal-backdrop.active {
@@ -237,8 +354,8 @@ body.dark-mode #search-suggestions-dropdown {
 }
 
 .modal-content {
-  transform: scale(0.96) translateY(10px);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .modal-backdrop.active .modal-content {
@@ -263,8 +380,9 @@ body.dark-mode #search-suggestions-dropdown {
   align-items: center;
   gap: 12px;
   padding: 12px 18px;
-  background: #111827;
-  border-radius: 12px;
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
   color: #fff;
   font-size: 0.85rem;
   font-weight: 600;
@@ -272,6 +390,11 @@ body.dark-mode #search-suggestions-dropdown {
   transform: translateY(16px);
   opacity: 0;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-women .toast {
+  background: rgba(131, 24, 67, 0.95);
+  box-shadow: 0 10px 25px rgba(244, 63, 94, 0.35);
 }
 
 .toast.show {
@@ -291,27 +414,73 @@ body.dark-mode #search-suggestions-dropdown {
   font-weight: 700;
 }
 
-body.dark-mode .category-filter-btn.active {
-  color: #000000;
+.theme-women .category-filter-btn.active {
+  background: linear-gradient(135deg, #f43f5e 0%, #ec4899 100%);
+  color: #ffffff;
 }
 
-/* Subtle Pulsing Live Indicator */
+/* Pulsing live indicator */
 @keyframes liveDot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.9); }
 }
 
 .pulse-dot {
   animation: liveDot 1.8s infinite ease-in-out;
 }
 
-/* Sliding picker arrows */
-.picker-scroll-btn {
-  opacity: 0.85;
-  transition: all 0.2s ease;
+/* ==========================================================================
+   AMAZON-STYLE PRODUCT DETAIL PAGE (PDP)
+   ========================================================================== */
+.amazon-buy-box {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  box-shadow: 0 12px 36px -8px rgba(0, 0, 0, 0.08);
 }
 
-.picker-scroll-btn:hover {
-  opacity: 1;
-  transform: scale(1.1);
+.star-progress-bar {
+  height: 14px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.star-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.theme-women .star-progress-fill {
+  background: linear-gradient(90deg, #ec4899, #fb7185);
+}
+
+/* Thumbnail Gallery Item */
+.thumb-item {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid transparent;
+}
+
+.thumb-item:hover, .thumb-item.active {
+  border-color: var(--accent-black);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-women .thumb-item:hover, .theme-women .thumb-item.active {
+  border-color: #f43f5e;
+  box-shadow: 0 4px 14px rgba(244, 63, 94, 0.25);
+}
+
+/* Tab Switcher Pills */
+.dept-pill {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dept-pill:hover {
+  transform: translateY(-2px);
 }

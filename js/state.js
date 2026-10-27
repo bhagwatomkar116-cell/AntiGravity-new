@@ -1,25 +1,26 @@
 /**
- * URBN KULT // BE HUMAN - State Management
- * Persistent reactive store backed by localStorage
+ * VÉLOIR — State Management & Reactive Store
+ * Persistent reactive store backed by localStorage with Men/Women Collections & Reviews
  */
 
 class AppStore {
   constructor() {
     this.STORAGE_KEYS = {
-      PRODUCTS: "urbn_products_v1",
-      CART: "urbn_cart_v1",
-      WISHLIST: "urbn_wishlist_v1",
-      ORDERS: "urbn_orders_v1",
-      COUPON: "urbn_applied_coupon_v1"
+      PRODUCTS: "veloir_products_v3",
+      CART: "veloir_cart_v3",
+      WISHLIST: "veloir_wishlist_v3",
+      ORDERS: "veloir_orders_v3",
+      COUPON: "veloir_applied_coupon_v3",
+      GENDER: "veloir_active_gender_v3"
     };
 
     this.initStore();
   }
 
   initStore() {
-    // 1. Initialize Products
+    // 1. Initialize Products (Clean Seed with new inventory)
     const savedProducts = localStorage.getItem(this.STORAGE_KEYS.PRODUCTS);
-    if (!savedProducts) {
+    if (!savedProducts || JSON.parse(savedProducts).length < 20) {
       localStorage.setItem(this.STORAGE_KEYS.PRODUCTS, JSON.stringify(INITIAL_PRODUCTS));
     }
 
@@ -30,7 +31,7 @@ class AppStore {
 
     // 3. Initialize Wishlist
     if (!localStorage.getItem(this.STORAGE_KEYS.WISHLIST)) {
-      localStorage.setItem(this.STORAGE_KEYS.WISHLIST, JSON.stringify(["prod-01", "prod-04"]));
+      localStorage.setItem(this.STORAGE_KEYS.WISHLIST, JSON.stringify(["prod-m01", "prod-w01"]));
     }
 
     // 4. Initialize Orders
@@ -44,9 +45,13 @@ class AppStore {
   }
 
   // --- PRODUCTS ---
-  getProducts() {
+  getProducts(genderFilter = null) {
     try {
-      return JSON.parse(localStorage.getItem(this.STORAGE_KEYS.PRODUCTS)) || INITIAL_PRODUCTS;
+      let list = JSON.parse(localStorage.getItem(this.STORAGE_KEYS.PRODUCTS)) || INITIAL_PRODUCTS;
+      if (genderFilter && genderFilter !== "all") {
+        list = list.filter(p => p.gender === genderFilter);
+      }
+      return list;
     } catch (e) {
       return INITIAL_PRODUCTS;
     }
@@ -69,6 +74,7 @@ class AppStore {
       reviewCount: 1,
       isTrending: true,
       isNewDrop: true,
+      reviews: [],
       ...productData
     };
     products.unshift(newProduct);
@@ -99,6 +105,37 @@ class AppStore {
       return p;
     });
     this.saveProducts(products);
+  }
+
+  // --- REVIEWS ---
+  addReview(productId, reviewData) {
+    const products = this.getProducts();
+    const product = products.find(p => p.id === productId);
+    if (!product) return null;
+
+    if (!product.reviews) product.reviews = [];
+
+    const newRev = {
+      id: "rev-" + Date.now().toString(36),
+      author: reviewData.author || "Anonymous Customer",
+      rating: Number(reviewData.rating) || 5,
+      date: "Today",
+      title: reviewData.title || "Excellent Quality!",
+      comment: reviewData.comment || "Very satisfied with this purchase.",
+      verified: true,
+      helpful: 1
+    };
+
+    product.reviews.unshift(newRev);
+    product.reviewCount = (product.reviewCount || 0) + 1;
+
+    // Recalculate average rating
+    const sum = product.reviews.reduce((acc, r) => acc + (r.rating || 5), 0);
+    product.rating = Number((sum / product.reviews.length).toFixed(1));
+
+    this.saveProducts(products);
+    this.emit("state:reviewAdded", { productId, review: newRev, product });
+    return newRev;
   }
 
   // --- CART ---
@@ -179,7 +216,7 @@ class AppStore {
     const cleanCode = couponCode.trim().toUpperCase();
     const found = INITIAL_COUPONS.find(c => c.code === cleanCode);
     if (!found) {
-      return { success: false, message: "Invalid promo code! Try VELOIR10 or HAUTE20" };
+      return { success: false, message: "Invalid promo code! Try VELOIR10, GIRLY20, or STREET20" };
     }
 
     const { rawTotal } = this.calculateCartTotals(false);
@@ -208,7 +245,7 @@ class AppStore {
 
     cart.forEach(item => {
       rawTotal += (item.product.price || 0) * item.qty;
-      mrpTotal += (item.product.originalPrice || item.product.price * 1.8) * item.qty;
+      mrpTotal += (item.product.originalPrice || Math.round(item.product.price * 1.8)) * item.qty;
     });
 
     const catalogDiscount = Math.max(0, mrpTotal - rawTotal);
@@ -301,7 +338,7 @@ class AppStore {
       carrier: "Express Courier Logistics (AWB #EX" + Math.floor(1000000 + Math.random() * 9000000) + ")",
       trackingSteps: [
         { label: "Order Confirmed", date: "Just now", completed: true },
-        { label: "Packed at Warehouse (Bhiwandi Hub)", date: "Estimated today", completed: false },
+        { label: "Packed at Warehouse (Mumbai Hub)", date: "Estimated today", completed: false },
         { label: "Dispatched & In Transit", date: "Tomorrow", completed: false },
         { label: "Out for Delivery", date: "2-3 Days", completed: false },
         { label: "Delivered", date: "3 Days", completed: false }
@@ -352,7 +389,6 @@ class AppStore {
 
     const lowStockItems = products.filter(p => (p.stockCount || 0) < 10);
 
-    // Category breakdown
     const categoryCounts = {};
     products.forEach(p => {
       categoryCounts[p.category] = (categoryCounts[p.category] || 0) + 1;
@@ -374,4 +410,3 @@ class AppStore {
 
 // Global Store Instance
 window.store = new AppStore();
-
