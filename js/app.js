@@ -169,6 +169,9 @@ class AppUI {
     if (pageId === "track-view") this.renderTrackPage(param);
     if (pageId === "wishlist-view") this.renderWishlistPage();
     if (pageId === "catalog-view") this.renderProducts(true);
+
+    // Notify animation system of page change (Motion One page morph)
+    window.VeloirAnimations?.onPageChange(pageId);
   }
 
   // --- THREE-DASH SIDE MENU (Amazon / Flipkart Style) ---
@@ -659,6 +662,10 @@ class AppUI {
         { opacity: 1, y: 0, stagger: 0.035, duration: 0.35, ease: "power2.out" }
       );
     }
+
+    // Notify animation system — AOS patch + Anime.js stagger
+    window.VeloirAnimations?.refreshAOS();
+    window.VeloirAnimations?.animateGridFilter();
   }
 
   resetFilters() {
@@ -1383,6 +1390,8 @@ class AppUI {
           icon.className = "fa-solid fa-heart text-red-500 text-sm";
           btnElement.classList.add("heart-pop");
           setTimeout(() => btnElement.classList.remove("heart-pop"), 350);
+          // Lottie heart pulse micro-animation
+          window.VeloirAnimations?.playWishlistHeart(btnElement);
         } else {
           icon.className = "fa-regular fa-heart text-sm";
         }
@@ -1406,12 +1415,18 @@ class AppUI {
     if (drawer) {
       this.updateCartUI();
       drawer.classList.add("active");
+      // Motion One slide-in animation
+      window.VeloirAnimations?.animateCartOpen();
     }
   }
 
   closeCartDrawer() {
     const drawer = document.getElementById("cart-drawer");
-    if (drawer) drawer.classList.remove("active");
+    if (drawer) {
+      // Motion One slide-out animation
+      window.VeloirAnimations?.animateCartClose();
+      drawer.classList.remove("active");
+    }
   }
 
   updateCartUI() {
@@ -1517,6 +1532,8 @@ class AppUI {
 
     document.getElementById("checkout-total-display").textContent = `₹${totals.finalAmount}`;
     modal.classList.add("active");
+    // Motion One modal fade+scale entrance
+    window.VeloirAnimations?.animateModalOpen("checkout-modal");
   }
 
   closeCheckoutModal() {
@@ -1558,6 +1575,9 @@ class AppUI {
     if (window.confetti) {
       window.confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
+
+    // Lottie cart-success micro-animation
+    window.VeloirAnimations?.playCartSuccess();
 
     this.showToast(`Order #${order.id} placed successfully!`, "success");
     window.location.hash = `#track-${order.id}`;

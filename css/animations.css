@@ -1,0 +1,218 @@
+/* ============================================================
+   VÉLOIR — animations.css
+   Supports: Lenis, GSAP ScrollTrigger, AOS, Anime.js,
+             Lottie, Three.js, Motion One
+   ============================================================ */
+
+/* ── 1. Lenis Smooth Scroll ───────────────────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ── 2. Three.js Hero Canvas Overlay ─────────────────────── */
+#hero-three-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;   /* clicks pass through to existing buttons */
+  z-index: 0;
+  opacity: 0.55;
+  will-change: transform;
+}
+
+/* ensure hero children sit above the canvas */
+#home > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── 3. AOS Custom Animation Variants ────────────────────── */
+[data-aos="veloir-fade-up"] {
+  opacity: 0;
+  transform: translateY(30px);
+  transition-property: opacity, transform;
+}
+[data-aos="veloir-fade-up"].aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+[data-aos="veloir-fade-in"] {
+  opacity: 0;
+  transition-property: opacity;
+}
+[data-aos="veloir-fade-in"].aos-animate {
+  opacity: 1;
+}
+
+[data-aos="veloir-scale"] {
+  opacity: 0;
+  transform: scale(0.92);
+  transition-property: opacity, transform;
+}
+[data-aos="veloir-scale"].aos-animate {
+  opacity: 1;
+  transform: scale(1);
+}
+
+[data-aos="veloir-slide-left"] {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition-property: opacity, transform;
+}
+[data-aos="veloir-slide-left"].aos-animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── 4. Cart Drawer — Motion One transition classes ──────── */
+#cart-drawer {
+  will-change: opacity;
+}
+
+#cart-drawer .drawer-panel {
+  will-change: transform;
+}
+
+/* Motion One managed — JS adds/removes these helper classes */
+.veloir-drawer-entering .drawer-panel {
+  transform: translateX(100%);
+}
+.veloir-drawer-entered .drawer-panel {
+  transform: translateX(0);
+}
+.veloir-drawer-exiting .drawer-panel {
+  transform: translateX(100%);
+}
+
+/* ── 5. Checkout Modal — Motion One transition classes ────── */
+#checkout-modal {
+  will-change: opacity;
+}
+
+#checkout-modal .modal-content {
+  will-change: transform, opacity;
+}
+
+.veloir-modal-entering .modal-content {
+  opacity: 0;
+  transform: scale(0.92);
+}
+.veloir-modal-entered .modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+.veloir-modal-exiting .modal-content {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+/* ── 6. Lottie Container Sizing ──────────────────────────── */
+#lottie-cart-success {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 220px;
+  height: 220px;
+  z-index: 9999;
+  pointer-events: none;
+  display: none; /* shown by JS */
+  will-change: opacity;
+}
+
+#lottie-heart {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+#lottie-addcart {
+  width: 28px;
+  height: 28px;
+  display: inline-block;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── 7. Product Card — will-change optimisation ──────────── */
+.product-card {
+  will-change: transform, opacity;
+}
+
+/* ── 8. Page Transition Morph (Motion One) ───────────────── */
+.veloir-page-enter {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.veloir-page-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* ── 9. Reduced Motion Overrides ─────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  /* Kill AOS */
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Kill Three.js canvas */
+  #hero-three-canvas {
+    display: none !important;
+  }
+
+  /* Kill Lottie */
+  #lottie-cart-success,
+  #lottie-heart,
+  #lottie-addcart {
+    display: none !important;
+  }
+
+  /* Kill cart / modal transition classes */
+  .veloir-drawer-entering .drawer-panel,
+  .veloir-drawer-exiting .drawer-panel,
+  .veloir-modal-entering .modal-content,
+  .veloir-modal-exiting .modal-content {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  /* Kill product card transitions */
+  .product-card {
+    will-change: auto;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Kill page transitions */
+  .veloir-page-enter,
+  .veloir-page-active {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
