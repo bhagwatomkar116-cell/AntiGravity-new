@@ -125,17 +125,20 @@ class AppUI {
       this.showPage("support-view");
     } else if (hash === "#men") {
       this.setGender("men", false);
-      this.showPage("catalog-view");
+      if (this.currentPage !== "catalog-view") this.showPage("catalog-view");
     } else if (hash === "#women") {
       this.setGender("women", false);
-      this.showPage("catalog-view");
+      if (this.currentPage !== "catalog-view") this.showPage("catalog-view");
+    } else if (hash === "#catalog") {
+      if (this.currentPage !== "catalog-view") this.showPage("catalog-view");
     } else {
-      this.showPage("catalog-view");
+      if (this.currentPage !== "catalog-view") this.showPage("catalog-view");
     }
   }
 
   // --- PAGE VIEW SWITCHER ---
   showPage(pageId, param = null) {
+    const isSamePage = (this.currentPage === pageId);
     this.currentPage = pageId;
     this.closeSideMenu();
 
@@ -153,7 +156,7 @@ class AppUI {
       if (el) {
         if (id === pageId) {
           el.classList.remove("hidden");
-          if (window.gsap) {
+          if (!isSamePage && window.gsap) {
             gsap.fromTo(el, { opacity: 0, y: 15 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" });
           }
         } else {
@@ -162,13 +165,21 @@ class AppUI {
       }
     });
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Only scroll to top if actually changing to a different page view
+    if (!isSamePage) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
 
     // Render page content
     if (pageId === "orders-view") this.renderOrdersPage();
     if (pageId === "track-view") this.renderTrackPage(param);
     if (pageId === "wishlist-view") this.renderWishlistPage();
-    if (pageId === "catalog-view") this.renderProducts(true);
+    if (pageId === "catalog-view" && !isSamePage) this.renderProducts(true);
+
+    // Notify animation system of page change
+    if (!isSamePage) {
+      window.VeloirAnimations?.onPageChange(pageId);
+    }
   }
 
   // --- THREE-DASH SIDE MENU (Amazon / Flipkart Style) ---
@@ -186,7 +197,7 @@ class AppUI {
     }
   }
 
-  // --- GENDER / THEME SWITCHER (Silent & Clean, No Toast Notification, Modern Font) ---
+  // --- GENDER / THEME SWITCHER ---
   setGender(gender, updateHash = true) {
     this.currentGender = gender;
 
@@ -216,14 +227,19 @@ class AppUI {
     // Update Hero Content & Modern Typography dynamically
     this.updateHeroVibe(gender);
 
-    // Filter and Re-render Products with smooth GSAP transition
-    this.renderProducts(true);
+    if (this.currentPage !== "catalog-view") {
+      this.showPage("catalog-view");
+    } else {
+      // Filter and Re-render Products in place
+      this.renderProducts(true);
+    }
 
-    // Update URL hash without annoying notification
+    // Update URL hash without anchor jump or hashchange scroll
     if (updateHash) {
-      if (gender === "women") window.location.hash = "#women";
-      else if (gender === "men") window.location.hash = "#men";
-      else window.location.hash = "#catalog";
+      const targetHash = gender === "women" ? "#women" : gender === "men" ? "#men" : "#catalog";
+      if (window.location.hash !== targetHash) {
+        history.replaceState(null, "", targetHash);
+      }
     }
   }
 
@@ -398,7 +414,9 @@ class AppUI {
     const dropdown = document.getElementById("search-suggestions-dropdown");
     if (dropdown) dropdown.classList.add("hidden");
 
-    this.showPage("catalog-view");
+    if (this.currentPage !== "catalog-view") {
+      this.showPage("catalog-view");
+    }
     this.renderProducts(true);
 
     const catalogSection = document.getElementById("catalog");
@@ -554,7 +572,7 @@ class AppUI {
           onclick="app.navigateToProduct('${product.id}')"
           data-id="${product.id}"
         >
-          <!-- Top Badges (No Emojis) -->
+          <!-- Top Badges -->
           <div class="absolute top-3 left-3 z-10 flex flex-col gap-1.5 items-start pointer-events-none">
             ${product.badge ? `
               <span class="px-2.5 py-1 rounded-md text-[10px] font-black tracking-wider uppercase ${isWomen ? 'bg-pink-100 text-pink-700 border border-pink-200' : 'bg-gray-100 text-gray-900 border border-gray-300'} shadow-sm font-mono">
@@ -659,6 +677,10 @@ class AppUI {
         { opacity: 1, y: 0, stagger: 0.035, duration: 0.35, ease: "power2.out" }
       );
     }
+
+    // Notify animation system
+    window.VeloirAnimations?.refreshAOS();
+    window.VeloirAnimations?.animateGridFilter();
   }
 
   resetFilters() {
@@ -695,13 +717,10 @@ class AppUI {
       btn.classList.toggle("active", btn.getAttribute("data-category") === cat);
     });
 
-    this.showPage("catalog-view");
-    this.renderProducts(true);
-
-    const catalogSection = document.getElementById("catalog");
-    if (catalogSection) {
-      catalogSection.scrollIntoView({ behavior: "smooth" });
+    if (this.currentPage !== "catalog-view") {
+      this.showPage("catalog-view");
     }
+    this.renderProducts(true);
   }
 
   // --- AMAZON-STYLE DEDICATED PRODUCT DETAIL PAGE (PDP) ---
@@ -790,7 +809,7 @@ class AppUI {
       colorsContainer.innerHTML = (product.colors || [{ name: "Standard", hex: "#111" }]).map((c, idx) => `
         <button 
           onclick="app.selectPdpColor('${c.name}', this)" 
-          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'border-black bg-gray-50 dark:border-white dark:bg-zinc-800' : 'border-gray-200 dark:border-zinc-700 hover:border-gray-400'}"
+          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'active border-black bg-gray-50 dark:border-white dark:bg-zinc-800' : 'border-gray-200 dark:border-zinc-700 hover:border-gray-400'}"
           title="${c.name}"
         >
           <span class="w-4 h-4 rounded-full border border-gray-300 shadow-inner" style="background-color: ${c.hex}"></span>
@@ -805,7 +824,7 @@ class AppUI {
       sizesContainer.innerHTML = (product.sizes || ["S", "M", "L", "XL"]).map((sz, idx) => `
         <button 
           onclick="app.selectPdpSize('${sz}', this)" 
-          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' : 'border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:border-black'}"
+          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'active bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' : 'border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:border-black'}"
         >
           ${sz}
         </button>
@@ -884,10 +903,10 @@ class AppUI {
   selectPdpSize(size, el) {
     this.selectedSize = size;
     document.querySelectorAll(".pdp-size-btn").forEach(b => {
-      b.classList.remove("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+      b.classList.remove("active", "bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
       b.classList.add("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
     });
-    el.classList.add("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+    el.classList.add("active", "bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
     el.classList.remove("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
   }
 
@@ -897,10 +916,10 @@ class AppUI {
     if (label) label.textContent = colorName;
 
     document.querySelectorAll(".pdp-color-btn").forEach(b => {
-      b.classList.remove("border-black", "border-pink-500", "bg-gray-50", "bg-pink-50", "dark:border-white", "dark:bg-zinc-800");
+      b.classList.remove("active", "border-black", "border-pink-500", "bg-gray-50", "bg-pink-50", "dark:border-white", "dark:bg-zinc-800");
       b.classList.add("border-gray-200", "dark:border-zinc-700");
     });
-    el.classList.add("border-black", "bg-gray-50", "dark:border-white", "dark:bg-zinc-800");
+    el.classList.add("active", "border-black", "bg-gray-50", "dark:border-white", "dark:bg-zinc-800");
   }
 
   updatePdpQty(delta) {
@@ -1383,6 +1402,7 @@ class AppUI {
           icon.className = "fa-solid fa-heart text-red-500 text-sm";
           btnElement.classList.add("heart-pop");
           setTimeout(() => btnElement.classList.remove("heart-pop"), 350);
+          window.VeloirAnimations?.playWishlistHeart(btnElement);
         } else {
           icon.className = "fa-regular fa-heart text-sm";
         }
@@ -1406,12 +1426,16 @@ class AppUI {
     if (drawer) {
       this.updateCartUI();
       drawer.classList.add("active");
+      window.VeloirAnimations?.animateCartOpen();
     }
   }
 
   closeCartDrawer() {
     const drawer = document.getElementById("cart-drawer");
-    if (drawer) drawer.classList.remove("active");
+    if (drawer) {
+      window.VeloirAnimations?.animateCartClose();
+      drawer.classList.remove("active");
+    }
   }
 
   updateCartUI() {
@@ -1517,6 +1541,7 @@ class AppUI {
 
     document.getElementById("checkout-total-display").textContent = `₹${totals.finalAmount}`;
     modal.classList.add("active");
+    window.VeloirAnimations?.animateModalOpen("checkout-modal");
   }
 
   closeCheckoutModal() {
@@ -1558,6 +1583,8 @@ class AppUI {
     if (window.confetti) {
       window.confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
+
+    window.VeloirAnimations?.playCartSuccess();
 
     this.showToast(`Order #${order.id} placed successfully!`, "success");
     window.location.hash = `#track-${order.id}`;
