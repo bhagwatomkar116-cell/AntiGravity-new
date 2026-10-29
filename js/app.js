@@ -169,9 +169,6 @@ class AppUI {
     if (pageId === "track-view") this.renderTrackPage(param);
     if (pageId === "wishlist-view") this.renderWishlistPage();
     if (pageId === "catalog-view") this.renderProducts(true);
-
-    // Notify animation system of page change (Motion One page morph)
-    window.VeloirAnimations?.onPageChange(pageId);
   }
 
   // --- THREE-DASH SIDE MENU (Amazon / Flipkart Style) ---
@@ -662,10 +659,6 @@ class AppUI {
         { opacity: 1, y: 0, stagger: 0.035, duration: 0.35, ease: "power2.out" }
       );
     }
-
-    // Notify animation system — AOS patch + Anime.js stagger
-    window.VeloirAnimations?.refreshAOS();
-    window.VeloirAnimations?.animateGridFilter();
   }
 
   resetFilters() {
@@ -797,7 +790,7 @@ class AppUI {
       colorsContainer.innerHTML = (product.colors || [{ name: "Standard", hex: "#111" }]).map((c, idx) => `
         <button 
           onclick="app.selectPdpColor('${c.name}', this)" 
-          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'active border-black bg-gray-50 dark:border-white dark:bg-zinc-800' : 'border-gray-200 dark:border-zinc-700 hover:border-gray-400'}"
+          class="pdp-color-btn flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all ${idx === 0 ? 'border-black bg-gray-50 dark:border-white dark:bg-zinc-800' : 'border-gray-200 dark:border-zinc-700 hover:border-gray-400'}"
           title="${c.name}"
         >
           <span class="w-4 h-4 rounded-full border border-gray-300 shadow-inner" style="background-color: ${c.hex}"></span>
@@ -812,7 +805,7 @@ class AppUI {
       sizesContainer.innerHTML = (product.sizes || ["S", "M", "L", "XL"]).map((sz, idx) => `
         <button 
           onclick="app.selectPdpSize('${sz}', this)" 
-          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'active bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' : 'border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:border-black'}"
+          class="pdp-size-btn px-4 py-2.5 rounded-xl border text-xs font-bold font-mono transition-all ${idx === 0 ? 'bg-black text-white border-black dark:bg-white dark:text-black dark:border-white' : 'border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-zinc-300 hover:border-black'}"
         >
           ${sz}
         </button>
@@ -891,10 +884,10 @@ class AppUI {
   selectPdpSize(size, el) {
     this.selectedSize = size;
     document.querySelectorAll(".pdp-size-btn").forEach(b => {
-      b.classList.remove("active", "bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+      b.classList.remove("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
       b.classList.add("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
     });
-    el.classList.add("active", "bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
+    el.classList.add("bg-black", "text-white", "border-black", "dark:bg-white", "dark:text-black", "dark:border-white");
     el.classList.remove("border-gray-200", "text-gray-700", "dark:border-zinc-700", "dark:text-zinc-300");
   }
 
@@ -904,10 +897,10 @@ class AppUI {
     if (label) label.textContent = colorName;
 
     document.querySelectorAll(".pdp-color-btn").forEach(b => {
-      b.classList.remove("active", "border-black", "border-pink-500", "bg-gray-50", "bg-pink-50", "dark:border-white", "dark:bg-zinc-800");
+      b.classList.remove("border-black", "border-pink-500", "bg-gray-50", "bg-pink-50", "dark:border-white", "dark:bg-zinc-800");
       b.classList.add("border-gray-200", "dark:border-zinc-700");
     });
-    el.classList.add("active", "border-black", "bg-gray-50", "dark:border-white", "dark:bg-zinc-800");
+    el.classList.add("border-black", "bg-gray-50", "dark:border-white", "dark:bg-zinc-800");
   }
 
   updatePdpQty(delta) {
@@ -1390,8 +1383,6 @@ class AppUI {
           icon.className = "fa-solid fa-heart text-red-500 text-sm";
           btnElement.classList.add("heart-pop");
           setTimeout(() => btnElement.classList.remove("heart-pop"), 350);
-          // Lottie heart pulse micro-animation
-          window.VeloirAnimations?.playWishlistHeart(btnElement);
         } else {
           icon.className = "fa-regular fa-heart text-sm";
         }
@@ -1415,18 +1406,12 @@ class AppUI {
     if (drawer) {
       this.updateCartUI();
       drawer.classList.add("active");
-      // Motion One slide-in animation
-      window.VeloirAnimations?.animateCartOpen();
     }
   }
 
   closeCartDrawer() {
     const drawer = document.getElementById("cart-drawer");
-    if (drawer) {
-      // Motion One slide-out animation
-      window.VeloirAnimations?.animateCartClose();
-      drawer.classList.remove("active");
-    }
+    if (drawer) drawer.classList.remove("active");
   }
 
   updateCartUI() {
@@ -1532,8 +1517,6 @@ class AppUI {
 
     document.getElementById("checkout-total-display").textContent = `₹${totals.finalAmount}`;
     modal.classList.add("active");
-    // Motion One modal fade+scale entrance
-    window.VeloirAnimations?.animateModalOpen("checkout-modal");
   }
 
   closeCheckoutModal() {
@@ -1575,9 +1558,6 @@ class AppUI {
     if (window.confetti) {
       window.confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
     }
-
-    // Lottie cart-success micro-animation
-    window.VeloirAnimations?.playCartSuccess();
 
     this.showToast(`Order #${order.id} placed successfully!`, "success");
     window.location.hash = `#track-${order.id}`;
